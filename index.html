@@ -20,6 +20,20 @@
   --r-common:#7aab6e; --r-uncommon:#6eaabf; --r-rare:#8b7fc7;
   --r-epic:#c97eab; --r-unique:#d4793a; --r-legendary:#d4af37;
   --radius:10px; --radius-sm:6px; --t:0.18s ease;
+
+  /* MC Slot theme */
+  --mc-slot-bg:#8b8b8b;
+  --mc-slot-shadow-tl:#ffffff44;
+  --mc-slot-shadow-br:#00000066;
+  --mc-slot-hover:#a0a0a0;
+  --mc-slot-selected:#ffcc00;
+  --mc-border-outer:#000;
+  --mc-border-inner:#555;
+  --mc-tab-bg:#555;
+  --mc-tab-active:#8b8b8b;
+  --mc-inv-bg:#c6c6c6;
+  --mc-text:#1a1a1a;
+  --mc-font: 'DM Sans', monospace;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.6;min-height:100vh}
@@ -27,8 +41,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
 
 /* Layout */
 .app{display:grid;grid-template-columns:220px 1fr;grid-template-rows:56px 1fr;min-height:100vh}
-
-/* Topbar */
 .topbar{grid-column:1/-1;background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 1.5rem;gap:1rem}
 .logo{font-family:'Cinzel',serif;font-size:16px;font-weight:600;color:var(--accent);letter-spacing:.12em;flex-shrink:0}
 .logo span{color:var(--muted);font-weight:400;font-size:12px;margin-left:8px;letter-spacing:.05em}
@@ -57,39 +69,314 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
 /* Panels */
 .panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
 .ph{padding:1rem 1.25rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.pt{font-family:'Cinzel',serif;font-size:13px;font-weight:500;color:var(--text);letter-spacing:.06em}
+.pt-label{font-family:'Cinzel',serif;font-size:13px;font-weight:500;color:var(--text);letter-spacing:.06em}
 .ps{font-size:12px;color:var(--muted);margin-left:auto}
 .pb{padding:1.25rem}
 
 /* Inputs */
 .si{background:var(--bg);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--text);font-family:'DM Sans',sans-serif;font-size:13px;padding:6px 10px;flex:1;min-width:160px;outline:none;transition:var(--t)}
 .si::placeholder{color:var(--muted)} .si:focus{border-color:var(--accent-dim)}
-.fb{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1rem}
+.fb{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1rem;align-items:center}
 .filter-btn{background:var(--bg);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:12px;padding:5px 10px;cursor:pointer;transition:var(--t);white-space:nowrap}
 .filter-btn:hover{color:var(--text)}
 .filter-btn.active{background:var(--accent-glow);border-color:var(--accent-dim);color:var(--accent)}
 
-/* Item grid */
-.item-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;max-height:480px;overflow-y:auto;padding-right:4px}
-.ic{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;cursor:pointer;transition:var(--t);position:relative;user-select:none}
-.ic:hover{border-color:var(--border2);background:var(--bg2)}
-.ic.in-inv{border-color:var(--accent-dim);background:var(--accent-glow)}
-.irb{height:2px;border-radius:99px;margin-bottom:8px}
-.in{font-size:12px;font-weight:500;color:var(--text);line-height:1.3;margin-bottom:3px}
-.icat{font-size:10px;color:var(--muted);margin-bottom:5px}
-.qty-c{display:flex;align-items:center;gap:6px;margin-top:8px}
-.qty-btn{width:20px;height:20px;background:var(--surface);border:1px solid var(--border2);border-radius:3px;color:var(--text);font-size:14px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:var(--t)}
-.qty-btn:hover{background:var(--surface2);border-color:var(--accent-dim);color:var(--accent)}
-.qty-d{font-size:12px;font-weight:500;color:var(--text);min-width:20px;text-align:center}
-.ep{margin-top:8px;border-top:1px solid var(--border);padding-top:8px}
-.el{font-size:10px;color:var(--muted);margin-bottom:5px}
-.esel{background:var(--bg);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--text);font-family:'DM Sans',sans-serif;font-size:11px;padding:4px 6px;width:100%;outline:none;cursor:pointer}
-.esel option{background:var(--surface)}
-.etags{display:flex;flex-wrap:wrap;gap:3px;margin-top:5px}
-.etag{background:var(--purple-dim);color:var(--purple);font-size:10px;padding:2px 5px;border-radius:3px;cursor:pointer;display:flex;align-items:center;gap:3px}
-.etag:hover{opacity:.7}
+/* ========================================
+   MINECRAFT INVENTORY UI
+   ======================================== */
 
-/* Inventory list */
+/* The outer MC-style inventory container */
+.mc-inventory-wrap {
+  background: #c6c6c6;
+  border: 3px solid;
+  border-color: #fff #555 #555 #fff;
+  padding: 8px;
+  border-radius: 2px;
+  box-shadow: inset -2px -2px 0 #000, inset 2px 2px 0 #fff8;
+  image-rendering: pixelated;
+}
+
+/* Creative tab strip */
+.mc-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  margin-bottom: -3px;
+  padding-left: 4px;
+}
+
+.mc-tab {
+  background: #8b8b8b;
+  border: 2px solid;
+  border-color: #fff #555 transparent #fff;
+  border-bottom: none;
+  padding: 4px 12px 7px;
+  font-family: var(--mc-font);
+  font-size: 11px;
+  font-weight: 600;
+  color: #333;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  user-select: none;
+  letter-spacing: .03em;
+  transition: background .1s;
+  white-space: nowrap;
+  text-shadow: 1px 1px 0 #ffffff88;
+}
+.mc-tab:hover { background: #9d9d9d; }
+.mc-tab.active {
+  background: #c6c6c6;
+  color: #111;
+  z-index: 3;
+  margin-bottom: -3px;
+  border-bottom: 2px solid #c6c6c6;
+}
+
+/* The inventory grid area */
+.mc-grid-area {
+  background: #8b8b8b;
+  border: 2px solid;
+  border-color: #555 #fff #fff #555;
+  padding: 6px;
+  box-shadow: inset 2px 2px 0 #0004, inset -2px -2px 0 #fff6;
+  position: relative;
+  z-index: 2;
+}
+
+.mc-grid-inner {
+  display: grid;
+  grid-template-columns: repeat(9, 36px);
+  gap: 2px;
+  overflow-y: auto;
+  max-height: 400px;
+  justify-content: start;
+}
+
+/* MC item slot */
+.mc-slot {
+  width: 36px;
+  height: 36px;
+  background: #8b8b8b;
+  border: 2px solid;
+  border-color: #555 #fff #fff #555;
+  box-shadow: inset 2px 2px 0 #0005;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: background .08s;
+  image-rendering: pixelated;
+  overflow: visible;
+}
+.mc-slot:hover { background: #9a9a9a; }
+.mc-slot.has-item { border-color: #444 #bbb #bbb #444; }
+.mc-slot.in-vault {
+  border-color: #336633 #88cc88 #88cc88 #336633;
+  background: #7a9a7a;
+}
+.mc-slot.selected {
+  border-color: #ffcc00 #aa8800 #aa8800 #ffcc00;
+  background: #b0a060;
+}
+.mc-slot.qty-active {
+  border-color: #5588cc #113366 #113366 #5588cc;
+  background: #6080b0;
+}
+
+/* Item sprite placeholder (colored block) */
+.mc-item-sprite {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  image-rendering: pixelated;
+  position: relative;
+}
+.mc-item-img {
+  width: 28px;
+  height: 28px;
+  image-rendering: pixelated;
+  object-fit: contain;
+}
+.mc-item-count {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  font-family: var(--mc-font);
+  font-size: 9px;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+  line-height: 1;
+  pointer-events: none;
+  z-index: 4;
+}
+.mc-slot-empty-hint {
+  width: 24px;
+  height: 24px;
+  opacity: .18;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+}
+
+/* MC Tooltip */
+.mc-tooltip {
+  position: fixed;
+  background: #100010ee;
+  border: 1px solid #5000a0;
+  box-shadow: 1px 1px 0 #7020d0, inset 1px 1px 0 #301848;
+  padding: 6px 10px;
+  font-family: var(--mc-font);
+  font-size: 12px;
+  color: #fff;
+  pointer-events: none;
+  z-index: 9999;
+  max-width: 220px;
+  line-height: 1.5;
+  display: none;
+}
+.mc-tooltip.visible { display: block; }
+.mc-tooltip-name { font-weight: 600; color: #fff; }
+.mc-tooltip-rarity { font-size: 11px; margin-top: 1px; }
+.mc-tooltip-val { color: #ffaa00; font-size: 11px; margin-top: 4px; }
+.mc-tooltip-note { color: #aaaaaa; font-size: 10px; margin-top: 3px; }
+
+/* Slot qty controls (shown inline below grid) */
+.mc-qty-panel {
+  background: #8b8b8b;
+  border: 2px solid;
+  border-color: #555 #fff #fff #555;
+  margin-top: 4px;
+  padding: 6px 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mc-font);
+  font-size: 12px;
+  color: #111;
+  font-weight: 600;
+  min-height: 44px;
+}
+.mc-qty-panel.hidden { display: none; }
+.mc-qty-item-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mc-qty-btn {
+  width: 22px; height: 22px;
+  background: #aaa;
+  border: 2px solid;
+  border-color: #fff #555 #555 #fff;
+  font-family: var(--mc-font);
+  font-size: 14px;
+  font-weight: 700;
+  color: #111;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  user-select: none;
+  line-height: 1;
+}
+.mc-qty-btn:hover { background: #c0c0c0; }
+.mc-qty-btn:active { border-color: #555 #fff #fff #555; }
+.mc-qty-val {
+  min-width: 28px; text-align: center;
+  background: #6b6b6b;
+  border: 1px solid #444;
+  color: #fff;
+  padding: 1px 4px;
+  font-size: 12px;
+}
+.mc-qty-remove {
+  background: #8b3333;
+  border: 2px solid;
+  border-color: #ff6666 #330000 #330000 #ff6666;
+  color: #fff;
+  font-size: 11px;
+  padding: 2px 6px;
+  cursor: pointer;
+  font-family: var(--mc-font);
+  font-weight: 700;
+}
+.mc-qty-remove:hover { background: #b03030; }
+
+/* Search in MC style */
+.mc-search-wrap {
+  background: #6b6b6b;
+  border: 2px solid;
+  border-color: #555 #fff #fff #555;
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+  padding: 0 4px;
+}
+.mc-search-wrap input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-family: var(--mc-font);
+  font-size: 12px;
+  padding: 4px 4px;
+  flex: 1;
+  font-weight: 500;
+}
+.mc-search-wrap input::placeholder { color: #aaa; }
+
+/* Vault section split: full vault | selected payment */
+.vault-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+@media(max-width:900px){ .vault-split { grid-template-columns: 1fr; } }
+
+.vault-label {
+  font-family: var(--mc-font);
+  font-size: 11px;
+  font-weight: 700;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  margin-bottom: 6px;
+}
+
+/* Payment selection section */
+.payment-slots {
+  background: #8b8b8b;
+  border: 2px solid;
+  border-color: #555 #fff #fff #555;
+  padding: 6px;
+  min-height: 80px;
+}
+.payment-slot-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  min-height: 40px;
+}
+.payment-slot-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #8080b0;
+  border: 2px solid;
+  border-color: #aaaacc #333355 #333355 #aaaacc;
+  padding: 3px 7px;
+  font-family: var(--mc-font);
+  font-size: 11px;
+  color: #fff;
+  cursor: pointer;
+}
+.payment-slot-item:hover { background: #9090c0; }
+.payment-slot-rm { color: #ffaaaa; margin-left: 4px; font-weight: 700; }
+
+/* ========================================
+   INVENTORY LIST (old style, used in commission panel)
+   ======================================== */
 .inv-list{display:flex;flex-direction:column;gap:6px;min-height:60px}
 .inv-row{display:flex;align-items:center;gap:10px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:8px 10px}
 .inv-rb{width:4px;border-radius:2px;align-self:stretch;flex-shrink:0;min-width:4px}
@@ -108,9 +395,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
 .wc.hl{border-color:var(--accent-dim);background:var(--accent-glow)}
 .wc.hl .wv{color:var(--accent)}
 
-/* Services */
+/* ========================================
+   SERVICES
+   ======================================== */
 .svc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px}
-.svc{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;position:relative;transition:var(--t)}
+.svc{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;position:relative;transition:var(--t);cursor:pointer}
+.svc:hover{border-color:var(--border2);background:var(--bg2)}
 .svc.ca{border-color:var(--teal-dim)} .svc.ca-max{border-color:var(--teal);box-shadow:0 0 0 1px var(--teal-dim)}
 .svc.no-ca{opacity:.45} .svc.qo{border-style:dashed}
 .sc{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
@@ -124,19 +414,88 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
 .abar{height:3px;border-radius:99px;background:var(--border);margin-top:8px;overflow:hidden}
 .afill{height:100%;border-radius:99px;background:var(--teal);transition:width .4s ease}
 
-/* Table */
+/* Add service button */
+.btn-add-svc {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--accent-glow);
+  border: 1px dashed var(--accent-dim);
+  border-radius: var(--radius-sm);
+  color: var(--accent);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: var(--t);
+  margin-bottom: 1rem;
+}
+.btn-add-svc:hover { background: var(--accent-dim); border-style: solid; }
+
+/* ========================================
+   SERVICE DETAIL MODAL
+   ======================================== */
+.svc-modal-grid {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 1rem;
+}
+@media(max-width:700px){ .svc-modal-grid { grid-template-columns: 1fr; } }
+
+.works-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 8px;
+  margin-top: 8px;
+}
+.work-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 8px;
+  font-size: 11px;
+  color: var(--muted);
+  cursor: pointer;
+  transition: var(--t);
+}
+.work-card:hover { border-color: var(--accent-dim); color: var(--text); }
+
+.rule-list { list-style: none; padding: 0; }
+.rule-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 5px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--text);
+  line-height: 1.4;
+}
+.rule-list li:last-child { border-bottom: none; }
+.rule-icon { flex-shrink: 0; width: 16px; text-align: center; }
+.rule-can { color: var(--green); }
+.rule-cant { color: var(--red); }
+
+.detail-tabs { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 1rem; }
+.detail-tab { padding: 7px 14px; font-size: 12px; color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: var(--t); }
+.detail-tab:hover { color: var(--text); }
+.detail-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* ========================================
+   TABLE
+   ======================================== */
 .rt{width:100%;border-collapse:collapse;font-size:12px}
 .rt th{text-align:left;padding:6px 10px;color:var(--muted);font-weight:400;font-size:10px;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid var(--border)}
 .rt td{padding:7px 10px;border-bottom:1px solid var(--border);color:var(--text)}
 .rt tr:last-child td{border-bottom:none} .rt tr:hover td{background:var(--surface2)}
 
-/* Tabs */
+/* Tabs (library) */
 .tabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:1rem}
 .tab{padding:8px 14px;font-size:12px;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:var(--t);user-select:none}
 .tab:hover{color:var(--text)} .tab.active{color:var(--accent);border-bottom-color:var(--accent)}
 
 /* Piece colors */
-.pt{color:#8fa88a} .pb{color:#8aa8c8} .pp{color:var(--gold)}
+.pt{color:#8fa88a} .pb-c{color:#8aa8c8} .pp{color:var(--gold)}
 .r-common{color:var(--r-common)} .r-uncommon{color:var(--r-uncommon)} .r-rare{color:var(--r-rare)}
 .r-epic{color:var(--r-epic)} .r-unique{color:var(--r-unique)} .r-legendary{color:var(--r-legendary)}
 
@@ -151,14 +510,16 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
 /* Vault modal */
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);display:flex;align-items:center;justify-content:center;z-index:100;opacity:0;pointer-events:none;transition:opacity .2s ease}
 .overlay.open{opacity:1;pointer-events:all}
-.modal{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);padding:1.75rem;width:100%;max-width:360px;transform:translateY(12px);transition:transform .2s ease}
+.modal{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);padding:1.75rem;width:100%;max-width:420px;transform:translateY(12px);transition:transform .2s ease;max-height:90vh;overflow-y:auto}
 .overlay.open .modal{transform:none}
-.mt{font-family:'Cinzel',serif;font-size:16px;font-weight:500;color:var(--accent);letter-spacing:.08em;margin-bottom:.25rem}
+.mt-title{font-family:'Cinzel',serif;font-size:16px;font-weight:500;color:var(--accent);letter-spacing:.08em;margin-bottom:.25rem}
 .msub{font-size:12px;color:var(--muted);margin-bottom:1.25rem;line-height:1.5}
 .mf{margin-bottom:1rem}
 .ml{font-size:11px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px;display:block}
 .mi{width:100%;background:var(--bg);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;padding:8px 12px;outline:none;transition:var(--t)}
 .mi:focus{border-color:var(--accent-dim)} .mi::placeholder{color:var(--muted)}
+.mta{width:100%;background:var(--bg);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--text);font-family:'DM Sans',sans-serif;font-size:13px;padding:8px 12px;outline:none;transition:var(--t);resize:vertical;min-height:80px;line-height:1.5}
+.mta:focus{border-color:var(--accent-dim)}
 .mact{display:flex;gap:8px;margin-top:1.25rem}
 .btn-p{flex:1;background:var(--accent-dim);border:1px solid var(--accent);border-radius:var(--radius-sm);color:var(--accent);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:8px 16px;cursor:pointer;transition:var(--t)}
 .btn-p:hover{background:var(--accent);color:var(--bg)} .btn-p:disabled{opacity:.4;cursor:not-allowed}
@@ -185,6 +546,18 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
 .toast.success{border-color:var(--teal-dim);color:var(--teal)}
 .toast.error{border-color:var(--red-dim);color:#e07060}
 
+/* Rules editor */
+.rule-input-row { display: flex; gap: 6px; margin-bottom: 6px; }
+.rule-type-btn { background: var(--green-dim); border: 1px solid var(--green); border-radius: var(--radius-sm); color: var(--green); font-size: 12px; padding: 4px 10px; cursor: pointer; white-space: nowrap; transition: var(--t); }
+.rule-type-btn.cant { background: var(--red-dim); border-color: var(--red); color: var(--red); }
+
+/* Item grid (library) */
+.item-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;max-height:480px;overflow-y:auto;padding-right:4px}
+.ic{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;transition:var(--t);position:relative;user-select:none}
+.irb{height:2px;border-radius:99px;margin-bottom:8px}
+.in{font-size:12px;font-weight:500;color:var(--text);line-height:1.3;margin-bottom:3px}
+.icat{font-size:10px;color:var(--muted);margin-bottom:5px}
+
 @media(max-width:700px){
   .app{grid-template-columns:1fr;grid-template-rows:56px auto 1fr}
   .sidebar{grid-row:2;flex-direction:row;flex-wrap:wrap;padding:.5rem;border-right:none;border-bottom:1px solid var(--border);overflow-x:auto}
@@ -194,162 +567,247 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
   .item-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}
   .ws{grid-template-columns:repeat(3,1fr)}
   .svc-grid{grid-template-columns:1fr}
+  .mc-grid-inner{grid-template-columns:repeat(6,36px)}
 }
 </style>
 </head>
 <body>
 <div class="app">
-
-<header class="topbar">
-  <div class="logo">ICHOR <span>Service Hub</span></div>
-  <div class="topbar-right">
-    <div class="wallet-chip">
-      <span class="lbl">Wallet</span>
-      <span class="val pt" id="tw-t">0t</span>
-      <span class="lbl">=</span>
-      <span class="val pb" id="tw-b">0b</span>
-      <span class="lbl">+</span>
-      <span class="val pt" id="tw-r">0t</span>
+  <header class="topbar">
+    <div class="logo">ICHOR <span>Service Hub</span></div>
+    <div class="topbar-right">
+      <div class="wallet-chip">
+        <span class="lbl">Vault</span>
+        <span class="val pt" id="tw-t">0t</span>
+        <span class="lbl">=</span>
+        <span class="val pb-c" id="tw-b">0b</span>
+        <span class="lbl">+</span>
+        <span class="val pt" id="tw-r">0t</span>
+      </div>
+      <button class="vault-btn" id="vault-btn" onclick="openModal()">
+        <div class="v-dot" id="v-dot"></div>
+        <span id="v-label">Sign into vault</span>
+      </button>
     </div>
-    <button class="vault-btn" id="vault-btn" onclick="openModal()">
-      <div class="v-dot" id="v-dot"></div>
-      <span id="v-label">Sign into vault</span>
-    </button>
-  </div>
-</header>
+  </header>
 
-<nav class="sidebar">
-  <div class="nav-sec">Navigate</div>
-  <div class="nav-item active" data-page="calculator"><div class="nav-dot" style="background:var(--accent)"></div>Calculator</div>
-  <div class="nav-item" data-page="library"><div class="nav-dot" style="background:var(--purple)"></div>Item Library</div>
-  <div class="nav-item" data-page="services"><div class="nav-dot" style="background:var(--teal)"></div>Services</div>
-  <div class="nav-item" data-page="reference"><div class="nav-dot" style="background:var(--muted)"></div>Value Reference</div>
-  <div class="sidebar-curr">
-    <div><span class="pt">Tainted</span> = 3 diamonds</div>
-    <div><span class="pb">Blemished</span> = 9 tainted</div>
-    <div><span class="pp">Pure</span> = 9 blemished</div>
-  </div>
-</nav>
+  <nav class="sidebar">
+    <div class="nav-sec">Navigate</div>
+    <div class="nav-item active" data-page="calculator"><div class="nav-dot" style="background:var(--accent)"></div>Calculator</div>
+    <div class="nav-item" data-page="vault"><div class="nav-dot" style="background:var(--teal)"></div>My Vault</div>
+    <div class="nav-item" data-page="library"><div class="nav-dot" style="background:var(--purple)"></div>Item Library</div>
+    <div class="nav-item" data-page="services"><div class="nav-dot" style="background:var(--pink)"></div>Services</div>
+    <div class="nav-item" data-page="reference"><div class="nav-dot" style="background:var(--muted)"></div>Value Reference</div>
+    <div class="sidebar-curr">
+      <div><span class="pt">Tainted</span> = 3 diamonds</div>
+      <div><span class="pb-c">Blemished</span> = 9 tainted</div>
+      <div><span class="pp">Pure</span> = 9 blemished</div>
+    </div>
+  </nav>
 
-<main class="main">
+  <main class="main">
 
-  <!-- CALCULATOR -->
-  <div class="page-section active" id="page-calculator">
+    <!-- CALCULATOR -->
+    <div class="page-section active" id="page-calculator">
+      <div class="panel" id="vbar-panel" style="display:none">
+        <div class="pb" style="padding:.75rem 1.25rem">
+          <div class="vbar">
+            <div class="v-dot on"></div>
+            <span class="vbar-name" id="vbar-name"></span>
+            <span class="vbar-status" id="vbar-status">Vault loaded</span>
+            <div class="vbar-acts">
+              <button class="vsave" id="vsave-btn" onclick="saveVault()">Save vault</button>
+              <button class="vout" onclick="logoutVault()">Sign out</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
-    <div class="panel" id="vbar-panel" style="display:none">
-      <div class="pb" style="padding:.75rem 1.25rem">
-        <div class="vbar">
-          <div class="v-dot on"></div>
-          <span class="vbar-name" id="vbar-name"></span>
-          <span class="vbar-status" id="vbar-status">Vault loaded</span>
-          <div class="vbar-acts">
-            <button class="vsave" id="vsave-btn" onclick="saveVault()">Save vault</button>
-            <button class="vout" onclick="logoutVault()">Sign out</button>
+      <div class="panel">
+        <div class="ph"><div class="pt-label">Build Your Inventory</div><div class="ps" id="item-count">Loading...</div></div>
+        <div class="pb">
+          <!-- MC-style inventory picker -->
+          <div id="mc-picker-wrap">
+            <div class="mc-tabs" id="mc-tabs"></div>
+            <div class="mc-inventory-wrap" style="padding-top:8px">
+              <div class="mc-search-wrap">
+                <input type="text" id="mc-search" placeholder="Search items...">
+              </div>
+              <div class="mc-grid-area">
+                <div class="mc-grid-inner" id="mc-grid"></div>
+              </div>
+              <div class="mc-qty-panel hidden" id="mc-qty-panel">
+                <span id="mc-qty-name" class="mc-qty-item-name">—</span>
+                <button class="mc-qty-btn" onclick="mcChgQty(-1)">−</button>
+                <span class="mc-qty-val" id="mc-qty-val">0</span>
+                <button class="mc-qty-btn" onclick="mcChgQty(1)">+</button>
+                <button class="mc-qty-remove" onclick="mcRemoveSelected()">Remove</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="ph">
+          <div class="pt-label">Payment Selection</div>
+          <div class="ps">Choose items from your vault to put on hold for a commission</div>
+          <button class="filter-btn" id="clear-inv" style="margin-left:auto">Clear payment</button>
+        </div>
+        <div class="pb">
+          <div class="ws">
+            <div class="wc"><div class="wv pt" id="ws-t">0</div><div class="wl">Total tainted</div></div>
+            <div class="wc hl"><div class="wv" id="ws-b">0</div><div class="wl">Blemished</div></div>
+            <div class="wc"><div class="wv pp" id="ws-p">0.00</div><div class="wl">Pure equiv</div></div>
+          </div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:8px">
+            Click items in the picker above to select them for payment. They're drawn from your vault.
+          </div>
+          <div class="inv-list" id="inv-list"><div class="empty-state">Select items above to build your payment</div></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="ph"><div class="pt-label">What Can I Commission?</div><div class="ps" id="afford-ct">Add items to see results</div></div>
+        <div class="pb" id="afford-body"><div class="empty-state">Your payment total will be compared to available services</div></div>
+      </div>
+    </div>
+
+    <!-- VAULT PAGE -->
+    <div class="page-section" id="page-vault">
+      <div class="panel" id="vault-page-bar" style="display:none">
+        <div class="pb" style="padding:.75rem 1.25rem">
+          <div class="vbar">
+            <div class="v-dot on"></div>
+            <span class="vbar-name" id="vbar-page-name"></span>
+            <span class="vbar-status" id="vbar-page-status">Vault loaded</span>
+            <div class="vbar-acts">
+              <button class="vsave" onclick="saveVault()">Save vault</button>
+              <button class="vout" onclick="logoutVault()">Sign out</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" id="vault-not-signed-in" style="display:none">
+        <div class="pb">
+          <div class="empty-state" style="padding:2rem">
+            <div style="font-size:16px;margin-bottom:8px">🔒</div>
+            Sign into your vault to manage your full item collection.<br>
+            <button class="btn-p" style="margin-top:1rem;flex:none;display:inline-block" onclick="openModal()">Sign in</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" id="vault-content-panel" style="display:none">
+        <div class="ph">
+          <div class="pt-label">My Vault</div>
+          <div class="ps" id="vault-item-count">0 items</div>
+          <button class="filter-btn" onclick="openAddToVaultModal()" style="margin-left:auto">+ Add items</button>
+        </div>
+        <div class="pb">
+          <div style="font-size:12px;color:var(--muted);margin-bottom:12px">
+            Your vault is your total inventory. Add everything you own here — you'll pick from it when setting up payments.
+          </div>
+          <!-- MC-style vault display -->
+          <div id="vault-mc-wrap">
+            <div class="mc-tabs" id="vault-mc-tabs"></div>
+            <div class="mc-inventory-wrap" style="padding-top:8px">
+              <div class="mc-search-wrap">
+                <input type="text" id="vault-mc-search" placeholder="Search vault...">
+              </div>
+              <div class="mc-grid-area">
+                <div class="mc-grid-inner" id="vault-mc-grid" style="max-height:480px"></div>
+              </div>
+              <div class="mc-qty-panel hidden" id="vault-qty-panel">
+                <span id="vault-qty-name" class="mc-qty-item-name">—</span>
+                <button class="mc-qty-btn" onclick="vaultChgQty(-1)">−</button>
+                <span class="mc-qty-val" id="vault-qty-val">0</span>
+                <button class="mc-qty-btn" onclick="vaultChgQty(1)">+</button>
+                <button class="mc-qty-remove" onclick="vaultRemoveItem()">Remove</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="panel">
-      <div class="ph"><div class="pt">Build Your Inventory</div><div class="ps" id="item-count">Loading...</div></div>
-      <div class="pb">
-        <div class="fb" id="calc-fb"><input type="text" class="si" id="item-search" placeholder="Search items..."></div>
-        <div class="item-grid" id="item-grid"><div class="loading"><div class="spinner"></div>Loading items...</div></div>
-      </div>
-    </div>
-
-    <div class="panel">
-      <div class="ph"><div class="pt">Your Inventory</div><button class="filter-btn" id="clear-inv" style="margin-left:auto">Clear all</button></div>
-      <div class="pb">
-        <div class="ws">
-          <div class="wc"><div class="wv pt" id="ws-t">0</div><div class="wl">Total tainted</div></div>
-          <div class="wc hl"><div class="wv" id="ws-b">0</div><div class="wl">Blemished</div></div>
-          <div class="wc"><div class="wv pp" id="ws-p">0.00</div><div class="wl">Pure equiv</div></div>
-        </div>
-        <div class="inv-list" id="inv-list"><div class="empty-state">Add items above to build your inventory</div></div>
-      </div>
-    </div>
-
-    <div class="panel">
-      <div class="ph"><div class="pt">What Can I Commission?</div><div class="ps" id="afford-ct">Add items to see results</div></div>
-      <div class="pb" id="afford-body"><div class="empty-state">Your budget will appear here once you've added items</div></div>
-    </div>
-
-  </div>
-
-  <!-- LIBRARY -->
-  <div class="page-section" id="page-library">
-    <div class="panel">
-      <div class="ph"><div class="pt">Item Library</div><div class="ps" id="lib-count">Loading...</div></div>
-      <div class="pb">
-        <div class="fb"><input type="text" class="si" id="lib-search" placeholder="Search items & enchants..."></div>
-        <div class="tabs" id="lib-tabs">
-          <div class="tab active" data-tab="items">Items</div>
-          <div class="tab" data-tab="enchants">Enchantments</div>
-        </div>
-        <div id="lib-items"><div class="item-grid" id="lib-grid" style="max-height:none"><div class="loading"><div class="spinner"></div></div></div></div>
-        <div id="lib-enchants" class="hidden">
-          <table class="rt" id="ench-table"><thead><tr><th>Enchantment</th><th>Category</th><th>Rarity</th><th>On item</th><th>As book</th></tr></thead><tbody></tbody></table>
+    <!-- LIBRARY -->
+    <div class="page-section" id="page-library">
+      <div class="panel">
+        <div class="ph"><div class="pt-label">Item Library</div><div class="ps" id="lib-count">Loading...</div></div>
+        <div class="pb">
+          <div class="fb"><input type="text" class="si" id="lib-search" placeholder="Search items & enchants..."></div>
+          <div class="tabs" id="lib-tabs">
+            <div class="tab active" data-tab="items">Items</div>
+            <div class="tab" data-tab="enchants">Enchantments</div>
+          </div>
+          <div id="lib-items"><div class="item-grid" id="lib-grid" style="max-height:none"><div class="loading"><div class="spinner"></div></div></div></div>
+          <div id="lib-enchants" class="hidden">
+            <table class="rt" id="ench-table"><thead><tr><th>Enchantment</th><th>Category</th><th>Rarity</th><th>On item</th><th>As book</th></tr></thead><tbody></tbody></table>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- SERVICES -->
-  <div class="page-section" id="page-services">
-    <div class="panel">
-      <div class="ph"><div class="pt">Available Services</div><div class="ps">All prices in tainted pieces</div></div>
-      <div class="pb">
-        <div class="fb"><input type="text" class="si" id="svc-search" placeholder="Search services..."></div>
-        <div class="svc-grid" id="svc-grid"><div class="loading"><div class="spinner"></div></div></div>
+    <!-- SERVICES -->
+    <div class="page-section" id="page-services">
+      <div class="panel">
+        <div class="ph">
+          <div class="pt-label">Available Services</div>
+          <div class="ps">All prices in tainted pieces</div>
+          <button class="btn-add-svc" onclick="openCreateServiceModal()" style="margin-left:auto;margin-bottom:0">+ Create Service</button>
+        </div>
+        <div class="pb">
+          <div class="fb"><input type="text" class="si" id="svc-search" placeholder="Search services..."></div>
+          <div class="svc-grid" id="svc-grid"><div class="loading"><div class="spinner"></div></div></div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- REFERENCE -->
-  <div class="page-section" id="page-reference">
-    <div class="panel">
-      <div class="ph"><div class="pt">Currency Reference</div></div>
-      <div class="pb">
-        <table class="rt"><thead><tr><th>Unit</th><th>In tainted</th><th>In diamonds</th></tr></thead><tbody>
-          <tr><td class="pt">1 Tainted</td><td>1</td><td>3</td></tr>
-          <tr><td class="pb">1 Blemished</td><td>9</td><td>27</td></tr>
-          <tr><td class="pp">1 Pure</td><td>81</td><td>243</td></tr>
-        </tbody></table>
+    <!-- REFERENCE -->
+    <div class="page-section" id="page-reference">
+      <div class="panel">
+        <div class="ph"><div class="pt-label">Currency Reference</div></div>
+        <div class="pb">
+          <table class="rt"><thead><tr><th>Unit</th><th>In tainted</th><th>In diamonds</th></tr></thead><tbody>
+            <tr><td class="pt">1 Tainted</td><td>1</td><td>3</td></tr>
+            <tr><td class="pb-c">1 Blemished</td><td>9</td><td>27</td></tr>
+            <tr><td class="pp">1 Pure</td><td>81</td><td>243</td></tr>
+          </tbody></table>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="ph"><div class="pt-label">Item Value Reference</div><div class="ps">Sorted by value</div></div>
+        <div class="pb"><table class="rt" id="ref-table"><thead><tr><th>Item</th><th>Rarity</th><th>Category</th><th>Tainted</th><th>Blemished equiv</th></tr></thead><tbody></tbody></table></div>
+      </div>
+      <div class="panel">
+        <div class="ph"><div class="pt-label">Anchor: Full Figura Avatar</div></div>
+        <div class="pb">
+          <p style="font-size:13px;color:var(--muted);margin-bottom:1rem">A full custom Figura avatar (2–3 hrs) was paid with the following — roughly 3 blemished total:</p>
+          <table class="rt"><thead><tr><th>Item</th><th>Qty</th><th>Approx value</th></tr></thead><tbody>
+            <tr><td>Full enchanted armor set</td><td>1 set</td><td>~1 blemished</td></tr>
+            <tr><td>Enchanted golden apple</td><td>×15</td><td>~1b + 2t</td></tr>
+            <tr><td>Enchanted netherite greatsword</td><td>1</td><td>~5–6t</td></tr>
+            <tr><td>Crystal heart (+10 HP)</td><td>1</td><td>~1b + 4–6t</td></tr>
+            <tr><td style="font-weight:500;color:var(--accent)">Total</td><td></td><td class="pb-c" style="font-weight:500">≈ 3 blemished</td></tr>
+          </tbody></table>
+        </div>
       </div>
     </div>
-    <div class="panel">
-      <div class="ph"><div class="pt">Item Value Reference</div><div class="ps">Sorted by value</div></div>
-      <div class="pb"><table class="rt" id="ref-table"><thead><tr><th>Item</th><th>Rarity</th><th>Category</th><th>Tainted</th><th>Blemished equiv</th></tr></thead><tbody></tbody></table></div>
-    </div>
-    <div class="panel">
-      <div class="ph"><div class="pt">Anchor: Full Figura Avatar</div></div>
-      <div class="pb">
-        <p style="font-size:13px;color:var(--muted);margin-bottom:1rem">A full custom Figura avatar (2–3 hrs) was paid with the following — roughly 3 blemished total:</p>
-        <table class="rt"><thead><tr><th>Item</th><th>Qty</th><th>Approx value</th></tr></thead><tbody>
-          <tr><td>Full enchanted armor set</td><td>1 set</td><td>~1 blemished</td></tr>
-          <tr><td>Enchanted golden apple</td><td>×15</td><td>~1b + 2t</td></tr>
-          <tr><td>Enchanted netherite greatsword</td><td>1</td><td>~5–6t</td></tr>
-          <tr><td>Crystal heart (+10 HP)</td><td>1</td><td>~1b + 4–6t</td></tr>
-          <tr><td style="font-weight:500;color:var(--accent)">Total</td><td></td><td class="pb" style="font-weight:500">≈ 3 blemished</td></tr>
-        </tbody></table>
-      </div>
-    </div>
-  </div>
 
-</main>
+  </main>
 </div>
 
-<!-- Vault Modal -->
+<!-- Vault Auth Modal -->
 <div class="overlay" id="modal" onclick="if(event.target===this)closeModal()">
   <div class="modal">
-    <div class="mt">Vault</div>
+    <div class="mt-title">Vault</div>
     <div class="msub">Save and load your inventory between visits. Your secret key is set on first use — don't lose it!</div>
     <div class="mtabs">
       <div class="mtab active" data-mt="login">Sign in</div>
       <div class="mtab" data-mt="register">Create vault</div>
     </div>
-    <!-- Login -->
     <div id="mt-login">
       <div class="mf"><label class="ml">Username</label><input class="mi" id="l-user" placeholder="Your IGN" autocomplete="off"></div>
       <div class="mf"><label class="ml">Secret key</label><input class="mi" id="l-key" type="password" placeholder="Your secret key"></div>
@@ -359,7 +817,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
         <button class="btn-p" id="l-btn" onclick="loginVault()">Load vault</button>
       </div>
     </div>
-    <!-- Register -->
     <div id="mt-register" class="hidden">
       <div class="mf"><label class="ml">Username</label><input class="mi" id="r-user" placeholder="Your IGN" autocomplete="off"></div>
       <div class="mf"><label class="ml">Secret key</label><input class="mi" id="r-key" type="password" placeholder="Pick something memorable"></div>
@@ -373,330 +830,908 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
   </div>
 </div>
 
+<!-- Create Service Modal -->
+<div class="overlay" id="create-svc-modal" onclick="if(event.target===this)closeCreateSvcModal()">
+  <div class="modal">
+    <div class="mt-title">Create Service</div>
+    <div class="msub">Add a new service listing with pricing, rules, and past works.</div>
+    <div class="mf">
+      <label class="ml">Service Name</label>
+      <input class="mi" id="svc-name-input" placeholder="e.g. Custom Figura Avatar">
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div class="mf">
+        <label class="ml">Category</label>
+        <input class="mi" id="svc-cat-input" placeholder="e.g. Custom Art">
+      </div>
+      <div class="mf">
+        <label class="ml">Turnaround</label>
+        <input class="mi" id="svc-turnaround-input" placeholder="e.g. 2–3 days">
+      </div>
+    </div>
+    <div class="mf">
+      <label class="ml">Short Description</label>
+      <textarea class="mta" id="svc-desc-input" placeholder="What does this service include?"></textarea>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div class="mf">
+        <label class="ml">Min Price (tainted)</label>
+        <input class="mi" id="svc-min-input" type="number" placeholder="0">
+      </div>
+      <div class="mf">
+        <label class="ml">Max Price (tainted, 0 = quote)</label>
+        <input class="mi" id="svc-max-input" type="number" placeholder="0">
+      </div>
+    </div>
+    <div class="mf">
+      <label class="ml">Detailed Description / Past Works Info</label>
+      <textarea class="mta" id="svc-detail-input" placeholder="Longer description, past work notes, links, etc." style="min-height:120px"></textarea>
+    </div>
+    <div class="mf">
+      <label class="ml">What I CAN do (one per line)</label>
+      <textarea class="mta" id="svc-can-input" placeholder="e.g. Full Figura avatars&#10;Custom skins&#10;Armor stand animations"></textarea>
+    </div>
+    <div class="mf">
+      <label class="ml">What I CANNOT do (one per line)</label>
+      <textarea class="mta" id="svc-cant-input" placeholder="e.g. NSFW content&#10;Real-world person likenesses"></textarea>
+    </div>
+    <div class="mf">
+      <label class="ml">Popular?</label>
+      <select class="mi" id="svc-popular-input">
+        <option value="false">No</option>
+        <option value="true">Yes</option>
+      </select>
+    </div>
+    <div class="merr" id="svc-err"></div>
+    <div class="mact">
+      <button class="btn-s" onclick="closeCreateSvcModal()">Cancel</button>
+      <button class="btn-p" onclick="submitCreateService()">Add Service</button>
+    </div>
+  </div>
+</div>
+
+<!-- Service Detail Modal -->
+<div class="overlay" id="svc-detail-modal" onclick="if(event.target===this)closeSvcDetailModal()">
+  <div class="modal" style="max-width:620px">
+    <div id="svc-detail-content"></div>
+  </div>
+</div>
+
+<!-- Add to Vault Modal -->
+<div class="overlay" id="add-vault-modal" onclick="if(event.target===this)closeAddToVaultModal()">
+  <div class="modal" style="max-width:500px">
+    <div class="mt-title">Add Items to Vault</div>
+    <div class="msub">Search for items to add to your total inventory.</div>
+    <div class="mf">
+      <input class="mi" id="add-vault-search" placeholder="Search items..." oninput="renderAddVaultList()">
+    </div>
+    <div id="add-vault-list" style="max-height:300px;overflow-y:auto;display:flex;flex-direction:column;gap:4px"></div>
+    <div class="mact">
+      <button class="btn-s" onclick="closeAddToVaultModal()">Done</button>
+    </div>
+  </div>
+</div>
+
+<!-- MC Tooltip -->
+<div class="mc-tooltip" id="mc-tooltip">
+  <div class="mc-tooltip-name" id="mc-tt-name"></div>
+  <div class="mc-tooltip-rarity" id="mc-tt-rarity"></div>
+  <div class="mc-tooltip-val" id="mc-tt-val"></div>
+  <div class="mc-tooltip-note" id="mc-tt-note"></div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
-const SB_URL  = 'https://nclmtsekyqfwbdgfygpx.supabase.co';
+// =============================================
+// CONSTANTS & STATE
+// =============================================
+const SB_URL = 'https://nclmtsekyqfwbdgfygpx.supabase.co';
 const SB_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5jbG10c2VreXFmd2JkZ2Z5Z3B4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1NTI5MTMsImV4cCI6MjA5NDEyODkxM30.mbhwrTu1ll0ZgMCeNHwJ7ZLhwZ18fCd618hJiiAsOWo';
-
 const TPB = 9, BPP = 9, TPP = 81;
-let items = null, services = null, inv = {}, vaultUser = null, dirty = false, catFilter = 'All';
-const rarOrd = ['common','uncommon','rare','epic','unique','legendary'];
 
+let items = null, services = null;
+// vault = full owned inventory { itemId: { qty, enchants[] } }
+let vault = {};
+// payment = items selected FROM vault for a commission { itemId: { qty, enchants[] } }
+let payment = {};
+let vaultUser = null, dirty = false;
+let mcCatFilter = 'All', mcSelectedId = null;
+let vaultCatFilter = 'All', vaultSelectedId = null;
+// custom services added locally (stored in localStorage for now)
+let customServices = [];
+
+const rarOrd = ['common','uncommon','rare','epic','unique','legendary'];
 const rc = r => ({common:'#7aab6e',uncommon:'#6eaabf',rare:'#8b7fc7',epic:'#c97eab',unique:'#d4793a',legendary:'#d4af37'}[r]||'#7a6e62');
 
+// MC emoji fallbacks per category
+const catEmoji = {
+  'tools': '⛏️', 'weapons': '⚔️', 'armor': '🛡️', 'food': '🍎',
+  'blocks': '🧱', 'misc': '🎁', 'potions': '🧪', 'enchanted': '✨',
+  'valuables': '💎', 'default': '📦'
+};
+function itemEmoji(item) {
+  const c = (item.category||'').toLowerCase();
+  return catEmoji[c] || catEmoji['default'];
+}
+
+// =============================================
+// FORMAT
+// =============================================
 function fmt(t) {
-  t = Math.round(t*100)/100;
-  if(t>=TPP){const p=Math.floor(t/TPP),r=t%TPP,b=Math.floor(r/TPB),tr=Math.round(r%TPB*10)/10;return`${p}p${b?' '+b+'b':''}${tr?' '+tr+'t':''}`;}
-  if(t>=TPB){const b=Math.floor(t/TPB),r=Math.round(t%TPB*10)/10;return r?`${b}b + ${r}t`:`${b}b`;}
+  t = Math.round(t * 100) / 100;
+  if (t >= TPP) { const p = Math.floor(t/TPP), r = t%TPP, b = Math.floor(r/TPB), tr = Math.round(r%TPB*10)/10; return `${p}p${b?' '+b+'b':''}${tr?' '+tr+'t':''}`; }
+  if (t >= TPB) { const b = Math.floor(t/TPB), r = Math.round(t%TPB*10)/10; return r ? `${b}b + ${r}t` : `${b}b`; }
   return `${Math.round(t*10)/10}t`;
 }
 
-function total() {
-  let t=0;
-  for(const[id,e] of Object.entries(inv)){
-    const item=items?.items.find(i=>i.id===id);
-    if(!item)continue;
-    t+=item.value_tainted*e.qty;
-    for(const eid of e.enchants){const en=items.enchants.find(x=>x.id===eid);if(en)t+=en.value_tainted;}
+// =============================================
+// TOTALS
+// =============================================
+function paymentTotal() {
+  let t = 0;
+  for (const [id, e] of Object.entries(payment)) {
+    const item = items?.items.find(i => i.id === id);
+    if (!item) continue;
+    t += item.value_tainted * e.qty;
+    for (const eid of e.enchants) { const en = items.enchants.find(x => x.id === eid); if (en) t += en.value_tainted; }
   }
   return t;
 }
 
-function dirty_mark(){
-  dirty=true;
-  const el=document.getElementById('vbar-status');
-  if(el)el.textContent='Unsaved changes';
+function vaultTotal() {
+  let t = 0;
+  for (const [id, e] of Object.entries(vault)) {
+    const item = items?.items.find(i => i.id === id);
+    if (!item) continue;
+    t += item.value_tainted * e.qty;
+  }
+  return t;
 }
 
-function wallet_update(){
-  const t=total(),b=Math.floor(t/TPB),r=Math.round(t%TPB*10)/10,p=(t/TPP).toFixed(2);
-  document.getElementById('ws-t').textContent=Math.round(t*10)/10;
-  document.getElementById('ws-b').textContent=b;
-  document.getElementById('ws-p').textContent=p;
-  document.getElementById('tw-t').textContent=Math.round(t*10)/10+'t';
-  document.getElementById('tw-b').textContent=b+'b';
-  document.getElementById('tw-r').textContent=r+'t';
-  render_inv_list();
-  render_afford(t);
+function dirty_mark() {
+  dirty = true;
+  document.getElementById('vbar-status').textContent = 'Unsaved changes';
+  document.getElementById('vbar-page-status').textContent = 'Unsaved changes';
 }
 
-function render_inv_list(){
-  const el=document.getElementById('inv-list');
-  const keys=Object.keys(inv).filter(k=>inv[k].qty>0);
-  if(!keys.length){el.innerHTML='<div class="empty-state">Add items above to build your inventory</div>';return;}
-  el.innerHTML=keys.map(id=>{
-    const item=items?.items.find(i=>i.id===id);if(!item)return'';
-    const e=inv[id];let val=item.value_tainted*e.qty;
-    const ens=e.enchants.map(eid=>{const en=items.enchants.find(x=>x.id===eid);if(en){val+=en.value_tainted;return en.name;}return'';}).filter(Boolean);
-    return`<div class="inv-row"><div class="inv-rb" style="background:${rc(item.rarity)}"></div>
-    <div style="flex:1;min-width:0"><div class="inv-n">${item.name}${e.qty>1?` <span style="color:var(--muted)">×${e.qty}</span>`:''}</div>
-    ${ens.length?`<div class="inv-e">${ens.join(', ')}</div>`:''}</div>
-    <div class="inv-v">${fmt(val)}</div><div class="inv-x" onclick="rm_inv('${id}')">×</div></div>`;
+function wallet_update() {
+  const t = vaultTotal(), b = Math.floor(t/TPB), r = Math.round(t%TPB*10)/10, p = (t/TPP).toFixed(2);
+  document.getElementById('tw-t').textContent = Math.round(t*10)/10 + 't';
+  document.getElementById('tw-b').textContent = b + 'b';
+  document.getElementById('tw-r').textContent = r + 't';
+  // payment panel
+  const pt = paymentTotal(), pb2 = Math.floor(pt/TPB), pp2 = (pt/TPP).toFixed(2);
+  document.getElementById('ws-t').textContent = Math.round(pt*10)/10;
+  document.getElementById('ws-b').textContent = pb2;
+  document.getElementById('ws-p').textContent = pp2;
+  render_payment_list();
+  render_afford(pt);
+  // vault page count
+  const vKeys = Object.keys(vault).filter(k => vault[k].qty > 0);
+  document.getElementById('vault-item-count').textContent = `${vKeys.length} item types`;
+}
+
+// =============================================
+// PAYMENT LIST
+// =============================================
+function render_payment_list() {
+  const el = document.getElementById('inv-list');
+  const keys = Object.keys(payment).filter(k => payment[k].qty > 0);
+  if (!keys.length) { el.innerHTML = '<div class="empty-state">Select items above to build your payment</div>'; return; }
+  el.innerHTML = keys.map(id => {
+    const item = items?.items.find(i => i.id === id); if (!item) return '';
+    const e = payment[id]; let val = item.value_tainted * e.qty;
+    return `<div class="inv-row">
+      <div class="inv-rb" style="background:${rc(item.rarity)}"></div>
+      <div style="flex:1;min-width:0">
+        <div class="inv-n">${item.name}${e.qty>1?` <span style="color:var(--muted)">×${e.qty}</span>`:''}</div>
+      </div>
+      <div class="inv-v">${fmt(val)}</div>
+      <div class="inv-x" onclick="removePaymentItem('${id}')">×</div>
+    </div>`;
   }).join('');
 }
 
-function rm_inv(id){delete inv[id];render_grid();wallet_update();dirty_mark();}
+function removePaymentItem(id) {
+  delete payment[id];
+  render_mc_grid();
+  wallet_update();
+}
 
-function render_afford(t){
-  const el=document.getElementById('afford-body'),ct=document.getElementById('afford-ct');
-  if(!services||t===0){el.innerHTML='<div class="empty-state">Your budget will appear here once you\'ve added items</div>';ct.textContent='Add items to see results';return;}
-  const svcs=services.services;
-  const aff=svcs.filter(s=>!s.quote_required&&s.cost_min_tainted<=t);
-  ct.textContent=`${aff.length} of ${svcs.length} services affordable`;
-  el.innerHTML=`<div class="svc-grid">${svcs.map(s=>{
-    const caMin=t>=s.cost_min_tainted,caMax=!s.quote_required&&t>=s.cost_max_tainted;
-    const pct=s.quote_required?0:Math.min(100,Math.round(t/s.cost_min_tainted*100));
-    let cls='svc'+(s.quote_required?' qo':caMax?' ca-max':caMin?' ca':' no-ca');
-    const pr=s.quote_required?'Quote required':s.cost_min_tainted===s.cost_max_tainted?fmt(s.cost_min_tainted):`${fmt(s.cost_min_tainted)} – ${fmt(s.cost_max_tainted)}`;
-    const badge=s.quote_required?'<span class="sbadge bq">Quote</span>':caMax?'<span class="sbadge ba">Can afford</span>':s.popular?'<span class="sbadge bp">Popular</span>':'';
-    return`<div class="${cls}">${badge}<div class="sc">${s.category}</div><div class="sn">${s.name}</div>
-    <div class="sd">${s.description}</div><div class="sp">${pr}</div><div class="ss">${s.turnaround}</div>
-    ${!s.quote_required?`<div class="abar"><div class="afill" style="width:${pct}%"></div></div>`:''}
+// =============================================
+// AFFORD
+// =============================================
+function render_afford(t) {
+  const el = document.getElementById('afford-body'), ct = document.getElementById('afford-ct');
+  const allSvcs = getAllServices();
+  if (!allSvcs.length || t === 0) {
+    el.innerHTML = '<div class="empty-state">Your payment total will be compared to available services</div>';
+    ct.textContent = 'Add items to see results'; return;
+  }
+  const aff = allSvcs.filter(s => !s.quote_required && s.cost_min_tainted <= t);
+  ct.textContent = `${aff.length} of ${allSvcs.length} services affordable`;
+  el.innerHTML = `<div class="svc-grid">${allSvcs.map(s => {
+    const caMin = t >= s.cost_min_tainted, caMax = !s.quote_required && t >= s.cost_max_tainted;
+    const pct = s.quote_required ? 0 : Math.min(100, Math.round(t/s.cost_min_tainted*100));
+    let cls = 'svc' + (s.quote_required ? ' qo' : caMax ? ' ca-max' : caMin ? ' ca' : ' no-ca');
+    const pr = s.quote_required ? 'Quote required' : s.cost_min_tainted === s.cost_max_tainted ? fmt(s.cost_min_tainted) : `${fmt(s.cost_min_tainted)} – ${fmt(s.cost_max_tainted)}`;
+    const badge = s.quote_required ? '<span class="sbadge bq">Quote</span>' : caMax ? '<span class="sbadge ba">Can afford</span>' : s.popular ? '<span class="sbadge bp">Popular</span>' : '';
+    return `<div class="${cls}" onclick="openSvcDetail(${JSON.stringify(s).replace(/"/g,'&quot;')})">${badge}
+      <div class="sc">${s.category}</div><div class="sn">${s.name}</div>
+      <div class="sd">${s.description}</div><div class="sp">${pr}</div><div class="ss">${s.turnaround||''}</div>
+      ${!s.quote_required?`<div class="abar"><div class="afill" style="width:${pct}%"></div></div>`:''}
     </div>`;
   }).join('')}</div>`;
 }
 
-function build_card(item){
-  const col=rc(item.rarity),e=inv[item.id],qty=e?e.qty:0,inI=qty>0;
-  const etags=inI&&e.enchants.length?`<div class="etags">${e.enchants.map(eid=>{const en=items.enchants.find(x=>x.id===eid);return en?`<span class="etag" onclick="rm_ench('${item.id}','${eid}')">${en.name} ×</span>`:''}).join('')}</div>`:'';
-  const esel=inI?`<div class="ep"><div class="el">Add enchant:</div>
-    <select class="esel" onchange="add_ench('${item.id}',this.value);this.value=''">
-      <option value="">— pick enchant —</option>
-      ${items.enchants.map(en=>`<option value="${en.id}">${en.name} (+${en.value_tainted}t)</option>`).join('')}
-    </select>${etags}</div>`:'';
-  return`<div class="ic${inI?' in-inv':''}" id="card-${item.id}">
-    <div class="irb" style="background:${col}"></div>
-    <div class="in">${item.name}</div><div class="icat">${item.category}</div>
-    <div class="r-${item.rarity}" style="font-size:11px">${item.rarity[0].toUpperCase()+item.rarity.slice(1)}</div>
-    <div style="color:var(--accent);font-size:11px;margin-top:2px">${fmt(item.value_tainted)} / unit</div>
-    ${item.note?`<div style="font-size:10px;color:var(--muted);margin-top:3px;line-height:1.3">${item.note}</div>`:''}
-    ${inI?`<div class="qty-c"><button class="qty-btn" onclick="chg_qty('${item.id}',-1)">−</button>
-    <span class="qty-d">${qty}</span><button class="qty-btn" onclick="chg_qty('${item.id}',1)">+</button></div>${esel}`
-    :`<div style="margin-top:8px"><button class="filter-btn" onclick="add_inv('${item.id}')" style="width:100%">+ Add</button></div>`}
-  </div>`;
+// =============================================
+// MC GRID (CALCULATOR PICKER)
+// =============================================
+function build_mc_tabs() {
+  if (!items) return;
+  const cats = ['All', ...items.categories];
+  const tabsEl = document.getElementById('mc-tabs');
+  tabsEl.innerHTML = cats.map(c =>
+    `<div class="mc-tab${c === mcCatFilter ? ' active' : ''}" data-cat="${c}">${c}</div>`
+  ).join('');
+  tabsEl.querySelectorAll('.mc-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      mcCatFilter = tab.dataset.cat;
+      tabsEl.querySelectorAll('.mc-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      mcSelectedId = null;
+      render_mc_grid();
+    });
+  });
 }
 
-function add_inv(id){if(!inv[id])inv[id]={qty:1,enchants:[]};else inv[id].qty++;render_grid();wallet_update();dirty_mark();}
-function chg_qty(id,d){if(!inv[id])return;inv[id].qty=Math.max(0,inv[id].qty+d);if(inv[id].qty===0)delete inv[id];render_grid();wallet_update();dirty_mark();}
-function add_ench(id,eid){if(!eid||!inv[id])return;if(!inv[id].enchants.includes(eid))inv[id].enchants.push(eid);render_grid();wallet_update();dirty_mark();}
-function rm_ench(id,eid){if(!inv[id])return;inv[id].enchants=inv[id].enchants.filter(e=>e!==eid);render_grid();wallet_update();dirty_mark();}
+function render_mc_grid() {
+  const el = document.getElementById('mc-grid'); if (!items) return;
+  const search = document.getElementById('mc-search')?.value?.toLowerCase() || '';
+  let list = items.items;
+  if (mcCatFilter !== 'All') list = list.filter(i => i.category === mcCatFilter);
+  if (search) list = list.filter(i => i.name.toLowerCase().includes(search));
 
-function render_grid(search='',cat='All'){
-  const el=document.getElementById('item-grid');if(!items)return;
-  let list=items.items;
-  if(cat!=='All')list=list.filter(i=>i.category===cat);
-  if(search)list=list.filter(i=>i.name.toLowerCase().includes(search.toLowerCase()));
-  el.innerHTML=list.length?list.map(i=>build_card(i)).join(''):'<div class="empty-state" style="grid-column:1/-1">No items match</div>';
+  // Show 9*N slots (pad to multiple of 9)
+  const padded = [...list];
+  const rem = padded.length % 9;
+  if (rem) for (let i = 0; i < 9 - rem; i++) padded.push(null);
+
+  el.innerHTML = padded.map((item, idx) => {
+    if (!item) return `<div class="mc-slot"></div>`;
+    const inPayment = payment[item.id]?.qty > 0;
+    const isSelected = mcSelectedId === item.id;
+    let cls = 'mc-slot has-item';
+    if (inPayment) cls += ' qty-active';
+    if (isSelected) cls += ' selected';
+    const qty = payment[item.id]?.qty || 0;
+    return `<div class="${cls}" data-id="${item.id}"
+      onmouseenter="showTooltip(event,'${item.id}')"
+      onmouseleave="hideTooltip()"
+      onmousemove="moveTooltip(event)"
+      onclick="mcSlotClick('${item.id}')">
+      <div class="mc-item-sprite">
+        <span style="font-size:20px;line-height:1">${itemEmoji(item)}</span>
+        ${qty > 1 ? `<span class="mc-item-count">${qty}</span>` : ''}
+        ${qty === 1 ? `<span class="mc-item-count">1</span>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+
+  // Qty panel
+  const qp = document.getElementById('mc-qty-panel');
+  if (mcSelectedId) {
+    const item = items.items.find(i => i.id === mcSelectedId);
+    if (item) {
+      qp.classList.remove('hidden');
+      document.getElementById('mc-qty-name').textContent = item.name;
+      document.getElementById('mc-qty-val').textContent = payment[mcSelectedId]?.qty || 0;
+    }
+  } else {
+    qp.classList.add('hidden');
+  }
 }
 
-function render_lib(search=''){
-  const el=document.getElementById('lib-grid');if(!items)return;
-  let list=items.items;
-  if(search)list=list.filter(i=>i.name.toLowerCase().includes(search.toLowerCase()));
-  list=[...list].sort((a,b)=>rarOrd.indexOf(b.rarity)-rarOrd.indexOf(a.rarity));
-  el.innerHTML=list.length?list.map(i=>`<div class="ic">
-    <div class="irb" style="background:${rc(i.rarity)}"></div>
-    <div class="in">${i.name}</div><div class="icat">${i.category}</div>
-    <div class="r-${i.rarity}" style="font-size:11px">${i.rarity[0].toUpperCase()+i.rarity.slice(1)}</div>
-    <div style="color:var(--accent);font-size:11px;margin-top:2px">${fmt(i.value_tainted)}t / unit</div>
-    ${i.note?`<div style="font-size:10px;color:var(--muted);margin-top:4px;line-height:1.3">${i.note}</div>`:''}
-  </div>`).join(''):'<div class="empty-state" style="grid-column:1/-1">No items found</div>';
-  document.getElementById('lib-count').textContent=`${list.length} items`;
+function mcSlotClick(id) {
+  if (mcSelectedId === id) {
+    // Second click: add to payment (if in vault or no vault signed in)
+    const inVault = vault[id]?.qty > 0;
+    if (vaultUser && !inVault) {
+      toast("You don't have this in your vault!", 'error'); return;
+    }
+    // Toggle: add 1 to payment
+    const maxQty = vaultUser ? (vault[id]?.qty || 0) : 999;
+    const curQty = payment[id]?.qty || 0;
+    if (curQty >= maxQty) { toast('No more in vault', 'error'); return; }
+    if (!payment[id]) payment[id] = { qty: 0, enchants: [] };
+    payment[id].qty++;
+    render_mc_grid();
+    wallet_update();
+  } else {
+    mcSelectedId = id;
+    render_mc_grid();
+  }
 }
 
-function render_enchants(search=''){
-  const tbody=document.querySelector('#ench-table tbody');if(!items)return;
-  let list=items.enchants;
-  if(search)list=list.filter(e=>e.name.toLowerCase().includes(search.toLowerCase()));
-  list=[...list].sort((a,b)=>rarOrd.indexOf(b.rarity)-rarOrd.indexOf(a.rarity));
-  tbody.innerHTML=list.map(e=>`<tr>
+function mcChgQty(delta) {
+  if (!mcSelectedId) return;
+  const inVault = vault[mcSelectedId]?.qty || 0;
+  const maxQty = vaultUser ? inVault : 999;
+  if (!payment[mcSelectedId]) payment[mcSelectedId] = { qty: 0, enchants: [] };
+  payment[mcSelectedId].qty = Math.max(0, Math.min(maxQty, (payment[mcSelectedId].qty || 0) + delta));
+  if (payment[mcSelectedId].qty === 0) delete payment[mcSelectedId];
+  document.getElementById('mc-qty-val').textContent = payment[mcSelectedId]?.qty || 0;
+  render_mc_grid();
+  wallet_update();
+}
+
+function mcRemoveSelected() {
+  if (!mcSelectedId) return;
+  delete payment[mcSelectedId];
+  mcSelectedId = null;
+  render_mc_grid();
+  wallet_update();
+}
+
+// =============================================
+// VAULT MC GRID
+// =============================================
+function build_vault_mc_tabs() {
+  if (!items) return;
+  const cats = ['All', ...items.categories];
+  const tabsEl = document.getElementById('vault-mc-tabs');
+  tabsEl.innerHTML = cats.map(c =>
+    `<div class="mc-tab${c === vaultCatFilter ? ' active' : ''}" data-cat="${c}">${c}</div>`
+  ).join('');
+  tabsEl.querySelectorAll('.mc-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      vaultCatFilter = tab.dataset.cat;
+      tabsEl.querySelectorAll('.mc-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      vaultSelectedId = null;
+      render_vault_mc_grid();
+    });
+  });
+}
+
+function render_vault_mc_grid() {
+  const el = document.getElementById('vault-mc-grid'); if (!items) return;
+  const search = document.getElementById('vault-mc-search')?.value?.toLowerCase() || '';
+  // Show only items in vault
+  let list = items.items.filter(i => vault[i.id]?.qty > 0);
+  if (vaultCatFilter !== 'All') list = list.filter(i => i.category === vaultCatFilter);
+  if (search) list = list.filter(i => i.name.toLowerCase().includes(search));
+
+  if (!list.length) {
+    el.innerHTML = `<div style="color:#555;font-family:var(--mc-font);font-size:12px;padding:16px;grid-column:1/-1">
+      ${vaultUser ? 'Vault is empty — click "+ Add items" to fill it.' : 'Sign in to see your vault.'}
+    </div>`;
+    document.getElementById('vault-qty-panel').classList.add('hidden');
+    return;
+  }
+
+  const padded = [...list];
+  const rem = padded.length % 9;
+  if (rem) for (let i = 0; i < 9 - rem; i++) padded.push(null);
+
+  el.innerHTML = padded.map(item => {
+    if (!item) return `<div class="mc-slot"></div>`;
+    const qty = vault[item.id]?.qty || 0;
+    const isSelected = vaultSelectedId === item.id;
+    return `<div class="mc-slot has-item in-vault${isSelected?' selected':''}" data-id="${item.id}"
+      onmouseenter="showTooltip(event,'${item.id}')"
+      onmouseleave="hideTooltip()"
+      onmousemove="moveTooltip(event)"
+      onclick="vaultSlotClick('${item.id}')">
+      <div class="mc-item-sprite">
+        <span style="font-size:20px;line-height:1">${itemEmoji(item)}</span>
+        ${qty > 0 ? `<span class="mc-item-count">${qty}</span>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+
+  const qp = document.getElementById('vault-qty-panel');
+  if (vaultSelectedId) {
+    const item = items.items.find(i => i.id === vaultSelectedId);
+    if (item) {
+      qp.classList.remove('hidden');
+      document.getElementById('vault-qty-name').textContent = item.name;
+      document.getElementById('vault-qty-val').textContent = vault[vaultSelectedId]?.qty || 0;
+    }
+  } else {
+    qp.classList.add('hidden');
+  }
+}
+
+function vaultSlotClick(id) {
+  vaultSelectedId = vaultSelectedId === id ? null : id;
+  render_vault_mc_grid();
+}
+
+function vaultChgQty(delta) {
+  if (!vaultSelectedId) return;
+  if (!vault[vaultSelectedId]) vault[vaultSelectedId] = { qty: 0, enchants: [] };
+  vault[vaultSelectedId].qty = Math.max(0, (vault[vaultSelectedId].qty || 0) + delta);
+  if (vault[vaultSelectedId].qty === 0) { delete vault[vaultSelectedId]; vaultSelectedId = null; }
+  document.getElementById('vault-qty-val').textContent = vault[vaultSelectedId]?.qty || 0;
+  render_vault_mc_grid();
+  wallet_update();
+  dirty_mark();
+}
+
+function vaultRemoveItem() {
+  if (!vaultSelectedId) return;
+  delete vault[vaultSelectedId];
+  vaultSelectedId = null;
+  render_vault_mc_grid();
+  wallet_update();
+  dirty_mark();
+}
+
+// =============================================
+// ADD TO VAULT MODAL
+// =============================================
+function openAddToVaultModal() {
+  document.getElementById('add-vault-modal').classList.add('open');
+  document.getElementById('add-vault-search').value = '';
+  renderAddVaultList();
+  document.getElementById('add-vault-search').focus();
+}
+function closeAddToVaultModal() {
+  document.getElementById('add-vault-modal').classList.remove('open');
+  render_vault_mc_grid();
+  wallet_update();
+}
+function renderAddVaultList() {
+  if (!items) return;
+  const search = document.getElementById('add-vault-search').value.toLowerCase();
+  let list = items.items;
+  if (search) list = list.filter(i => i.name.toLowerCase().includes(search));
+  list = list.slice(0, 40);
+  const el = document.getElementById('add-vault-list');
+  el.innerHTML = list.map(item => {
+    const qty = vault[item.id]?.qty || 0;
+    return `<div style="display:flex;align-items:center;gap:10px;padding:6px 8px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm)">
+      <span style="font-size:18px">${itemEmoji(item)}</span>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:12px;font-weight:500;color:var(--text)">${item.name}</div>
+        <div style="font-size:10px;color:var(--muted)">${item.category} · ${fmt(item.value_tainted)}/unit</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px">
+        <button class="mc-qty-btn" onclick="addToVaultQty('${item.id}',-1)" style="font-size:12px">−</button>
+        <span style="min-width:20px;text-align:center;font-size:12px;color:var(--accent);font-weight:600">${qty}</span>
+        <button class="mc-qty-btn" onclick="addToVaultQty('${item.id}',1)" style="font-size:12px">+</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+function addToVaultQty(id, delta) {
+  if (!vault[id]) vault[id] = { qty: 0, enchants: [] };
+  vault[id].qty = Math.max(0, vault[id].qty + delta);
+  if (vault[id].qty === 0) delete vault[id];
+  dirty_mark();
+  renderAddVaultList();
+}
+
+// =============================================
+// TOOLTIP
+// =============================================
+let ttTimeout;
+function showTooltip(e, id) {
+  if (!items) return;
+  const item = items.items.find(i => i.id === id); if (!item) return;
+  const tt = document.getElementById('mc-tooltip');
+  document.getElementById('mc-tt-name').textContent = item.name;
+  document.getElementById('mc-tt-rarity').textContent = item.rarity.charAt(0).toUpperCase() + item.rarity.slice(1);
+  document.getElementById('mc-tt-rarity').style.color = rc(item.rarity);
+  document.getElementById('mc-tt-val').textContent = `${fmt(item.value_tainted)} / unit`;
+  document.getElementById('mc-tt-note').textContent = item.note || '';
+  tt.classList.add('visible');
+  moveTooltip(e);
+}
+function moveTooltip(e) {
+  const tt = document.getElementById('mc-tooltip');
+  tt.style.left = (e.clientX + 14) + 'px';
+  tt.style.top = (e.clientY + 14) + 'px';
+}
+function hideTooltip() {
+  document.getElementById('mc-tooltip').classList.remove('visible');
+}
+
+// =============================================
+// LIBRARY
+// =============================================
+function render_lib(search = '') {
+  const el = document.getElementById('lib-grid'); if (!items) return;
+  let list = items.items;
+  if (search) list = list.filter(i => i.name.toLowerCase().includes(search.toLowerCase()));
+  list = [...list].sort((a, b) => rarOrd.indexOf(b.rarity) - rarOrd.indexOf(a.rarity));
+  el.innerHTML = list.length ? list.map(i =>
+    `<div class="ic">
+      <div class="irb" style="background:${rc(i.rarity)}"></div>
+      <div class="in">${i.name}</div><div class="icat">${i.category}</div>
+      <div class="r-${i.rarity}" style="font-size:11px">${i.rarity[0].toUpperCase()+i.rarity.slice(1)}</div>
+      <div style="color:var(--accent);font-size:11px;margin-top:2px">${fmt(i.value_tainted)}t / unit</div>
+      ${i.note?`<div style="font-size:10px;color:var(--muted);margin-top:4px;line-height:1.3">${i.note}</div>`:''}
+    </div>`).join('') : '<div class="empty-state" style="grid-column:1/-1">No items found</div>';
+  document.getElementById('lib-count').textContent = `${list.length} items`;
+}
+
+function render_enchants(search = '') {
+  const tbody = document.querySelector('#ench-table tbody'); if (!items) return;
+  let list = items.enchants;
+  if (search) list = list.filter(e => e.name.toLowerCase().includes(search.toLowerCase()));
+  list = [...list].sort((a, b) => rarOrd.indexOf(b.rarity) - rarOrd.indexOf(a.rarity));
+  tbody.innerHTML = list.map(e => `<tr>
     <td style="font-weight:500">${e.name}</td><td style="color:var(--muted)">${e.category}</td>
     <td><span style="color:${rc(e.rarity)}">${e.rarity[0].toUpperCase()+e.rarity.slice(1)}</span></td>
     <td class="pt">${e.value_tainted}t</td><td class="pt">${Math.round((e.value_tainted+e.book_bonus)*10)/10}t</td>
   </tr>`).join('');
 }
 
-function render_svcs(search=''){
-  const el=document.getElementById('svc-grid');if(!services)return;
-  let list=services.services;
-  if(search)list=list.filter(s=>s.name.toLowerCase().includes(search.toLowerCase())||s.category.toLowerCase().includes(search.toLowerCase())||s.description.toLowerCase().includes(search.toLowerCase()));
-  el.innerHTML=list.map(s=>{
-    const pr=s.quote_required?'Quote required':s.cost_min_tainted===s.cost_max_tainted?fmt(s.cost_min_tainted):`${fmt(s.cost_min_tainted)} – ${fmt(s.cost_max_tainted)}`;
-    let badge=s.quote_required?'<span class="sbadge bq">Quote</span>':s.popular?'<span class="sbadge bp">Popular</span>':'';
-    if(s.savings_note)badge+=`<span class="sbadge bsav" style="top:${badge?'30px':'8px'}">${s.savings_note}</span>`;
-    return`<div class="svc${s.quote_required?' qo':''}">${badge}
-    <div class="sc">${s.category}</div><div class="sn">${s.name}</div>
-    <div class="sd">${s.description}</div><div class="sp">${pr}</div><div class="ss">${s.turnaround}</div>
-    </div>`;
-  }).join('');
+// =============================================
+// SERVICES
+// =============================================
+function getAllServices() {
+  const loaded = services?.services || [];
+  // Merge: put custom services first
+  return [...customServices, ...loaded];
 }
 
-function render_ref(){
-  const tbody=document.querySelector('#ref-table tbody');if(!items)return;
-  const sorted=[...items.items].sort((a,b)=>b.value_tainted-a.value_tainted);
-  tbody.innerHTML=sorted.map(i=>`<tr>
+function render_svcs(search = '') {
+  const el = document.getElementById('svc-grid');
+  const list = getAllServices();
+  let filtered = list;
+  if (search) filtered = list.filter(s =>
+    s.name.toLowerCase().includes(search.toLowerCase()) ||
+    s.category.toLowerCase().includes(search.toLowerCase()) ||
+    (s.description||'').toLowerCase().includes(search.toLowerCase())
+  );
+  el.innerHTML = filtered.length ? filtered.map((s, i) => {
+    const pr = s.quote_required ? 'Quote required' : s.cost_min_tainted === s.cost_max_tainted ? fmt(s.cost_min_tainted) : `${fmt(s.cost_min_tainted)} – ${fmt(s.cost_max_tainted)}`;
+    let badge = s.quote_required ? '<span class="sbadge bq">Quote</span>' : s.popular ? '<span class="sbadge bp">Popular</span>' : '';
+    if (s.custom) badge = '<span class="sbadge ba">Your Service</span>';
+    return `<div class="svc${s.quote_required?' qo':''}" onclick="openSvcDetail(${encodeDataAttr(s)})">${badge}
+      <div class="sc">${s.category}</div><div class="sn">${s.name}</div>
+      <div class="sd">${s.description}</div><div class="sp">${pr}</div><div class="ss">${s.turnaround||''}</div>
+    </div>`;
+  }).join('') : '<div class="empty-state" style="grid-column:1/-1">No services found</div>';
+}
+
+function encodeDataAttr(obj) {
+  return "'" + btoa(unescape(encodeURIComponent(JSON.stringify(obj)))) + "'";
+}
+
+// =============================================
+// SERVICE DETAIL MODAL
+// =============================================
+function openSvcDetail(svcOrEncoded) {
+  let s;
+  if (typeof svcOrEncoded === 'string') {
+    try { s = JSON.parse(decodeURIComponent(escape(atob(svcOrEncoded)))); } catch { return; }
+  } else {
+    s = svcOrEncoded;
+  }
+  const modal = document.getElementById('svc-detail-modal');
+  const content = document.getElementById('svc-detail-content');
+  const pr = s.quote_required ? 'Quote required' : s.cost_min_tainted === s.cost_max_tainted ? fmt(s.cost_min_tainted) : `${fmt(s.cost_min_tainted)} – ${fmt(s.cost_max_tainted)}`;
+
+  const canList = (s.can_do || []).map(c => `<li><span class="rule-icon rule-can">✓</span>${c}</li>`).join('');
+  const cantList = (s.cant_do || []).map(c => `<li><span class="rule-icon rule-cant">✗</span>${c}</li>`).join('');
+
+  content.innerHTML = `
+    <div class="mt-title">${s.name}</div>
+    <div style="font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:1rem">${s.category}${s.turnaround ? ' · ' + s.turnaround : ''}</div>
+
+    <div class="detail-tabs">
+      <div class="detail-tab active" data-dtab="overview">Overview</div>
+      <div class="detail-tab" data-dtab="details">Details & Rules</div>
+    </div>
+
+    <div id="dtab-overview">
+      <p style="font-size:13px;color:var(--muted);margin-bottom:1rem;line-height:1.6">${s.description}</p>
+      <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:1rem">
+        <span style="font-size:22px;font-weight:600;color:var(--accent);font-family:'Cinzel',serif">${pr}</span>
+        ${s.quote_required ? '<span style="font-size:12px;color:var(--muted)">price negotiated per project</span>' : '<span style="font-size:12px;color:var(--muted)">tainted pieces</span>'}
+      </div>
+    </div>
+
+    <div id="dtab-details" class="hidden">
+      ${s.detailed_description ? `<p style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:1rem">${s.detailed_description}</p>` : ''}
+      ${(canList || cantList) ? `
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem">
+          ${canList ? `<div><div style="font-size:11px;color:var(--green);font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Can do</div><ul class="rule-list">${canList}</ul></div>` : ''}
+          ${cantList ? `<div><div style="font-size:11px;color:var(--red);font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Cannot do</div><ul class="rule-list">${cantList}</ul></div>` : ''}
+        </div>
+      ` : '<div class="empty-state">No rules listed yet.</div>'}
+    </div>
+
+    <div class="mact" style="margin-top:1rem">
+      <button class="btn-s" onclick="closeSvcDetailModal()">Close</button>
+    </div>
+  `;
+
+  // Tab switching inside detail modal
+  content.querySelectorAll('.detail-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      content.querySelectorAll('.detail-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('dtab-overview').classList.toggle('hidden', tab.dataset.dtab !== 'overview');
+      document.getElementById('dtab-details').classList.toggle('hidden', tab.dataset.dtab !== 'details');
+    });
+  });
+
+  modal.classList.add('open');
+}
+
+function closeSvcDetailModal() {
+  document.getElementById('svc-detail-modal').classList.remove('open');
+}
+
+// =============================================
+// CREATE SERVICE MODAL
+// =============================================
+function openCreateServiceModal() {
+  document.getElementById('create-svc-modal').classList.add('open');
+}
+function closeCreateSvcModal() {
+  document.getElementById('create-svc-modal').classList.remove('open');
+}
+function submitCreateService() {
+  const name = document.getElementById('svc-name-input').value.trim();
+  const cat = document.getElementById('svc-cat-input').value.trim();
+  const desc = document.getElementById('svc-desc-input').value.trim();
+  const turnaround = document.getElementById('svc-turnaround-input').value.trim();
+  const minT = parseInt(document.getElementById('svc-min-input').value) || 0;
+  const maxT = parseInt(document.getElementById('svc-max-input').value) || 0;
+  const detail = document.getElementById('svc-detail-input').value.trim();
+  const canRaw = document.getElementById('svc-can-input').value.trim();
+  const cantRaw = document.getElementById('svc-cant-input').value.trim();
+  const popular = document.getElementById('svc-popular-input').value === 'true';
+
+  const errEl = document.getElementById('svc-err');
+  if (!name) { errEl.textContent = 'Service name is required.'; return; }
+  if (!cat) { errEl.textContent = 'Category is required.'; return; }
+  errEl.textContent = '';
+
+  const can_do = canRaw ? canRaw.split('\n').map(s => s.trim()).filter(Boolean) : [];
+  const cant_do = cantRaw ? cantRaw.split('\n').map(s => s.trim()).filter(Boolean) : [];
+
+  const svc = {
+    id: 'custom_' + Date.now(),
+    name, category: cat, description: desc, turnaround,
+    cost_min_tainted: minT,
+    cost_max_tainted: maxT || minT,
+    quote_required: maxT === 0 && minT === 0,
+    popular,
+    detailed_description: detail,
+    can_do, cant_do,
+    custom: true
+  };
+
+  customServices.unshift(svc);
+  // Persist in localStorage
+  try { localStorage.setItem('ichor_custom_services', JSON.stringify(customServices)); } catch {}
+  closeCreateSvcModal();
+  render_svcs(document.getElementById('svc-search').value);
+  toast('Service created!', 'success');
+
+  // Clear form
+  ['svc-name-input','svc-cat-input','svc-desc-input','svc-turnaround-input','svc-min-input','svc-max-input','svc-detail-input','svc-can-input','svc-cant-input'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+}
+
+// =============================================
+// REFERENCE
+// =============================================
+function render_ref() {
+  const tbody = document.querySelector('#ref-table tbody'); if (!items) return;
+  const sorted = [...items.items].sort((a, b) => b.value_tainted - a.value_tainted);
+  tbody.innerHTML = sorted.map(i => `<tr>
     <td style="font-weight:500">${i.name}</td>
     <td><span style="color:${rc(i.rarity)}">${i.rarity[0].toUpperCase()+i.rarity.slice(1)}</span></td>
     <td style="color:var(--muted)">${i.category}</td>
-    <td class="pt">${i.value_tainted}t</td><td class="pb">${(i.value_tainted/TPB).toFixed(2)}b</td>
+    <td class="pt">${i.value_tainted}t</td><td class="pb-c">${(i.value_tainted/TPB).toFixed(2)}b</td>
   </tr>`).join('');
 }
 
-function build_cat_filters(){
-  const cats=['All',...items.categories];
-  const bar=document.getElementById('calc-fb');
-  bar.innerHTML=`<input type="text" class="si" id="item-search" placeholder="Search items...">`+
-    cats.map(c=>`<button class="filter-btn${c==='All'?' active':''}" data-cat="${c}">${c}</button>`).join('');
-  bar.querySelectorAll('[data-cat]').forEach(btn=>{
-    btn.addEventListener('click',()=>{
-      bar.querySelectorAll('[data-cat]').forEach(b=>b.classList.remove('active'));
-      btn.classList.add('active');catFilter=btn.dataset.cat;
-      render_grid(document.getElementById('item-search')?.value||'',catFilter);
-    });
-  });
-  document.getElementById('item-search').addEventListener('input',e=>render_grid(e.target.value,catFilter));
+// =============================================
+// SUPABASE
+// =============================================
+async function sb(path, opts = {}) {
+  const res = await fetch(`${SB_URL}/rest/v1/${path}`, { ...opts, headers: { apikey: SB_ANON, 'Authorization': `Bearer ${SB_ANON}`, 'Content-Type': 'application/json', 'Prefer': 'return=representation', ...(opts.headers || {}) } });
+  const text = await res.text();
+  return { ok: res.ok, status: res.status, data: text ? JSON.parse(text) : null };
 }
 
-/* SUPABASE */
-async function sb(path,opts={}){
-  const res=await fetch(`${SB_URL}/rest/v1/${path}`,{...opts,headers:{apikey:SB_ANON,'Authorization':`Bearer ${SB_ANON}`,'Content-Type':'application/json','Prefer':'return=representation',...(opts.headers||{})}});
-  const text=await res.text();
-  return{ok:res.ok,status:res.status,data:text?JSON.parse(text):null};
+async function hash(key) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(key));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
 }
 
-async function hash(key){
-  const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(key));
-  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
-}
+// =============================================
+// VAULT AUTH MODAL
+// =============================================
+function openModal() { document.getElementById('modal').classList.add('open'); document.getElementById('l-user').focus(); }
+function closeModal() { document.getElementById('modal').classList.remove('open'); document.getElementById('l-err').textContent = ''; document.getElementById('r-err').textContent = ''; }
 
-/* MODAL */
-function openModal(){document.getElementById('modal').classList.add('open');document.getElementById('l-user').focus();}
-function closeModal(){document.getElementById('modal').classList.remove('open');document.getElementById('l-err').textContent='';document.getElementById('r-err').textContent='';}
-
-document.querySelectorAll('.mtab').forEach(tab=>{
-  tab.addEventListener('click',()=>{
-    document.querySelectorAll('.mtab').forEach(t=>t.classList.remove('active'));
+document.querySelectorAll('.mtab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.mtab').forEach(t => t.classList.remove('active'));
     tab.classList.add('active');
-    document.getElementById('mt-login').classList.toggle('hidden',tab.dataset.mt!=='login');
-    document.getElementById('mt-register').classList.toggle('hidden',tab.dataset.mt!=='register');
+    document.getElementById('mt-login').classList.toggle('hidden', tab.dataset.mt !== 'login');
+    document.getElementById('mt-register').classList.toggle('hidden', tab.dataset.mt !== 'register');
   });
 });
 
-async function loginVault(){
-  const user=document.getElementById('l-user').value.trim(),key=document.getElementById('l-key').value;
-  const err=document.getElementById('l-err'),btn=document.getElementById('l-btn');
-  if(!user||!key){err.textContent='Please fill in both fields.';return;}
-  btn.disabled=true;btn.textContent='Loading...';
-  try{
-    const h=await hash(key);
-    const{ok,data}=await sb(`vaults?username=eq.${encodeURIComponent(user)}&select=username,key_hash,inventory`);
-    if(!ok||!data?.length){err.textContent='No vault found for that username.';return;}
-    if(data[0].key_hash!==h){err.textContent='Incorrect secret key.';return;}
-    set_vault(user,data[0].inventory||{});
-    closeModal();toast('Vault loaded!','success');
-  }catch{err.textContent='Connection error. Try again.';}
-  finally{btn.disabled=false;btn.textContent='Load vault';}
+async function loginVault() {
+  const user = document.getElementById('l-user').value.trim(), key = document.getElementById('l-key').value;
+  const err = document.getElementById('l-err'), btn = document.getElementById('l-btn');
+  if (!user || !key) { err.textContent = 'Please fill in both fields.'; return; }
+  btn.disabled = true; btn.textContent = 'Loading...';
+  try {
+    const h = await hash(key);
+    const { ok, data } = await sb(`vaults?username=eq.${encodeURIComponent(user)}&select=username,key_hash,inventory`);
+    if (!ok || !data?.length) { err.textContent = 'No vault found for that username.'; return; }
+    if (data[0].key_hash !== h) { err.textContent = 'Incorrect secret key.'; return; }
+    set_vault(user, data[0].inventory || {});
+    closeModal(); toast('Vault loaded!', 'success');
+  } catch { err.textContent = 'Connection error. Try again.'; }
+  finally { btn.disabled = false; btn.textContent = 'Load vault'; }
 }
 
-async function registerVault(){
-  const user=document.getElementById('r-user').value.trim(),key=document.getElementById('r-key').value,key2=document.getElementById('r-key2').value;
-  const err=document.getElementById('r-err'),btn=document.getElementById('r-btn');
-  if(!user||!key){err.textContent='Please fill in all fields.';return;}
-  if(key!==key2){err.textContent="Keys don't match.";return;}
-  if(key.length<4){err.textContent='Key must be at least 4 characters.';return;}
-  btn.disabled=true;btn.textContent='Creating...';
-  try{
-    const h=await hash(key);
-    const{ok,status,data}=await sb('vaults',{method:'POST',body:JSON.stringify({username:user,key_hash:h,inventory:{}})});
-    if(!ok){
-      if(status===409||JSON.stringify(data).includes('unique')){err.textContent='That username is already taken.';return;}
-      err.textContent='Failed to create vault. Try again.';return;
+async function registerVault() {
+  const user = document.getElementById('r-user').value.trim(), key = document.getElementById('r-key').value, key2 = document.getElementById('r-key2').value;
+  const err = document.getElementById('r-err'), btn = document.getElementById('r-btn');
+  if (!user || !key) { err.textContent = 'Please fill in all fields.'; return; }
+  if (key !== key2) { err.textContent = "Keys don't match."; return; }
+  if (key.length < 4) { err.textContent = 'Key must be at least 4 characters.'; return; }
+  btn.disabled = true; btn.textContent = 'Creating...';
+  try {
+    const h = await hash(key);
+    const { ok, status, data } = await sb('vaults', { method: 'POST', body: JSON.stringify({ username: user, key_hash: h, inventory: {} }) });
+    if (!ok) {
+      if (status === 409 || JSON.stringify(data).includes('unique')) { err.textContent = 'That username is already taken.'; return; }
+      err.textContent = 'Failed to create vault. Try again.'; return;
     }
-    set_vault(user,{});closeModal();toast('Vault created! Welcome, '+user,'success');
-  }catch{err.textContent='Connection error. Try again.';}
-  finally{btn.disabled=false;btn.textContent='Create vault';}
+    set_vault(user, {}); closeModal(); toast('Vault created! Welcome, ' + user, 'success');
+  } catch { err.textContent = 'Connection error. Try again.'; }
+  finally { btn.disabled = false; btn.textContent = 'Create vault'; }
 }
 
-function set_vault(user,saved_inv){
-  vaultUser=user;inv=saved_inv;dirty=false;
+function set_vault(user, saved_vault) {
+  vaultUser = user;
+  // saved_vault is the full vault inventory
+  vault = saved_vault || {};
+  payment = {}; // clear payment on login
+  dirty = false;
+
   document.getElementById('v-dot').classList.add('on');
-  document.getElementById('v-label').textContent=user;
+  document.getElementById('v-label').textContent = user;
   document.getElementById('vault-btn').classList.add('logged-in');
-  document.getElementById('vbar-panel').style.display='';
-  document.getElementById('vbar-name').textContent=user+"'s vault";
-  document.getElementById('vbar-status').textContent='Vault loaded';
-  render_grid(document.getElementById('item-search')?.value||'',catFilter);
+
+  // Topbar vault bar
+  document.getElementById('vbar-panel').style.display = '';
+  document.getElementById('vbar-name').textContent = user + "'s vault";
+  document.getElementById('vbar-status').textContent = 'Vault loaded';
+
+  // Vault page
+  document.getElementById('vault-page-bar').style.display = '';
+  document.getElementById('vault-page-name').textContent = user + "'s vault";
+  document.getElementById('vault-page-status').textContent = 'Vault loaded';
+  document.getElementById('vault-not-signed-in').style.display = 'none';
+  document.getElementById('vault-content-panel').style.display = '';
+
+  render_mc_grid();
+  render_vault_mc_grid();
   wallet_update();
 }
 
-async function saveVault(){
-  if(!vaultUser)return;
-  const btn=document.getElementById('vsave-btn');
-  btn.disabled=true;btn.textContent='Saving...';
-  try{
-    const{ok}=await sb(`vaults?username=eq.${encodeURIComponent(vaultUser)}`,{method:'PATCH',body:JSON.stringify({inventory:inv,updated_at:new Date().toISOString()})});
-    if(!ok){toast('Save failed. Try again.','error');return;}
-    dirty=false;document.getElementById('vbar-status').textContent='Saved just now';
-    toast('Vault saved!','success');
-  }catch{toast('Connection error.','error');}
-  finally{btn.disabled=false;btn.textContent='Save vault';}
+async function saveVault() {
+  if (!vaultUser) return;
+  const btn = document.getElementById('vsave-btn');
+  btn.disabled = true; btn.textContent = 'Saving...';
+  try {
+    const { ok } = await sb(`vaults?username=eq.${encodeURIComponent(vaultUser)}`, { method: 'PATCH', body: JSON.stringify({ inventory: vault, updated_at: new Date().toISOString() }) });
+    if (!ok) { toast('Save failed. Try again.', 'error'); return; }
+    dirty = false;
+    document.getElementById('vbar-status').textContent = 'Saved just now';
+    document.getElementById('vbar-page-status').textContent = 'Saved just now';
+    toast('Vault saved!', 'success');
+  } catch { toast('Connection error.', 'error'); }
+  finally { btn.disabled = false; btn.textContent = 'Save vault'; }
 }
 
-function logoutVault(){
-  if(dirty&&!confirm('You have unsaved changes. Sign out anyway?'))return;
-  vaultUser=null;inv={};dirty=false;
+function logoutVault() {
+  if (dirty && !confirm('You have unsaved changes. Sign out anyway?')) return;
+  vaultUser = null; vault = {}; payment = {}; dirty = false;
+
   document.getElementById('v-dot').classList.remove('on');
-  document.getElementById('v-label').textContent='Sign into vault';
+  document.getElementById('v-label').textContent = 'Sign into vault';
   document.getElementById('vault-btn').classList.remove('logged-in');
-  document.getElementById('vbar-panel').style.display='none';
-  render_grid(document.getElementById('item-search')?.value||'',catFilter);
-  wallet_update();toast('Signed out.','');
+  document.getElementById('vbar-panel').style.display = 'none';
+  document.getElementById('vault-page-bar').style.display = 'none';
+  document.getElementById('vault-not-signed-in').style.display = '';
+  document.getElementById('vault-content-panel').style.display = 'none';
+
+  render_mc_grid();
+  render_vault_mc_grid();
+  wallet_update();
+  toast('Signed out.', '');
 }
 
-/* TOAST */
+// =============================================
+// TOAST
+// =============================================
 let tt;
-function toast(msg,type=''){
-  const el=document.getElementById('toast');
-  el.textContent=msg;el.className=`toast${type?' '+type:''} show`;
-  clearTimeout(tt);tt=setTimeout(()=>el.classList.remove('show'),3000);
+function toast(msg, type = '') {
+  const el = document.getElementById('toast');
+  el.textContent = msg; el.className = `toast${type?' '+type:''} show`;
+  clearTimeout(tt); tt = setTimeout(() => el.classList.remove('show'), 3000);
 }
 
-/* DATA */
-async function load(){
-  try{
-    const[ir,sr]=await Promise.all([fetch('./data/items.json'),fetch('./data/services.json')]);
-    items=await ir.json();services=await sr.json();
-    document.getElementById('item-count').textContent=`${items.items.length} items`;
-    build_cat_filters();render_grid();render_lib();render_enchants();render_svcs();render_ref();
-  }catch(e){
-    document.getElementById('item-grid').innerHTML='<div class="empty-state" style="grid-column:1/-1;color:var(--red)">Failed to load data — run from a server, not file://</div>';
+// =============================================
+// DATA LOAD
+// =============================================
+async function load() {
+  try {
+    const [ir, sr] = await Promise.all([fetch('./data/items.json'), fetch('./data/services.json')]);
+    items = await ir.json(); services = await sr.json();
+    document.getElementById('item-count').textContent = `${items.items.length} items`;
+    build_mc_tabs();
+    build_vault_mc_tabs();
+    render_mc_grid();
+    render_vault_mc_grid();
+    render_lib();
+    render_enchants();
+    render_svcs();
+    render_ref();
+
+    // Show vault not-signed-in state by default
+    document.getElementById('vault-not-signed-in').style.display = '';
+    document.getElementById('vault-content-panel').style.display = 'none';
+  } catch (e) {
+    document.getElementById('mc-grid').innerHTML = '<div style="color:var(--red);padding:16px;font-size:12px;grid-column:1/-1">Failed to load data — run from a server, not file://</div>';
   }
 }
 
-/* NAV */
-document.querySelectorAll('.nav-item[data-page]').forEach(item=>{
-  item.addEventListener('click',()=>{
-    document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-    document.querySelectorAll('.page-section').forEach(p=>p.classList.remove('active'));
+// =============================================
+// CUSTOM SERVICES FROM LOCAL STORAGE
+// =============================================
+try {
+  const saved = localStorage.getItem('ichor_custom_services');
+  if (saved) customServices = JSON.parse(saved);
+} catch {}
+
+// =============================================
+// NAV
+// =============================================
+document.querySelectorAll('.nav-item[data-page]').forEach(item => {
+  item.addEventListener('click', () => {
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active'));
     item.classList.add('active');
-    document.getElementById('page-'+item.dataset.page).classList.add('active');
+    document.getElementById('page-' + item.dataset.page).classList.add('active');
   });
 });
 
-document.getElementById('lib-tabs').addEventListener('click',e=>{
-  const tab=e.target.closest('.tab');if(!tab)return;
-  document.querySelectorAll('#lib-tabs .tab').forEach(t=>t.classList.remove('active'));
+document.getElementById('lib-tabs').addEventListener('click', e => {
+  const tab = e.target.closest('.tab'); if (!tab) return;
+  document.querySelectorAll('#lib-tabs .tab').forEach(t => t.classList.remove('active'));
   tab.classList.add('active');
-  document.getElementById('lib-items').classList.toggle('hidden',tab.dataset.tab!=='items');
-  document.getElementById('lib-enchants').classList.toggle('hidden',tab.dataset.tab!=='enchants');
+  document.getElementById('lib-items').classList.toggle('hidden', tab.dataset.tab !== 'items');
+  document.getElementById('lib-enchants').classList.toggle('hidden', tab.dataset.tab !== 'enchants');
 });
 
-document.getElementById('lib-search').addEventListener('input',e=>{render_lib(e.target.value);render_enchants(e.target.value);});
-document.getElementById('svc-search').addEventListener('input',e=>render_svcs(e.target.value));
-document.getElementById('clear-inv').addEventListener('click',()=>{inv={};render_grid(document.getElementById('item-search')?.value||'',catFilter);wallet_update();dirty_mark();});
+document.getElementById('lib-search').addEventListener('input', e => { render_lib(e.target.value); render_enchants(e.target.value); });
+document.getElementById('svc-search').addEventListener('input', e => render_svcs(e.target.value));
+document.getElementById('mc-search').addEventListener('input', () => render_mc_grid());
+document.getElementById('vault-mc-search').addEventListener('input', () => render_vault_mc_grid());
+document.getElementById('clear-inv').addEventListener('click', () => { payment = {}; mcSelectedId = null; render_mc_grid(); wallet_update(); });
 
-window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.returnValue='';}});
+window.addEventListener('beforeunload', e => { if (dirty) { e.preventDefault(); e.returnValue = ''; } });
 
 load();
 </script>
