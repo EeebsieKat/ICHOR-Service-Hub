@@ -1,0 +1,178 @@
+{
+  "_meta": {
+    "version": "1.0.0",
+    "note": "Costs are in tainted. 9 tainted = 1 blemished. 81 tainted = 1 pure."
+  },
+  "services": [
+    {
+      "id": "origin_simple",
+      "name": "Simple Origin",
+      "category": "Origins",
+      "description": "2–3 powers, no resource bars or complex conditions.",
+      "cost_min_tainted": 4,
+      "cost_max_tainted": 6,
+      "turnaround": "Under 1 hr",
+      "tags": ["origins", "simple"]
+    },
+    {
+      "id": "origin_medium",
+      "name": "Medium Origin",
+      "category": "Origins",
+      "description": "4–6 powers, may include resource bars, cooldowns, or layered conditions.",
+      "cost_min_tainted": 9,
+      "cost_max_tainted": 9,
+      "turnaround": "1–2 hrs",
+      "tags": ["origins", "medium"],
+      "popular": true
+    },
+    {
+      "id": "origin_complex",
+      "name": "Complex Origin",
+      "category": "Origins",
+      "description": "7+ powers, custom resource bars, chained conditions, Apoli/Apugli tricks.",
+      "cost_min_tainted": 12,
+      "cost_max_tainted": 14,
+      "turnaround": "2–4 hrs",
+      "tags": ["origins", "complex"]
+    },
+    {
+      "id": "origin_tweak_minor",
+      "name": "Minor Origin Tweak",
+      "category": "Origin Edits",
+      "description": "Value changes, cooldown adjustments, small condition edits on an existing origin.",
+      "cost_min_tainted": 1,
+      "cost_max_tainted": 2,
+      "turnaround": "Under 30 min",
+      "tags": ["origins", "edit", "tweak"]
+    },
+    {
+      "id": "origin_tweak_power",
+      "name": "Power Swap / Rework",
+      "category": "Origin Edits",
+      "description": "Replacing or significantly altering 1–2 powers on an existing origin.",
+      "cost_min_tainted": 3,
+      "cost_max_tainted": 5,
+      "turnaround": "Under 1 hr",
+      "tags": ["origins", "edit", "rework"]
+    },
+    {
+      "id": "origin_tweak_major",
+      "name": "Major Origin Overhaul",
+      "category": "Origin Edits",
+      "description": "Rebuilding most of an existing origin while keeping its theme.",
+      "cost_min_tainted": 6,
+      "cost_max_tainted": 8,
+      "turnaround": "1–2 hrs",
+      "tags": ["origins", "edit", "overhaul"]
+    },
+    {
+      "id": "figura_accessory",
+      "name": "Figura Accessory / Overlay",
+      "category": "Figura",
+      "description": "Hats, tails, wings, horns — small add-ons over the default player model.",
+      "cost_min_tainted": 3,
+      "cost_max_tainted": 5,
+      "turnaround": "1–2 hrs",
+      "tags": ["figura", "cosmetic", "accessory"]
+    },
+    {
+      "id": "figura_full_model",
+      "name": "Full Custom Figura Model",
+      "category": "Figura",
+      "description": "Complete player model replacement. Price scales with detail and part count.",
+      "cost_min_tainted": 11,
+      "cost_max_tainted": 13,
+      "turnaround": "2–3 hrs",
+      "tags": ["figura", "model"],
+      "popular": true
+    },
+    {
+      "id": "figura_scripted",
+      "name": "Model + Lua Scripting",
+      "category": "Figura",
+      "description": "Custom behaviors, emotes, action wheel integrations. Quote required first.",
+      "cost_min_tainted": 18,
+      "cost_max_tainted": 999,
+      "turnaround": "Varies",
+      "quote_required": true,
+      "tags": ["figura", "model", "scripting", "advanced"]
+    },
+    {
+      "id": "item_retexture",
+      "name": "Cosmetic Item Retexture",
+      "category": "Custom Items",
+      "description": "Custom texture on an existing item. No new mechanics.",
+      "cost_min_tainted": 2,
+      "cost_max_tainted": 3,
+      "turnaround": "Under 1 hr",
+      "tags": ["items", "cosmetic", "retexture"]
+    },
+    {
+      "id": "item_functional",
+      "name": "Functional Custom Item",
+      "category": "Custom Items",
+      "description": "Custom recipe, NBT behavior, or stat modification via datapack + resource pack.",
+      "cost_min_tainted": 5,
+      "cost_max_tainted": 8,
+      "turnaround": "1–2 hrs",
+      "tags": ["items", "functional", "datapack"]
+    },
+    {
+      "id": "item_complex_set",
+      "name": "Complex Item Set",
+      "category": "Custom Items",
+      "description": "Multiple interconnected items, loot tables, advancement triggers, etc.",
+      "cost_min_tainted": 9,
+      "cost_max_tainted": 999,
+      "turnaround": "Varies",
+      "quote_required": true,
+      "tags": ["items", "complex", "set"]
+    },
+    {
+      "id": "bundle_starter",
+      "name": "Character Starter Bundle",
+      "category": "Bundles",
+      "description": "Simple origin + Figura accessory overlay. Great for a new character.",
+      "cost_min_tainted": 18,
+      "cost_max_tainted": 18,
+      "turnaround": "~2 hrs",
+      "tags": ["bundle", "origins", "figura"],
+      "savings_note": "~20% off"
+    },
+    {
+      "id": "bundle_full",
+      "name": "Full Character Bundle",
+      "category": "Bundles",
+      "description": "Medium origin + full custom Figura model. The complete experience.",
+      "cost_min_tainted": 27,
+      "cost_max_tainted": 27,
+      "turnaround": "~3–4 hrs",
+      "tags": ["bundle", "origins", "figura"],
+      "savings_note": "~15% off",
+      "popular": true
+    },
+    {
+      "id": "bundle_premium",
+      "name": "Premium Character Bundle",
+      "category": "Bundles",
+      "description": "Complex origin + full model + custom item. Everything, all at once.",
+      "cost_min_tainted": 36,
+      "cost_max_tainted": 999,
+      "turnaround": "Varies",
+      "quote_required": true,
+      "tags": ["bundle", "origins", "figura", "items"],
+      "savings_note": "~15% off"
+    },
+    {
+      "id": "mod_commission",
+      "name": "Mod Commission",
+      "category": "Mods",
+      "description": "Custom mod work. Requires detailed brief. Can take weeks to months.",
+      "cost_min_tainted": 81,
+      "cost_max_tainted": 9999,
+      "turnaround": "1 week – several months",
+      "quote_required": true,
+      "tags": ["mod", "advanced", "expensive"]
+    }
+  ]
+}

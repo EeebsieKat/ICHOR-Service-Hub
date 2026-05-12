@@ -1,0 +1,498 @@
+{
+  "_meta": {
+    "version": "1.0.0",
+    "currency": {
+      "tainted_per_blemished": 9,
+      "blemished_per_pure": 9,
+      "diamonds_per_tainted": 3
+    },
+    "rarities": {
+      "common":    { "label": "Common",    "color": "#7aab6e" },
+      "uncommon":  { "label": "Uncommon",  "color": "#6eaabf" },
+      "rare":      { "label": "Rare",      "color": "#8b7fc7" },
+      "epic":      { "label": "Epic",      "color": "#c97eab" },
+      "unique":    { "label": "Unique",    "color": "#d4793a" },
+      "legendary": { "label": "Legendary", "color": "#d4af37" }
+    }
+  },
+  "categories": [
+    "Resources",
+    "Food & Consumables",
+    "Tools & Weapons",
+    "Armor",
+    "Mob Drops",
+    "Valuables",
+    "Modded",
+    "Utility",
+    "Enchanted Books"
+  ],
+  "items": [
+    {
+      "id": "diamond",
+      "name": "Diamond",
+      "category": "Valuables",
+      "rarity": "uncommon",
+      "value_tainted": 0.33,
+      "note": "1 diamond = 1/3 tainted",
+      "stackable": true,
+      "stack_size": 64
+    },
+    {
+      "id": "netherite_ingot",
+      "name": "Netherite Ingot",
+      "category": "Valuables",
+      "rarity": "rare",
+      "value_tainted": 3,
+      "stackable": true,
+      "stack_size": 64
+    },
+    {
+      "id": "netherite_scrap",
+      "name": "Netherite Scrap",
+      "category": "Valuables",
+      "rarity": "uncommon",
+      "value_tainted": 0.75,
+      "stackable": true,
+      "stack_size": 64
+    },
+    {
+      "id": "emerald",
+      "name": "Emerald",
+      "category": "Valuables",
+      "rarity": "uncommon",
+      "value_tainted": 0.2,
+      "stackable": true,
+      "stack_size": 64
+    },
+    {
+      "id": "ancient_debris",
+      "name": "Ancient Debris",
+      "category": "Valuables",
+      "rarity": "rare",
+      "value_tainted": 2,
+      "stackable": true,
+      "stack_size": 64
+    },
+    {
+      "id": "shulker_box",
+      "name": "Shulker Box (empty)",
+      "category": "Utility",
+      "rarity": "uncommon",
+      "value_tainted": 1,
+      "stackable": false
+    },
+    {
+      "id": "shulker_diamonds",
+      "name": "Shulker Box of Diamonds",
+      "category": "Valuables",
+      "rarity": "rare",
+      "value_tainted": 21,
+      "note": "64 diamonds = ~21 tainted",
+      "stackable": false
+    },
+    {
+      "id": "shulker_iron",
+      "name": "Shulker Box of Iron Ingots",
+      "category": "Resources",
+      "rarity": "common",
+      "value_tainted": 1.5,
+      "stackable": false
+    },
+    {
+      "id": "iron_ingot",
+      "name": "Iron Ingot",
+      "category": "Resources",
+      "rarity": "common",
+      "value_tainted": 0.02,
+      "stackable": true,
+      "stack_size": 64
+    },
+    {
+      "id": "gold_ingot",
+      "name": "Gold Ingot",
+      "category": "Resources",
+      "rarity": "common",
+      "value_tainted": 0.08,
+      "stackable": true,
+      "stack_size": 64
+    },
+    {
+      "id": "copper_ingot",
+      "name": "Copper Ingot",
+      "category": "Resources",
+      "rarity": "common",
+      "value_tainted": 0.01,
+      "stackable": true,
+      "stack_size": 64
+    },
+    {
+      "id": "lapis_lazuli",
+      "name": "Lapis Lazuli",
+      "category": "Resources",
+      "rarity": "common",
+      "value_tainted": 0.05,
+      "stackable": true,
+      "stack_size": 64
+    },
+    {
+      "id": "redstone",
+      "name": "Redstone Dust",
+      "category": "Resources",
+      "rarity": "common",
+      "value_tainted": 0.03,
+      "stackable": true,
+      "stack_size": 64
+    },
+    {
+      "id": "ender_pearl",
+      "name": "Ender Pearl",
+      "category": "Mob Drops",
+      "rarity": "uncommon",
+      "value_tainted": 0.15,
+      "stackable": true,
+      "stack_size": 16
+    },
+    {
+      "id": "blaze_rod",
+      "name": "Blaze Rod",
+      "category": "Mob Drops",
+      "rarity": "uncommon",
+      "value_tainted": 0.12,
+      "stackable": true,
+      "stack_size": 64
+    },
+    {
+      "id": "ghast_tear",
+      "name": "Ghast Tear",
+      "category": "Mob Drops",
+      "rarity": "uncommon",
+      "value_tainted": 0.25,
+      "stackable": true,
+      "stack_size": 64
+    },
+    {
+      "id": "wither_skull",
+      "name": "Wither Skull",
+      "category": "Mob Drops",
+      "rarity": "rare",
+      "value_tainted": 4,
+      "stackable": true,
+      "stack_size": 64
+    },
+    {
+      "id": "totem_of_undying",
+      "name": "Totem of Undying",
+      "category": "Mob Drops",
+      "rarity": "rare",
+      "value_tainted": 3.5,
+      "stackable": false
+    },
+    {
+      "id": "enchanted_golden_apple",
+      "name": "Enchanted Golden Apple",
+      "category": "Food & Consumables",
+      "rarity": "epic",
+      "value_tainted": 2,
+      "stackable": true,
+      "stack_size": 64
+    },
+    {
+      "id": "golden_apple",
+      "name": "Golden Apple",
+      "category": "Food & Consumables",
+      "rarity": "uncommon",
+      "value_tainted": 0.3,
+      "stackable": true,
+      "stack_size": 64
+    },
+    {
+      "id": "beacon",
+      "name": "Beacon",
+      "category": "Utility",
+      "rarity": "epic",
+      "value_tainted": 6,
+      "stackable": false
+    },
+    {
+      "id": "elytra",
+      "name": "Elytra",
+      "category": "Armor",
+      "rarity": "epic",
+      "value_tainted": 8,
+      "stackable": false
+    },
+    {
+      "id": "trident",
+      "name": "Trident",
+      "category": "Tools & Weapons",
+      "rarity": "rare",
+      "value_tainted": 4,
+      "stackable": false
+    },
+    {
+      "id": "netherite_sword",
+      "name": "Netherite Sword",
+      "category": "Tools & Weapons",
+      "rarity": "rare",
+      "value_tainted": 5,
+      "stackable": false
+    },
+    {
+      "id": "netherite_pickaxe",
+      "name": "Netherite Pickaxe",
+      "category": "Tools & Weapons",
+      "rarity": "rare",
+      "value_tainted": 5,
+      "stackable": false
+    },
+    {
+      "id": "diamond_sword",
+      "name": "Diamond Sword",
+      "category": "Tools & Weapons",
+      "rarity": "uncommon",
+      "value_tainted": 1.5,
+      "stackable": false
+    },
+    {
+      "id": "diamond_pickaxe",
+      "name": "Diamond Pickaxe",
+      "category": "Tools & Weapons",
+      "rarity": "uncommon",
+      "value_tainted": 1.5,
+      "stackable": false
+    },
+    {
+      "id": "netherite_chestplate",
+      "name": "Netherite Chestplate",
+      "category": "Armor",
+      "rarity": "rare",
+      "value_tainted": 4,
+      "stackable": false
+    },
+    {
+      "id": "netherite_helmet",
+      "name": "Netherite Helmet",
+      "category": "Armor",
+      "rarity": "rare",
+      "value_tainted": 3,
+      "stackable": false
+    },
+    {
+      "id": "netherite_leggings",
+      "name": "Netherite Leggings",
+      "category": "Armor",
+      "rarity": "rare",
+      "value_tainted": 3.5,
+      "stackable": false
+    },
+    {
+      "id": "netherite_boots",
+      "name": "Netherite Boots",
+      "category": "Armor",
+      "rarity": "rare",
+      "value_tainted": 2.5,
+      "stackable": false
+    },
+    {
+      "id": "diamond_chestplate",
+      "name": "Diamond Chestplate",
+      "category": "Armor",
+      "rarity": "uncommon",
+      "value_tainted": 1.5,
+      "stackable": false
+    },
+    {
+      "id": "obsidian",
+      "name": "Obsidian",
+      "category": "Resources",
+      "rarity": "common",
+      "value_tainted": 0.04,
+      "stackable": true,
+      "stack_size": 64
+    },
+    {
+      "id": "crying_obsidian",
+      "name": "Crying Obsidian",
+      "category": "Resources",
+      "rarity": "uncommon",
+      "value_tainted": 0.1,
+      "stackable": true,
+      "stack_size": 64
+    },
+    {
+      "id": "nether_star",
+      "name": "Nether Star",
+      "category": "Mob Drops",
+      "rarity": "epic",
+      "value_tainted": 7,
+      "stackable": true,
+      "stack_size": 64
+    },
+    {
+      "id": "dragon_egg",
+      "name": "Dragon Egg",
+      "category": "Valuables",
+      "rarity": "legendary",
+      "value_tainted": 81,
+      "note": "= 1 pure",
+      "stackable": false
+    },
+    {
+      "id": "heart_of_the_sea",
+      "name": "Heart of the Sea",
+      "category": "Valuables",
+      "rarity": "rare",
+      "value_tainted": 3,
+      "stackable": true,
+      "stack_size": 64
+    },
+    {
+      "id": "nautilus_shell",
+      "name": "Nautilus Shell",
+      "category": "Mob Drops",
+      "rarity": "uncommon",
+      "value_tainted": 0.5,
+      "stackable": true,
+      "stack_size": 64
+    },
+    {
+      "id": "amethyst_shard",
+      "name": "Amethyst Shard",
+      "category": "Resources",
+      "rarity": "common",
+      "value_tainted": 0.05,
+      "stackable": true,
+      "stack_size": 64
+    },
+    {
+      "id": "echo_shard",
+      "name": "Echo Shard",
+      "category": "Valuables",
+      "rarity": "rare",
+      "value_tainted": 2,
+      "stackable": true,
+      "stack_size": 64
+    },
+    {
+      "id": "crystal_heart",
+      "name": "Crystal Heart",
+      "category": "Modded",
+      "rarity": "legendary",
+      "value_tainted": 13,
+      "note": "Server-unique item. +10 max HP. ~1 blemished + 4-6 tainted.",
+      "stackable": false
+    },
+    {
+      "id": "netherite_greatsword",
+      "name": "Netherite Greatsword (Simply Swords)",
+      "category": "Modded",
+      "rarity": "rare",
+      "value_tainted": 6,
+      "note": "Craftable Simply Swords weapon.",
+      "stackable": false
+    },
+    {
+      "id": "spectrum_gem",
+      "name": "Spectrum Gem",
+      "category": "Modded",
+      "rarity": "rare",
+      "value_tainted": 3,
+      "note": "Spectrum mod.",
+      "stackable": true,
+      "stack_size": 64
+    },
+    {
+      "id": "wayfarer_stone",
+      "name": "Waystone",
+      "category": "Modded",
+      "rarity": "uncommon",
+      "value_tainted": 1.5,
+      "note": "Waystones mod.",
+      "stackable": false
+    },
+    {
+      "id": "trinket_slot",
+      "name": "Rare Trinket",
+      "category": "Modded",
+      "rarity": "rare",
+      "value_tainted": 4,
+      "note": "Trinkets mod. Value varies — this is a baseline.",
+      "stackable": false
+    },
+    {
+      "id": "potion_lingering",
+      "name": "Lingering Potion (strong)",
+      "category": "Food & Consumables",
+      "rarity": "uncommon",
+      "value_tainted": 0.5,
+      "stackable": true,
+      "stack_size": 4
+    },
+    {
+      "id": "experience_bottle",
+      "name": "Bottle o' Enchanting",
+      "category": "Utility",
+      "rarity": "common",
+      "value_tainted": 0.1,
+      "stackable": true,
+      "stack_size": 64
+    },
+    {
+      "id": "name_tag",
+      "name": "Name Tag",
+      "category": "Utility",
+      "rarity": "uncommon",
+      "value_tainted": 0.75,
+      "stackable": true,
+      "stack_size": 64
+    },
+    {
+      "id": "saddle",
+      "name": "Saddle",
+      "category": "Utility",
+      "rarity": "common",
+      "value_tainted": 0.3,
+      "stackable": false
+    },
+    {
+      "id": "music_disc_pigstep",
+      "name": "Music Disc (Pigstep)",
+      "category": "Valuables",
+      "rarity": "epic",
+      "value_tainted": 5,
+      "stackable": false
+    }
+  ],
+  "enchants": [
+    { "id": "sharpness_v",      "name": "Sharpness V",         "category": "Weapon",  "rarity": "uncommon", "value_tainted": 1.5, "book_bonus": 0.5 },
+    { "id": "smite_v",         "name": "Smite V",              "category": "Weapon",  "rarity": "common",   "value_tainted": 0.8, "book_bonus": 0.3 },
+    { "id": "looting_iii",     "name": "Looting III",          "category": "Weapon",  "rarity": "uncommon", "value_tainted": 1.5, "book_bonus": 0.5 },
+    { "id": "sweeping_iii",    "name": "Sweeping Edge III",    "category": "Weapon",  "rarity": "common",   "value_tainted": 0.5, "book_bonus": 0.2 },
+    { "id": "fire_aspect_ii",  "name": "Fire Aspect II",       "category": "Weapon",  "rarity": "common",   "value_tainted": 0.5, "book_bonus": 0.2 },
+    { "id": "knockback_ii",    "name": "Knockback II",         "category": "Weapon",  "rarity": "common",   "value_tainted": 0.3, "book_bonus": 0.1 },
+    { "id": "power_v",         "name": "Power V",              "category": "Ranged",  "rarity": "uncommon", "value_tainted": 1.2, "book_bonus": 0.4 },
+    { "id": "infinity",        "name": "Infinity",             "category": "Ranged",  "rarity": "rare",     "value_tainted": 3,   "book_bonus": 1   },
+    { "id": "flame",           "name": "Flame",                "category": "Ranged",  "rarity": "common",   "value_tainted": 0.5, "book_bonus": 0.2 },
+    { "id": "punch_ii",        "name": "Punch II",             "category": "Ranged",  "rarity": "common",   "value_tainted": 0.4, "book_bonus": 0.1 },
+    { "id": "protection_iv",   "name": "Protection IV",        "category": "Armor",   "rarity": "uncommon", "value_tainted": 1.5, "book_bonus": 0.5 },
+    { "id": "prot_blast_iv",   "name": "Blast Protection IV",  "category": "Armor",   "rarity": "uncommon", "value_tainted": 1.2, "book_bonus": 0.4 },
+    { "id": "prot_fire_iv",    "name": "Fire Protection IV",   "category": "Armor",   "rarity": "uncommon", "value_tainted": 1,   "book_bonus": 0.3 },
+    { "id": "prot_proj_iv",    "name": "Projectile Protection IV","category":"Armor",  "rarity": "common",   "value_tainted": 0.8, "book_bonus": 0.3 },
+    { "id": "thorns_iii",      "name": "Thorns III",           "category": "Armor",   "rarity": "rare",     "value_tainted": 2,   "book_bonus": 0.7 },
+    { "id": "unbreaking_iii",  "name": "Unbreaking III",       "category": "General", "rarity": "common",   "value_tainted": 0.8, "book_bonus": 0.3 },
+    { "id": "mending",         "name": "Mending",              "category": "General", "rarity": "epic",     "value_tainted": 5,   "book_bonus": 2   },
+    { "id": "efficiency_v",    "name": "Efficiency V",         "category": "Tool",    "rarity": "uncommon", "value_tainted": 1,   "book_bonus": 0.3 },
+    { "id": "fortune_iii",     "name": "Fortune III",          "category": "Tool",    "rarity": "rare",     "value_tainted": 3,   "book_bonus": 1   },
+    { "id": "silk_touch",      "name": "Silk Touch",           "category": "Tool",    "rarity": "rare",     "value_tainted": 3,   "book_bonus": 1   },
+    { "id": "aqua_affinity",   "name": "Aqua Affinity",        "category": "Armor",   "rarity": "common",   "value_tainted": 0.5, "book_bonus": 0.2 },
+    { "id": "respiration_iii", "name": "Respiration III",      "category": "Armor",   "rarity": "uncommon", "value_tainted": 1,   "book_bonus": 0.3 },
+    { "id": "feather_falling_iv","name":"Feather Falling IV",  "category": "Armor",   "rarity": "uncommon", "value_tainted": 1.5, "book_bonus": 0.5 },
+    { "id": "depth_strider_iii","name":"Depth Strider III",    "category": "Armor",   "rarity": "uncommon", "value_tainted": 1.2, "book_bonus": 0.4 },
+    { "id": "soul_speed_iii",  "name": "Soul Speed III",       "category": "Armor",   "rarity": "rare",     "value_tainted": 2,   "book_bonus": 0.7 },
+    { "id": "swift_sneak_iii", "name": "Swift Sneak III",      "category": "Armor",   "rarity": "epic",     "value_tainted": 4,   "book_bonus": 1.5 },
+    { "id": "riptide_iii",     "name": "Riptide III",          "category": "Ranged",  "rarity": "rare",     "value_tainted": 2,   "book_bonus": 0.7 },
+    { "id": "channeling",      "name": "Channeling",           "category": "Ranged",  "rarity": "rare",     "value_tainted": 2,   "book_bonus": 0.7 },
+    { "id": "loyalty_iii",     "name": "Loyalty III",          "category": "Ranged",  "rarity": "uncommon", "value_tainted": 1,   "book_bonus": 0.3 },
+    { "id": "multishot",       "name": "Multishot",            "category": "Ranged",  "rarity": "rare",     "value_tainted": 2.5, "book_bonus": 1   }
+  ]
+}
