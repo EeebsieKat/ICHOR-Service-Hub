@@ -1,0 +1,950 @@
+/* =============================================
+   ICHOR SERVICE HUB — Minecraft UI Style
+   ============================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+:root {
+  /* Minecraft palette */
+  --mc-bg:          #1d1f21;
+  --mc-dirt:        #866043;
+  --mc-gui-bg:      #c6c6c6;
+  --mc-gui-dark:    #555555;
+  --mc-gui-light:   #ffffff;
+  --mc-gui-mid:     #8b8b8b;
+  --mc-btn:         #868686;
+  --mc-btn-hover:   #a0a0a0;
+  --mc-shadow:      #373737;
+  --mc-text:        #ffffff;
+  --mc-text-dark:   #3f3f3f;
+  --mc-text-shadow: #202020;
+  --mc-tooltip-bg:  #100010;
+  --mc-tooltip-border: #5000a0;
+  --mc-slot-bg:     #8b8b8b;
+  --mc-slot-dark:   #373737;
+  --mc-slot-light:  #ffffff;
+  --mc-slot-hover:  #ffffff33;
+  --mc-selected:    #ffffff55;
+
+  /* Rarity colors (Minecraft style) */
+  --r-common:    #ffffff;
+  --r-uncommon:  #55ff55;
+  --r-rare:      #5555ff;
+  --r-epic:      #ff55ff;
+  --r-unique:    #ffaa00;
+  --r-legendary: #ffff55;
+
+  /* Piece colors */
+  --tainted:    #a8c8a0;
+  --blemished:  #a0b8d8;
+  --pure:       #ffd700;
+
+  /* Scaling — Minecraft GUI uses 2x pixel scaling */
+  --px: 2px;
+  --font: 'VT323', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font);
+  background: var(--mc-bg);
+  color: var(--mc-text);
+  font-size: 20px;
+  line-height: 1.4;
+  min-height: 100vh;
+  image-rendering: pixelated;
+}
+
+/* Background dirt pattern */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url('../assets/minecraft/textures/gui/options_background.png');
+  background-size: 64px 64px;
+  background-repeat: repeat;
+  opacity: 0.35;
+  z-index: 0;
+  image-rendering: pixelated;
+}
+
+.app {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 210px 1fr;
+  grid-template-rows: auto 1fr;
+  min-height: 100vh;
+}
+
+/* =============================================
+   MC PANEL — the grey inventory-style container
+   ============================================= */
+.mc-panel {
+  background: var(--mc-gui-bg);
+  border-style: solid;
+  border-width: calc(var(--px) * 2);
+  border-color: var(--mc-gui-light) var(--mc-gui-dark) var(--mc-gui-dark) var(--mc-gui-light);
+  box-shadow:
+    inset calc(var(--px) * -1) calc(var(--px) * -1) 0 var(--mc-shadow),
+    inset calc(var(--px) * 1)  calc(var(--px) * 1)  0 var(--mc-gui-light);
+  color: var(--mc-text-dark);
+  image-rendering: pixelated;
+}
+
+.mc-panel-dark {
+  background: #000000aa;
+  border-style: solid;
+  border-width: calc(var(--px) * 2);
+  border-color: #555 #222 #222 #555;
+}
+
+.mc-panel-inset {
+  background: var(--mc-slot-bg);
+  border-style: solid;
+  border-width: calc(var(--px) * 2);
+  border-color: var(--mc-shadow) var(--mc-gui-light) var(--mc-gui-light) var(--mc-shadow);
+  box-shadow: inset calc(var(--px) * 1) calc(var(--px) * 1) 0 #00000055;
+}
+
+/* =============================================
+   TITLE BAR
+   ============================================= */
+.topbar {
+  grid-column: 1 / -1;
+  background: #000000cc;
+  border-bottom: calc(var(--px) * 2) solid #555;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo {
+  font-family: var(--font);
+  font-size: 28px;
+  color: var(--pure);
+  text-shadow: 2px 2px 0 #7a5c00;
+  letter-spacing: 2px;
+  flex-shrink: 0;
+}
+
+.logo span {
+  font-size: 18px;
+  color: var(--mc-gui-mid);
+  text-shadow: 1px 1px 0 #333;
+  margin-left: 8px;
+}
+
+.topbar-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Wallet display */
+.wallet-display {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 16px;
+}
+
+.wallet-piece {
+  background: #00000088;
+  border: calc(var(--px) * 1) solid #444;
+  padding: 2px 8px;
+  font-family: var(--font);
+}
+
+.wallet-piece .val { font-size: 18px; }
+.wallet-piece.tainted { color: var(--tainted); }
+.wallet-piece.blemished { color: var(--blemished); }
+
+/* =============================================
+   MC BUTTON
+   ============================================= */
+.mc-btn {
+  font-family: var(--font);
+  font-size: 18px;
+  color: var(--mc-text);
+  text-shadow: 1px 1px 0 var(--mc-text-shadow);
+  background: var(--mc-btn);
+  border-style: solid;
+  border-width: calc(var(--px) * 2);
+  border-color: var(--mc-gui-light) var(--mc-gui-dark) var(--mc-gui-dark) var(--mc-gui-light);
+  padding: 4px 12px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: filter 0.1s;
+  white-space: nowrap;
+  image-rendering: pixelated;
+}
+
+.mc-btn:hover {
+  background: var(--mc-btn-hover);
+  color: var(--pure);
+  text-shadow: 1px 1px 0 #7a5c00;
+}
+
+.mc-btn:active {
+  border-color: var(--mc-gui-dark) var(--mc-gui-light) var(--mc-gui-light) var(--mc-gui-dark);
+}
+
+.mc-btn.small { font-size: 14px; padding: 2px 8px; }
+.mc-btn.danger:hover { color: #ff5555; text-shadow: 1px 1px 0 #7a0000; }
+
+.mc-btn.vault-btn {
+  background: #1a3a1a;
+  border-color: #55ff55 #1a4a1a #1a4a1a #55ff55;
+  color: #55ff55;
+  text-shadow: 1px 1px 0 #003300;
+}
+.mc-btn.vault-btn:hover { background: #2a5a2a; color: #aaffaa; }
+
+/* =============================================
+   SIDEBAR — Creative tab style
+   ============================================= */
+.sidebar {
+  background: transparent;
+  padding: 8px 0 8px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow-y: auto;
+}
+
+.nav-section-label {
+  font-family: var(--font);
+  font-size: 13px;
+  color: var(--mc-gui-mid);
+  text-shadow: 1px 1px 0 #111;
+  padding: 8px 8px 2px;
+  letter-spacing: 1px;
+}
+
+.nav-item {
+  font-family: var(--font);
+  font-size: 18px;
+  color: var(--mc-text);
+  text-shadow: 1px 1px 0 var(--mc-text-shadow);
+  padding: 4px 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: calc(var(--px) * 2) solid transparent;
+  position: relative;
+  transition: none;
+}
+
+.nav-item:hover {
+  background: #ffffff22;
+  border-color: #ffffff44 #00000044 #00000044 #ffffff44;
+}
+
+.nav-item.active {
+  background: var(--mc-gui-bg);
+  border-color: var(--mc-gui-light) var(--mc-shadow) var(--mc-shadow) var(--mc-gui-light);
+  color: var(--mc-text-dark);
+  text-shadow: none;
+  border-right-color: var(--mc-gui-bg);
+  margin-right: -2px;
+  z-index: 2;
+}
+
+.nav-item .nav-icon {
+  width: 20px;
+  height: 20px;
+  image-rendering: pixelated;
+  flex-shrink: 0;
+}
+
+.sidebar-currency {
+  margin-top: auto;
+  padding: 8px;
+}
+
+.currency-display {
+  background: #00000088;
+  border: calc(var(--px) * 1) solid #444;
+  padding: 6px 8px;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+/* =============================================
+   MAIN CONTENT
+   ============================================= */
+.main {
+  padding: 12px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* =============================================
+   PAGE SECTIONS
+   ============================================= */
+.page-section { display: none; flex-direction: column; gap: 12px; }
+.page-section.active { display: flex; }
+
+/* =============================================
+   INVENTORY PANEL — mimics MC inventory GUI
+   ============================================= */
+.inv-panel {
+  padding: 8px;
+}
+
+.inv-panel-title {
+  font-family: var(--font);
+  font-size: 18px;
+  color: var(--mc-text-dark);
+  text-shadow: 1px 1px 0 #ffffff88;
+  margin-bottom: 6px;
+  padding: 0 2px;
+}
+
+/* =============================================
+   CATEGORY TABS — creative inventory style
+   ============================================= */
+.cat-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  margin-bottom: 4px;
+}
+
+.cat-tab {
+  font-family: var(--font);
+  font-size: 14px;
+  color: var(--mc-gui-mid);
+  text-shadow: 1px 1px 0 #333;
+  background: #7a7a7a;
+  border-style: solid;
+  border-width: calc(var(--px) * 2);
+  border-color: var(--mc-gui-light) var(--mc-gui-dark) var(--mc-gui-dark) var(--mc-gui-light);
+  padding: 2px 8px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: none;
+}
+
+.cat-tab:hover { background: #909090; color: var(--mc-text); text-shadow: 1px 1px 0 #333; }
+.cat-tab.active {
+  background: var(--mc-gui-bg);
+  color: var(--mc-text-dark);
+  text-shadow: none;
+  border-bottom-color: var(--mc-gui-bg);
+  margin-bottom: -2px;
+  z-index: 1;
+  position: relative;
+}
+
+/* =============================================
+   ITEM SLOTS GRID
+   ============================================= */
+.slots-container {
+  padding: 6px;
+}
+
+.search-row {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 8px;
+  align-items: center;
+}
+
+.mc-input {
+  font-family: var(--font);
+  font-size: 18px;
+  color: var(--mc-text);
+  background: #000000bb;
+  border-style: solid;
+  border-width: calc(var(--px) * 2);
+  border-color: var(--mc-shadow) var(--mc-gui-light) var(--mc-gui-light) var(--mc-shadow);
+  padding: 3px 8px;
+  outline: none;
+  flex: 1;
+  caret-color: white;
+}
+
+.mc-input::placeholder { color: #888; }
+.mc-input:focus { background: #000000dd; }
+
+.slots-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 52px);
+  gap: 2px;
+  max-height: 360px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--mc-gui-dark) var(--mc-slot-bg);
+}
+
+/* =============================================
+   ITEM SLOT
+   ============================================= */
+.slot {
+  width: 52px;
+  height: 52px;
+  background: var(--mc-slot-bg);
+  border-style: solid;
+  border-width: calc(var(--px) * 2);
+  border-color: var(--mc-shadow) var(--mc-gui-light) var(--mc-gui-light) var(--mc-shadow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  image-rendering: pixelated;
+  transition: none;
+}
+
+.slot:hover { background: var(--mc-slot-hover); }
+.slot:hover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #ffffff33;
+}
+
+.slot.in-inv {
+  border-color: var(--mc-gui-light) var(--mc-shadow) var(--mc-shadow) var(--mc-gui-light);
+  background: #00000055;
+}
+
+.slot.in-inv::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #ffff0022;
+}
+
+.slot img {
+  width: 36px;
+  height: 36px;
+  image-rendering: pixelated;
+  pointer-events: none;
+  position: relative;
+  z-index: 1;
+}
+
+.slot-qty {
+  position: absolute;
+  bottom: 2px;
+  right: 3px;
+  font-family: var(--font);
+  font-size: 14px;
+  color: white;
+  text-shadow: 1px 1px 0 #000, -1px 1px 0 #000, 1px -1px 0 #000;
+  z-index: 2;
+  pointer-events: none;
+  line-height: 1;
+}
+
+.slot-enchanted::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #5500aa44, #0000ff44, #aa00aa44);
+  animation: enchant-shimmer 3s linear infinite;
+  z-index: 0;
+}
+
+@keyframes enchant-shimmer {
+  0%   { opacity: 0.4; }
+  50%  { opacity: 0.8; }
+  100% { opacity: 0.4; }
+}
+
+/* Rarity glow on slots */
+.slot.r-uncommon  { box-shadow: inset 0 0 6px #55ff5555; }
+.slot.r-rare      { box-shadow: inset 0 0 6px #5555ff55; }
+.slot.r-epic      { box-shadow: inset 0 0 6px #ff55ff55; }
+.slot.r-unique    { box-shadow: inset 0 0 6px #ffaa0055; }
+.slot.r-legendary { box-shadow: inset 0 0 8px #ffff5577; }
+
+/* =============================================
+   TOOLTIP — Minecraft item tooltip
+   ============================================= */
+.mc-tooltip {
+  position: fixed;
+  z-index: 1000;
+  pointer-events: none;
+  display: none;
+  max-width: 260px;
+}
+
+.mc-tooltip.visible { display: block; }
+
+.mc-tooltip-inner {
+  background: var(--mc-tooltip-bg);
+  border: calc(var(--px) * 2) solid var(--mc-tooltip-border);
+  box-shadow:
+    inset 0 0 0 1px #200040,
+    2px 2px 0 #000;
+  padding: 6px 8px;
+  font-family: var(--font);
+}
+
+.tt-name { font-size: 18px; margin-bottom: 3px; }
+.tt-rarity { font-size: 14px; margin-bottom: 4px; font-style: italic; }
+.tt-divider { height: 1px; background: #555; margin: 4px 0; }
+.tt-value { font-size: 16px; color: #aaffaa; }
+.tt-value-sub { font-size: 13px; color: #888; }
+.tt-note { font-size: 13px; color: #aaaaaa; margin-top: 3px; font-style: italic; }
+.tt-enchantable { font-size: 13px; color: #8888ff; margin-top: 3px; }
+.tt-enchants { font-size: 14px; color: #8888ff; margin-top: 3px; }
+
+/* =============================================
+   ITEM DETAIL PANEL (right side when slot clicked)
+   ============================================= */
+.item-detail {
+  min-width: 220px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.detail-slot {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto;
+  background: var(--mc-slot-bg);
+  border-style: solid;
+  border-width: calc(var(--px) * 2);
+  border-color: var(--mc-shadow) var(--mc-gui-light) var(--mc-gui-light) var(--mc-shadow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  image-rendering: pixelated;
+}
+
+.detail-slot img { width: 52px; height: 52px; image-rendering: pixelated; }
+
+.detail-name {
+  font-family: var(--font);
+  font-size: 20px;
+  text-align: center;
+}
+
+.detail-rarity {
+  font-family: var(--font);
+  font-size: 15px;
+  text-align: center;
+  font-style: italic;
+}
+
+.detail-value {
+  font-family: var(--font);
+  font-size: 16px;
+  color: #aaffaa;
+  text-align: center;
+}
+
+.detail-section-title {
+  font-family: var(--font);
+  font-size: 14px;
+  color: var(--mc-gui-mid);
+  border-bottom: 1px solid #aaa;
+  padding-bottom: 2px;
+  margin-bottom: 4px;
+}
+
+.qty-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: center;
+}
+
+.qty-display {
+  font-family: var(--font);
+  font-size: 22px;
+  color: var(--mc-text-dark);
+  min-width: 40px;
+  text-align: center;
+  background: #00000022;
+  border: 1px solid #aaa;
+  padding: 0 6px;
+}
+
+/* Enchant section */
+.enchant-section { display: flex; flex-direction: column; gap: 4px; }
+
+.mc-select {
+  font-family: var(--font);
+  font-size: 16px;
+  color: var(--mc-text);
+  background: #000000bb;
+  border-style: solid;
+  border-width: calc(var(--px) * 2);
+  border-color: var(--mc-shadow) var(--mc-gui-light) var(--mc-gui-light) var(--mc-shadow);
+  padding: 3px 6px;
+  outline: none;
+  width: 100%;
+  cursor: pointer;
+}
+
+.mc-select option { background: #1a1a1a; }
+
+.enchant-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #22006688;
+  border: 1px solid #5555aa;
+  color: #aaaaff;
+  font-family: var(--font);
+  font-size: 13px;
+  padding: 1px 5px;
+  cursor: pointer;
+}
+
+.enchant-tag:hover { background: #44008888; color: #ff8888; border-color: #aa5555; }
+.enchant-tags-row { display: flex; flex-wrap: wrap; gap: 3px; margin-top: 2px; }
+
+/* =============================================
+   INVENTORY LIST (what you're offering)
+   ============================================= */
+.offering-slots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  min-height: 56px;
+  padding: 4px;
+  align-content: flex-start;
+}
+
+.offering-slot {
+  width: 52px;
+  height: 52px;
+  background: var(--mc-slot-bg);
+  border-style: solid;
+  border-width: calc(var(--px) * 2);
+  border-color: var(--mc-shadow) var(--mc-gui-light) var(--mc-gui-light) var(--mc-shadow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  image-rendering: pixelated;
+}
+
+.offering-slot:hover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #ff000033;
+}
+
+.offering-slot img {
+  width: 36px; height: 36px;
+  image-rendering: pixelated;
+  z-index: 1;
+  position: relative;
+}
+
+/* =============================================
+   WALLET SUMMARY
+   ============================================= */
+.wallet-summary {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.wallet-box {
+  flex: 1;
+  min-width: 80px;
+  padding: 6px 10px;
+  text-align: center;
+  font-family: var(--font);
+}
+
+.wallet-box .wb-val { font-size: 26px; line-height: 1; }
+.wallet-box .wb-lbl { font-size: 13px; color: var(--mc-gui-mid); }
+.wallet-box.tainted .wb-val  { color: var(--tainted); text-shadow: 1px 1px 0 #2a4a28; }
+.wallet-box.blemished .wb-val { color: var(--blemished); text-shadow: 1px 1px 0 #1a2a3a; }
+.wallet-box.pure .wb-val     { color: var(--pure); text-shadow: 1px 1px 0 #5a4000; }
+
+/* =============================================
+   SERVICE CARDS
+   ============================================= */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 6px;
+}
+
+.svc-card {
+  padding: 10px 12px;
+  font-family: var(--font);
+  position: relative;
+  color: var(--mc-text-dark);
+}
+
+.svc-cat {
+  font-size: 13px;
+  color: var(--mc-gui-mid);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.svc-name { font-size: 20px; color: var(--mc-text-dark); margin-bottom: 3px; }
+.svc-desc { font-size: 15px; color: #555; margin-bottom: 8px; line-height: 1.3; }
+.svc-price { font-size: 18px; color: #006600; }
+.svc-sub { font-size: 13px; color: #777; margin-top: 1px; }
+
+.svc-badge {
+  position: absolute;
+  top: 6px; right: 6px;
+  font-size: 13px;
+  padding: 1px 6px;
+  background: #000000aa;
+}
+
+.svc-badge.popular { color: #ff55ff; border: 1px solid #aa00aa; }
+.svc-badge.afford  { color: #55ff55; border: 1px solid #00aa00; }
+.svc-badge.quote   { color: #ff5555; border: 1px solid #aa0000; }
+.svc-badge.saving  { color: #ffff55; border: 1px solid #aaaa00; }
+
+.svc-card.can-afford  { background: #c6c6c6; }
+.svc-card.can-afford::before { content: ''; position: absolute; inset: 0; background: #00ff0011; }
+.svc-card.can-afford-max::before { background: #00ff0022; }
+.svc-card.cannot-afford { opacity: 0.55; }
+.svc-card.quote-only { border-style: dashed; }
+
+.afford-bar-wrap {
+  height: 4px;
+  background: var(--mc-shadow);
+  border: 1px solid #555;
+  margin-top: 6px;
+  overflow: hidden;
+}
+
+.afford-bar-fill {
+  height: 100%;
+  background: #55ff55;
+  transition: width 0.4s ease;
+}
+
+/* =============================================
+   VAULT MODAL
+   ============================================= */
+.overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.75);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 500;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.15s ease;
+}
+
+.overlay.open { opacity: 1; pointer-events: all; }
+
+.mc-modal {
+  background: var(--mc-gui-bg);
+  border-style: solid;
+  border-width: calc(var(--px) * 3);
+  border-color: var(--mc-gui-light) var(--mc-gui-dark) var(--mc-gui-dark) var(--mc-gui-light);
+  box-shadow: 4px 4px 0 var(--mc-shadow), inset 1px 1px 0 #fff;
+  padding: 16px;
+  width: 100%;
+  max-width: 380px;
+  color: var(--mc-text-dark);
+}
+
+.mc-modal-title {
+  font-family: var(--font);
+  font-size: 26px;
+  color: var(--mc-text-dark);
+  text-shadow: 1px 1px 0 #ffffff88;
+  margin-bottom: 4px;
+  text-align: center;
+}
+
+.mc-modal-sub {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 12px;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.mc-modal-tabs {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 12px;
+  border-bottom: calc(var(--px) * 2) solid var(--mc-gui-dark);
+}
+
+.mc-modal-tab {
+  font-family: var(--font);
+  font-size: 18px;
+  color: var(--mc-gui-mid);
+  background: #7a7a7a;
+  border-style: solid;
+  border-width: calc(var(--px) * 2);
+  border-color: var(--mc-gui-light) var(--mc-gui-dark) var(--mc-gui-dark) var(--mc-gui-light);
+  padding: 3px 14px;
+  cursor: pointer;
+}
+
+.mc-modal-tab.active {
+  background: var(--mc-gui-bg);
+  color: var(--mc-text-dark);
+  border-bottom-color: var(--mc-gui-bg);
+  margin-bottom: calc(var(--px) * -2);
+}
+
+.modal-field { margin-bottom: 10px; }
+
+.modal-label {
+  font-family: var(--font);
+  font-size: 15px;
+  color: #555;
+  display: block;
+  margin-bottom: 3px;
+}
+
+.modal-error {
+  font-family: var(--font);
+  font-size: 15px;
+  color: #cc0000;
+  min-height: 18px;
+  margin-top: 6px;
+  text-shadow: none;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+/* Vault bar in calculator */
+.vault-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 12px;
+  background: #001a00;
+  border: calc(var(--px) * 2) solid #55ff55;
+  font-family: var(--font);
+  font-size: 16px;
+  flex-wrap: wrap;
+}
+
+.vault-bar-name { color: #55ff55; font-size: 18px; }
+.vault-bar-status { color: #888; font-size: 14px; }
+.vault-bar-acts { margin-left: auto; display: flex; gap: 6px; }
+
+/* =============================================
+   REFERENCE TABLE
+   ============================================= */
+.mc-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font);
+  font-size: 16px;
+  color: var(--mc-text-dark);
+}
+
+.mc-table th {
+  text-align: left;
+  padding: 4px 8px;
+  font-size: 13px;
+  color: #555;
+  border-bottom: calc(var(--px) * 2) solid var(--mc-gui-dark);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.mc-table td { padding: 5px 8px; border-bottom: 1px solid #aaa; }
+.mc-table tr:last-child td { border-bottom: none; }
+.mc-table tr:hover td { background: #00000011; }
+
+/* =============================================
+   TOAST
+   ============================================= */
+.toast {
+  position: fixed;
+  bottom: 20px; right: 20px;
+  background: #000000ee;
+  border: calc(var(--px) * 2) solid #555;
+  font-family: var(--font);
+  font-size: 18px;
+  color: var(--mc-text);
+  padding: 8px 14px;
+  z-index: 1000;
+  transform: translateY(8px);
+  opacity: 0;
+  transition: all 0.2s ease;
+  pointer-events: none;
+  image-rendering: pixelated;
+}
+
+.toast.show { transform: none; opacity: 1; }
+.toast.success { border-color: #55ff55; color: #55ff55; }
+.toast.error   { border-color: #ff5555; color: #ff5555; }
+
+/* =============================================
+   MISC UTIL
+   ============================================= */
+.hidden { display: none !important; }
+.empty-state {
+  font-family: var(--font);
+  font-size: 16px;
+  color: #888;
+  text-align: center;
+  padding: 20px;
+  border: calc(var(--px) * 2) dashed #666;
+}
+
+.loading {
+  display: flex; align-items: center; justify-content: center;
+  padding: 30px; color: #888;
+  font-family: var(--font); font-size: 18px; gap: 10px;
+}
+
+.spinner {
+  width: 16px; height: 16px;
+  border: 3px solid #444;
+  border-top-color: var(--pure);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Rarity text */
+.r-common    { color: var(--r-common); }
+.r-uncommon  { color: var(--r-uncommon); text-shadow: 1px 1px 0 #003300; }
+.r-rare      { color: var(--r-rare);    text-shadow: 1px 1px 0 #000033; }
+.r-epic      { color: var(--r-epic);    text-shadow: 1px 1px 0 #330033; }
+.r-unique    { color: var(--r-unique);  text-shadow: 1px 1px 0 #332200; }
+.r-legendary { color: var(--r-legendary); text-shadow: 1px 1px 0 #333300; }
+
+.piece-t { color: var(--tainted); }
+.piece-b { color: var(--blemished); }
+.piece-p { color: var(--pure); }
+
+@media (max-width: 700px) {
+  .app { grid-template-columns: 1fr; grid-template-rows: auto auto 1fr; }
+  .sidebar { flex-direction: row; flex-wrap: wrap; padding: 4px; overflow-x: auto; }
+  .nav-section-label { display: none; }
+  .sidebar-currency { display: none; }
+  .nav-item { border-right: none; font-size: 14px; padding: 4px 8px; }
+  .nav-item.active { margin-right: 0; border-right: calc(var(--px)*2) solid transparent; }
+  .slots-grid { grid-template-columns: repeat(auto-fill, 52px); }
+}
