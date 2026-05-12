@@ -8,1022 +8,697 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg:         #0e0c0b;
-  --bg2:        #141210;
-  --surface:    #1a1714;
-  --surface2:   #221e1a;
-  --border:     #2e2820;
-  --border2:    #3d3428;
-  --text:       #e8ddd0;
-  --muted:      #7a6e62;
-  --faint:      #3a3028;
-  --accent:     #c9913a;
-  --accent-dim: #6b4e20;
-  --accent-glow:#c9913a22;
-  --purple:     #8b7fc7;
-  --purple-dim: #3d3860;
-  --teal:       #5fa88a;
-  --teal-dim:   #1f3d30;
-  --pink:       #c97eab;
-  --pink-dim:   #4d2640;
-  --red:        #c0463a;
-  --red-dim:    #3d1510;
-  --green:      #7aab6e;
-  --green-dim:  #1f3318;
-  --gold:       #d4af37;
-  --gold-dim:   #4a3d10;
-
-  --r-common:    #7aab6e;
-  --r-uncommon:  #6eaabf;
-  --r-rare:      #8b7fc7;
-  --r-epic:      #c97eab;
-  --r-unique:    #d4793a;
-  --r-legendary: #d4af37;
-
-  --radius: 10px;
-  --radius-sm: 6px;
-  --transition: 0.18s ease;
+  --bg:#0e0c0b; --bg2:#141210; --surface:#1a1714; --surface2:#221e1a;
+  --border:#2e2820; --border2:#3d3428; --text:#e8ddd0; --muted:#7a6e62;
+  --accent:#c9913a; --accent-dim:#6b4e20; --accent-glow:#c9913a22;
+  --purple:#8b7fc7; --purple-dim:#3d3860;
+  --teal:#5fa88a; --teal-dim:#1f3d30;
+  --pink:#c97eab; --pink-dim:#4d2640;
+  --red:#c0463a; --red-dim:#3d1510;
+  --green:#7aab6e; --green-dim:#1f3318;
+  --gold:#d4af37; --gold-dim:#4a3d10;
+  --r-common:#7aab6e; --r-uncommon:#6eaabf; --r-rare:#8b7fc7;
+  --r-epic:#c97eab; --r-unique:#d4793a; --r-legendary:#d4af37;
+  --radius:10px; --radius-sm:6px; --t:0.18s ease;
 }
-
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-body {
-  font-family: 'DM Sans', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  font-size: 14px;
-  line-height: 1.6;
-  min-height: 100vh;
-}
-
-/* Scrollbar */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.6;min-height:100vh}
+::-webkit-scrollbar{width:6px} ::-webkit-scrollbar-track{background:var(--bg)} ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
 
 /* Layout */
-.app { display: grid; grid-template-columns: 220px 1fr; grid-template-rows: 56px 1fr; min-height: 100vh; }
+.app{display:grid;grid-template-columns:220px 1fr;grid-template-rows:56px 1fr;min-height:100vh}
 
-/* Top bar */
-.topbar {
-  grid-column: 1 / -1;
-  background: var(--bg2);
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  padding: 0 1.5rem;
-  gap: 1rem;
-}
-.logo {
-  font-family: 'Cinzel', serif;
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--accent);
-  letter-spacing: 0.12em;
-  flex-shrink: 0;
-}
-.logo span { color: var(--muted); font-weight: 400; font-size: 12px; margin-left: 8px; letter-spacing: 0.05em; }
-.topbar-wallet {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 12px;
-  color: var(--muted);
-}
-.wallet-chip {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 4px 10px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.wallet-chip .val { font-weight: 500; color: var(--text); }
-.wallet-chip .lbl { color: var(--muted); font-size: 11px; }
+/* Topbar */
+.topbar{grid-column:1/-1;background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 1.5rem;gap:1rem}
+.logo{font-family:'Cinzel',serif;font-size:16px;font-weight:600;color:var(--accent);letter-spacing:.12em;flex-shrink:0}
+.logo span{color:var(--muted);font-weight:400;font-size:12px;margin-left:8px;letter-spacing:.05em}
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.wallet-chip{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:4px 10px;display:flex;align-items:center;gap:6px;font-size:12px}
+.wallet-chip .val{font-weight:500;color:var(--text)} .wallet-chip .lbl{color:var(--muted);font-size:11px}
+.vault-btn{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:12px;padding:5px 12px;cursor:pointer;transition:var(--t);display:flex;align-items:center;gap:6px}
+.vault-btn:hover{color:var(--text);border-color:var(--accent-dim)}
+.vault-btn.logged-in{border-color:var(--teal-dim);color:var(--teal)}
+.v-dot{width:7px;height:7px;border-radius:50%;background:var(--muted);flex-shrink:0}
+.v-dot.on{background:var(--teal);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
 
 /* Sidebar */
-.sidebar {
-  background: var(--bg2);
-  border-right: 1px solid var(--border);
-  padding: 1rem 0;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  overflow-y: auto;
-}
-.nav-section { padding: 0.75rem 1rem 0.25rem; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
-.nav-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 7px 1rem;
-  font-size: 13px;
-  color: var(--muted);
-  cursor: pointer;
-  border-left: 2px solid transparent;
-  transition: var(--transition);
-  user-select: none;
-}
-.nav-item:hover { color: var(--text); background: var(--surface); }
-.nav-item.active { color: var(--accent); border-left-color: var(--accent); background: var(--accent-glow); }
-.nav-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.sidebar{background:var(--bg2);border-right:1px solid var(--border);padding:1rem 0;display:flex;flex-direction:column;gap:2px;overflow-y:auto}
+.nav-sec{padding:.75rem 1rem .25rem;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.nav-item{display:flex;align-items:center;gap:10px;padding:7px 1rem;font-size:13px;color:var(--muted);cursor:pointer;border-left:2px solid transparent;transition:var(--t);user-select:none}
+.nav-item:hover{color:var(--text);background:var(--surface)}
+.nav-item.active{color:var(--accent);border-left-color:var(--accent);background:var(--accent-glow)}
+.nav-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.sidebar-curr{padding:.5rem 1rem;font-size:11px;color:var(--muted);line-height:1.8;margin-top:auto}
 
 /* Main */
-.main { overflow-y: auto; padding: 1.5rem; display: flex; flex-direction: column; gap: 1.5rem; }
+.main{overflow-y:auto;padding:1.5rem;display:flex;flex-direction:column;gap:1.5rem}
 
 /* Panels */
-.panel {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  overflow: hidden;
-}
-.panel-header {
-  padding: 1rem 1.25rem;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.panel-title {
-  font-family: 'Cinzel', serif;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--text);
-  letter-spacing: 0.06em;
-}
-.panel-sub { font-size: 12px; color: var(--muted); margin-left: auto; }
-.panel-body { padding: 1.25rem; }
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.ph{padding:1rem 1.25rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.pt{font-family:'Cinzel',serif;font-size:13px;font-weight:500;color:var(--text);letter-spacing:.06em}
+.ps{font-size:12px;color:var(--muted);margin-left:auto}
+.pb{padding:1.25rem}
 
-/* Search & filters */
-.filter-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1rem; }
-.search-input {
-  background: var(--bg);
-  border: 1px solid var(--border2);
-  border-radius: var(--radius-sm);
-  color: var(--text);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 13px;
-  padding: 6px 10px;
-  flex: 1;
-  min-width: 160px;
-  outline: none;
-  transition: var(--transition);
-}
-.search-input::placeholder { color: var(--muted); }
-.search-input:focus { border-color: var(--accent-dim); }
-.filter-btn {
-  background: var(--bg);
-  border: 1px solid var(--border2);
-  border-radius: var(--radius-sm);
-  color: var(--muted);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 12px;
-  padding: 5px 10px;
-  cursor: pointer;
-  transition: var(--transition);
-  white-space: nowrap;
-}
-.filter-btn:hover { border-color: var(--border2); color: var(--text); }
-.filter-btn.active { background: var(--accent-glow); border-color: var(--accent-dim); color: var(--accent); }
+/* Inputs */
+.si{background:var(--bg);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--text);font-family:'DM Sans',sans-serif;font-size:13px;padding:6px 10px;flex:1;min-width:160px;outline:none;transition:var(--t)}
+.si::placeholder{color:var(--muted)} .si:focus{border-color:var(--accent-dim)}
+.fb{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1rem}
+.filter-btn{background:var(--bg);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:12px;padding:5px 10px;cursor:pointer;transition:var(--t);white-space:nowrap}
+.filter-btn:hover{color:var(--text)}
+.filter-btn.active{background:var(--accent-glow);border-color:var(--accent-dim);color:var(--accent)}
 
 /* Item grid */
-.item-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 8px;
-  max-height: 480px;
-  overflow-y: auto;
-  padding-right: 4px;
-}
-.item-card {
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 10px 12px;
-  cursor: pointer;
-  transition: var(--transition);
-  position: relative;
-  user-select: none;
-}
-.item-card:hover { border-color: var(--border2); background: var(--bg2); }
-.item-card.in-inventory { border-color: var(--accent-dim); background: var(--accent-glow); }
-.item-rarity-bar { height: 2px; border-radius: 99px; margin-bottom: 8px; }
-.item-name { font-size: 12px; font-weight: 500; color: var(--text); line-height: 1.3; margin-bottom: 3px; }
-.item-cat { font-size: 10px; color: var(--muted); margin-bottom: 5px; }
-.item-value { font-size: 11px; }
-.item-badge {
-  display: inline-block;
-  font-size: 10px;
-  font-weight: 500;
-  padding: 1px 6px;
-  border-radius: 3px;
-  margin-top: 4px;
-}
-.qty-controls {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-top: 8px;
-}
-.qty-btn {
-  width: 20px; height: 20px;
-  background: var(--surface);
-  border: 1px solid var(--border2);
-  border-radius: 3px;
-  color: var(--text);
-  font-size: 14px;
-  line-height: 1;
-  cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: var(--transition);
-}
-.qty-btn:hover { background: var(--surface2); border-color: var(--accent-dim); color: var(--accent); }
-.qty-display { font-size: 12px; font-weight: 500; color: var(--text); min-width: 20px; text-align: center; }
+.item-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;max-height:480px;overflow-y:auto;padding-right:4px}
+.ic{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;cursor:pointer;transition:var(--t);position:relative;user-select:none}
+.ic:hover{border-color:var(--border2);background:var(--bg2)}
+.ic.in-inv{border-color:var(--accent-dim);background:var(--accent-glow)}
+.irb{height:2px;border-radius:99px;margin-bottom:8px}
+.in{font-size:12px;font-weight:500;color:var(--text);line-height:1.3;margin-bottom:3px}
+.icat{font-size:10px;color:var(--muted);margin-bottom:5px}
+.qty-c{display:flex;align-items:center;gap:6px;margin-top:8px}
+.qty-btn{width:20px;height:20px;background:var(--surface);border:1px solid var(--border2);border-radius:3px;color:var(--text);font-size:14px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:var(--t)}
+.qty-btn:hover{background:var(--surface2);border-color:var(--accent-dim);color:var(--accent)}
+.qty-d{font-size:12px;font-weight:500;color:var(--text);min-width:20px;text-align:center}
+.ep{margin-top:8px;border-top:1px solid var(--border);padding-top:8px}
+.el{font-size:10px;color:var(--muted);margin-bottom:5px}
+.esel{background:var(--bg);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--text);font-family:'DM Sans',sans-serif;font-size:11px;padding:4px 6px;width:100%;outline:none;cursor:pointer}
+.esel option{background:var(--surface)}
+.etags{display:flex;flex-wrap:wrap;gap:3px;margin-top:5px}
+.etag{background:var(--purple-dim);color:var(--purple);font-size:10px;padding:2px 5px;border-radius:3px;cursor:pointer;display:flex;align-items:center;gap:3px}
+.etag:hover{opacity:.7}
 
-/* Enchant picker */
-.enchant-picker {
-  margin-top: 8px;
-  border-top: 1px solid var(--border);
-  padding-top: 8px;
-}
-.enchant-label { font-size: 10px; color: var(--muted); margin-bottom: 5px; }
-.enchant-select {
-  background: var(--bg);
-  border: 1px solid var(--border2);
-  border-radius: var(--radius-sm);
-  color: var(--text);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 11px;
-  padding: 4px 6px;
-  width: 100%;
-  outline: none;
-  cursor: pointer;
-}
-.enchant-select option { background: var(--surface); }
-.enchant-tags { display: flex; flex-wrap: wrap; gap: 3px; margin-top: 5px; }
-.enchant-tag {
-  background: var(--purple-dim);
-  color: var(--purple);
-  font-size: 10px;
-  padding: 2px 5px;
-  border-radius: 3px;
-  cursor: pointer;
-  display: flex; align-items: center; gap: 3px;
-}
-.enchant-tag:hover { opacity: 0.7; }
-
-/* Inventory panel */
-.inventory-list { display: flex; flex-direction: column; gap: 6px; min-height: 60px; }
-.inv-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 8px 10px;
-}
-.inv-rarity { width: 4px; height: 100%; border-radius: 2px; align-self: stretch; flex-shrink: 0; }
-.inv-name { flex: 1; font-size: 12px; font-weight: 500; color: var(--text); }
-.inv-enchants { font-size: 10px; color: var(--purple); }
-.inv-val { font-size: 12px; color: var(--accent); font-weight: 500; white-space: nowrap; }
-.inv-remove { color: var(--muted); cursor: pointer; font-size: 14px; padding: 2px 4px; transition: var(--transition); }
-.inv-remove:hover { color: var(--red); }
-.empty-state { color: var(--muted); font-size: 13px; text-align: center; padding: 1.5rem; border: 1px dashed var(--border); border-radius: var(--radius-sm); }
+/* Inventory list */
+.inv-list{display:flex;flex-direction:column;gap:6px;min-height:60px}
+.inv-row{display:flex;align-items:center;gap:10px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:8px 10px}
+.inv-rb{width:4px;border-radius:2px;align-self:stretch;flex-shrink:0;min-width:4px}
+.inv-n{flex:1;font-size:12px;font-weight:500;color:var(--text)}
+.inv-e{font-size:10px;color:var(--purple)}
+.inv-v{font-size:12px;color:var(--accent);font-weight:500;white-space:nowrap}
+.inv-x{color:var(--muted);cursor:pointer;font-size:14px;padding:2px 4px;transition:var(--t)}
+.inv-x:hover{color:var(--red)}
+.empty-state{color:var(--muted);font-size:13px;text-align:center;padding:1.5rem;border:1px dashed var(--border);border-radius:var(--radius-sm)}
 
 /* Wallet summary */
-.wallet-summary {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  margin-bottom: 1rem;
-}
-.wallet-card {
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 10px 12px;
-  text-align: center;
-}
-.wallet-card .wc-val { font-size: 20px; font-weight: 500; color: var(--text); font-family: 'Cinzel', serif; }
-.wallet-card .wc-lbl { font-size: 10px; color: var(--muted); margin-top: 2px; }
-.wallet-card.highlight { border-color: var(--accent-dim); background: var(--accent-glow); }
-.wallet-card.highlight .wc-val { color: var(--accent); }
+.ws{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:1rem}
+.wc{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;text-align:center}
+.wc .wv{font-size:20px;font-weight:500;color:var(--text);font-family:'Cinzel',serif}
+.wc .wl{font-size:10px;color:var(--muted);margin-top:2px}
+.wc.hl{border-color:var(--accent-dim);background:var(--accent-glow)}
+.wc.hl .wv{color:var(--accent)}
 
 /* Services */
-.services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; }
-.service-card {
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 12px 14px;
-  position: relative;
-  transition: var(--transition);
-}
-.service-card.can-afford { border-color: var(--teal-dim); }
-.service-card.can-afford-max { border-color: var(--teal); box-shadow: 0 0 0 1px var(--teal-dim); }
-.service-card.cannot-afford { opacity: 0.45; }
-.service-card.quote-only { border-style: dashed; }
-.svc-cat { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
-.svc-name { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
-.svc-desc { font-size: 11px; color: var(--muted); margin-bottom: 8px; line-height: 1.4; }
-.svc-price { font-size: 13px; font-weight: 500; color: var(--accent); }
-.svc-price-sub { font-size: 10px; color: var(--muted); margin-top: 1px; }
-.svc-badge {
-  position: absolute;
-  top: 8px; right: 8px;
-  font-size: 10px;
-  font-weight: 500;
-  padding: 2px 7px;
-  border-radius: 3px;
-}
-.badge-popular { background: var(--purple-dim); color: var(--purple); }
-.badge-afford { background: var(--teal-dim); color: var(--teal); }
-.badge-savings { background: var(--gold-dim); color: var(--gold); }
-.badge-quote { background: var(--red-dim); color: #e07060; }
-.afford-bar { height: 3px; border-radius: 99px; background: var(--border); margin-top: 8px; overflow: hidden; }
-.afford-fill { height: 100%; border-radius: 99px; background: var(--teal); transition: width 0.4s ease; }
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px}
+.svc{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;position:relative;transition:var(--t)}
+.svc.ca{border-color:var(--teal-dim)} .svc.ca-max{border-color:var(--teal);box-shadow:0 0 0 1px var(--teal-dim)}
+.svc.no-ca{opacity:.45} .svc.qo{border-style:dashed}
+.sc{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.sn{font-size:13px;font-weight:500;color:var(--text);margin-bottom:4px}
+.sd{font-size:11px;color:var(--muted);margin-bottom:8px;line-height:1.4}
+.sp{font-size:13px;font-weight:500;color:var(--accent)}
+.ss{font-size:10px;color:var(--muted);margin-top:1px}
+.sbadge{position:absolute;top:8px;right:8px;font-size:10px;font-weight:500;padding:2px 7px;border-radius:3px}
+.bp{background:var(--purple-dim);color:var(--purple)} .ba{background:var(--teal-dim);color:var(--teal)}
+.bsav{background:var(--gold-dim);color:var(--gold)} .bq{background:var(--red-dim);color:#e07060}
+.abar{height:3px;border-radius:99px;background:var(--border);margin-top:8px;overflow:hidden}
+.afill{height:100%;border-radius:99px;background:var(--teal);transition:width .4s ease}
 
-/* Reference table */
-.ref-table { width: 100%; border-collapse: collapse; font-size: 12px; }
-.ref-table th { text-align: left; padding: 6px 10px; color: var(--muted); font-weight: 400; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; border-bottom: 1px solid var(--border); }
-.ref-table td { padding: 7px 10px; border-bottom: 1px solid var(--border); color: var(--text); }
-.ref-table tr:last-child td { border-bottom: none; }
-.ref-table tr:hover td { background: var(--surface2); }
+/* Table */
+.rt{width:100%;border-collapse:collapse;font-size:12px}
+.rt th{text-align:left;padding:6px 10px;color:var(--muted);font-weight:400;font-size:10px;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid var(--border)}
+.rt td{padding:7px 10px;border-bottom:1px solid var(--border);color:var(--text)}
+.rt tr:last-child td{border-bottom:none} .rt tr:hover td{background:var(--surface2)}
 
 /* Tabs */
-.tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border); margin-bottom: 1rem; }
-.tab {
-  padding: 8px 14px;
-  font-size: 12px;
-  color: var(--muted);
-  cursor: pointer;
-  border-bottom: 2px solid transparent;
-  margin-bottom: -1px;
-  transition: var(--transition);
-  user-select: none;
-}
-.tab:hover { color: var(--text); }
-.tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+.tabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:1rem}
+.tab{padding:8px 14px;font-size:12px;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:var(--t);user-select:none}
+.tab:hover{color:var(--text)} .tab.active{color:var(--accent);border-bottom-color:var(--accent)}
 
-/* Piece display helpers */
-.piece-tainted { color: #8fa88a; }
-.piece-blemished { color: #8aa8c8; }
-.piece-pure { color: var(--gold); }
+/* Piece colors */
+.pt{color:#8fa88a} .pb{color:#8aa8c8} .pp{color:var(--gold)}
+.r-common{color:var(--r-common)} .r-uncommon{color:var(--r-uncommon)} .r-rare{color:var(--r-rare)}
+.r-epic{color:var(--r-epic)} .r-unique{color:var(--r-unique)} .r-legendary{color:var(--r-legendary)}
 
-/* Rarity text colors */
-.r-common    { color: var(--r-common); }
-.r-uncommon  { color: var(--r-uncommon); }
-.r-rare      { color: var(--r-rare); }
-.r-epic      { color: var(--r-epic); }
-.r-unique    { color: var(--r-unique); }
-.r-legendary { color: var(--r-legendary); }
+/* Util */
+.hidden{display:none!important}
+.loading{display:flex;align-items:center;justify-content:center;padding:3rem;color:var(--muted);font-size:13px;gap:10px}
+.spinner{width:16px;height:16px;border:2px solid var(--border2);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.page-section{display:none;flex-direction:column;gap:1.5rem}
+.page-section.active{display:flex}
 
-/* Utility */
-.hidden { display: none !important; }
-.flex { display: flex; }
-.items-center { align-items: center; }
-.gap-8 { gap: 8px; }
-.ml-auto { margin-left: auto; }
-.divider { height: 1px; background: var(--border); margin: 1rem 0; }
+/* Vault modal */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);display:flex;align-items:center;justify-content:center;z-index:100;opacity:0;pointer-events:none;transition:opacity .2s ease}
+.overlay.open{opacity:1;pointer-events:all}
+.modal{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);padding:1.75rem;width:100%;max-width:360px;transform:translateY(12px);transition:transform .2s ease}
+.overlay.open .modal{transform:none}
+.mt{font-family:'Cinzel',serif;font-size:16px;font-weight:500;color:var(--accent);letter-spacing:.08em;margin-bottom:.25rem}
+.msub{font-size:12px;color:var(--muted);margin-bottom:1.25rem;line-height:1.5}
+.mf{margin-bottom:1rem}
+.ml{font-size:11px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px;display:block}
+.mi{width:100%;background:var(--bg);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;padding:8px 12px;outline:none;transition:var(--t)}
+.mi:focus{border-color:var(--accent-dim)} .mi::placeholder{color:var(--muted)}
+.mact{display:flex;gap:8px;margin-top:1.25rem}
+.btn-p{flex:1;background:var(--accent-dim);border:1px solid var(--accent);border-radius:var(--radius-sm);color:var(--accent);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:8px 16px;cursor:pointer;transition:var(--t)}
+.btn-p:hover{background:var(--accent);color:var(--bg)} .btn-p:disabled{opacity:.4;cursor:not-allowed}
+.btn-s{background:transparent;border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:13px;padding:8px 14px;cursor:pointer;transition:var(--t)}
+.btn-s:hover{color:var(--text)}
+.merr{font-size:12px;color:var(--red);margin-top:8px;min-height:16px}
+.mtabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:1.25rem}
+.mtab{padding:7px 14px;font-size:12px;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:var(--t)}
+.mtab:hover{color:var(--text)} .mtab.active{color:var(--accent);border-bottom-color:var(--accent)}
 
-/* Loading */
-.loading { display: flex; align-items: center; justify-content: center; padding: 3rem; color: var(--muted); font-size: 13px; gap: 10px; }
-.spinner { width: 16px; height: 16px; border: 2px solid var(--border2); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
-@keyframes spin { to { transform: rotate(360deg); } }
+/* Vault bar */
+.vbar{background:var(--teal-dim);border:1px solid var(--teal);border-radius:var(--radius-sm);padding:8px 14px;display:flex;align-items:center;gap:10px;font-size:12px}
+.vbar-name{color:var(--teal);font-weight:500}
+.vbar-status{color:var(--muted);font-size:11px}
+.vbar-acts{margin-left:auto;display:flex;gap:6px}
+.vsave{background:var(--teal-dim);border:1px solid var(--teal);border-radius:var(--radius-sm);color:var(--teal);font-family:'DM Sans',sans-serif;font-size:12px;padding:4px 12px;cursor:pointer;transition:var(--t)}
+.vsave:hover{background:var(--teal);color:var(--bg2)} .vsave:disabled{opacity:.4;cursor:not-allowed}
+.vout{background:transparent;border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:12px;padding:4px 10px;cursor:pointer;transition:var(--t)}
+.vout:hover{color:var(--red);border-color:var(--red-dim)}
 
-/* Page sections */
-.page-section { display: none; flex-direction: column; gap: 1.5rem; }
-.page-section.active { display: flex; }
+/* Toast */
+.toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:10px 16px;font-size:13px;color:var(--text);z-index:200;transform:translateY(8px);opacity:0;transition:all .25s ease;pointer-events:none}
+.toast.show{transform:none;opacity:1}
+.toast.success{border-color:var(--teal-dim);color:var(--teal)}
+.toast.error{border-color:var(--red-dim);color:#e07060}
 
-/* Mobile note */
-@media (max-width: 700px) {
-  .app { grid-template-columns: 1fr; grid-template-rows: 56px auto 1fr; }
-  .sidebar { grid-row: 2; flex-direction: row; flex-wrap: wrap; padding: 0.5rem; border-right: none; border-bottom: 1px solid var(--border); overflow-x: auto; }
-  .nav-section { display: none; }
-  .nav-item { border-left: none; border-bottom: 2px solid transparent; padding: 6px 10px; font-size: 12px; }
-  .nav-item.active { border-left-color: transparent; border-bottom-color: var(--accent); }
-  .item-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
-  .wallet-summary { grid-template-columns: repeat(3, 1fr); }
-  .services-grid { grid-template-columns: 1fr; }
+@media(max-width:700px){
+  .app{grid-template-columns:1fr;grid-template-rows:56px auto 1fr}
+  .sidebar{grid-row:2;flex-direction:row;flex-wrap:wrap;padding:.5rem;border-right:none;border-bottom:1px solid var(--border);overflow-x:auto}
+  .nav-sec,.sidebar-curr{display:none}
+  .nav-item{border-left:none;border-bottom:2px solid transparent;padding:6px 10px;font-size:12px}
+  .nav-item.active{border-left-color:transparent;border-bottom-color:var(--accent)}
+  .item-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}
+  .ws{grid-template-columns:repeat(3,1fr)}
+  .svc-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
-
 <div class="app">
-  <!-- Top bar -->
-  <header class="topbar">
-    <div class="logo">ICHOR <span>Service Hub</span></div>
-    <div class="topbar-wallet" id="topbar-wallet">
-      <div class="wallet-chip">
-        <span class="lbl">Total</span>
-        <span class="val piece-tainted" id="tw-tainted">0t</span>
-        <span class="lbl">=</span>
-        <span class="val piece-blemished" id="tw-blemished">0b</span>
-        <span class="lbl">+</span>
-        <span class="val piece-tainted" id="tw-rem">0t</span>
-      </div>
+
+<header class="topbar">
+  <div class="logo">ICHOR <span>Service Hub</span></div>
+  <div class="topbar-right">
+    <div class="wallet-chip">
+      <span class="lbl">Wallet</span>
+      <span class="val pt" id="tw-t">0t</span>
+      <span class="lbl">=</span>
+      <span class="val pb" id="tw-b">0b</span>
+      <span class="lbl">+</span>
+      <span class="val pt" id="tw-r">0t</span>
     </div>
-  </header>
+    <button class="vault-btn" id="vault-btn" onclick="openModal()">
+      <div class="v-dot" id="v-dot"></div>
+      <span id="v-label">Sign into vault</span>
+    </button>
+  </div>
+</header>
 
-  <!-- Sidebar -->
-  <nav class="sidebar">
-    <div class="nav-section">Navigate</div>
-    <div class="nav-item active" data-page="calculator">
-      <div class="nav-dot" style="background:var(--accent)"></div> Calculator
-    </div>
-    <div class="nav-item" data-page="library">
-      <div class="nav-dot" style="background:var(--purple)"></div> Item Library
-    </div>
-    <div class="nav-item" data-page="services">
-      <div class="nav-dot" style="background:var(--teal)"></div> Services
-    </div>
-    <div class="nav-item" data-page="reference">
-      <div class="nav-dot" style="background:var(--muted)"></div> Value Reference
-    </div>
-    <div class="nav-section" style="margin-top:auto">Currency</div>
-    <div style="padding: 0.5rem 1rem; font-size: 11px; color: var(--muted); line-height: 1.8;">
-      <div><span class="piece-tainted">Tainted</span> = 3 diamonds</div>
-      <div><span class="piece-blemished">Blemished</span> = 9 tainted</div>
-      <div><span class="piece-pure">Pure</span> = 9 blemished</div>
-    </div>
-  </nav>
+<nav class="sidebar">
+  <div class="nav-sec">Navigate</div>
+  <div class="nav-item active" data-page="calculator"><div class="nav-dot" style="background:var(--accent)"></div>Calculator</div>
+  <div class="nav-item" data-page="library"><div class="nav-dot" style="background:var(--purple)"></div>Item Library</div>
+  <div class="nav-item" data-page="services"><div class="nav-dot" style="background:var(--teal)"></div>Services</div>
+  <div class="nav-item" data-page="reference"><div class="nav-dot" style="background:var(--muted)"></div>Value Reference</div>
+  <div class="sidebar-curr">
+    <div><span class="pt">Tainted</span> = 3 diamonds</div>
+    <div><span class="pb">Blemished</span> = 9 tainted</div>
+    <div><span class="pp">Pure</span> = 9 blemished</div>
+  </div>
+</nav>
 
-  <!-- Main content -->
-  <main class="main">
+<main class="main">
 
-    <!-- === CALCULATOR PAGE === -->
-    <div class="page-section active" id="page-calculator">
+  <!-- CALCULATOR -->
+  <div class="page-section active" id="page-calculator">
 
-      <!-- Item picker -->
-      <div class="panel">
-        <div class="panel-header">
-          <div class="panel-title">Build Your Inventory</div>
-          <div class="panel-sub" id="item-count-label">0 items loaded</div>
-        </div>
-        <div class="panel-body">
-          <div class="filter-bar">
-            <input type="text" class="search-input" id="item-search" placeholder="Search items...">
-            <button class="filter-btn active" data-cat="All">All</button>
-          </div>
-          <div class="item-grid" id="item-grid">
-            <div class="loading"><div class="spinner"></div> Loading items...</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Inventory -->
-      <div class="panel">
-        <div class="panel-header">
-          <div class="panel-title">Your Inventory</div>
-          <button class="filter-btn" id="clear-inventory" style="margin-left:auto">Clear all</button>
-        </div>
-        <div class="panel-body">
-          <div class="wallet-summary">
-            <div class="wallet-card">
-              <div class="wc-val piece-tainted" id="ws-tainted">0</div>
-              <div class="wc-lbl">Total tainted</div>
-            </div>
-            <div class="wallet-card highlight">
-              <div class="wc-val" id="ws-blemished">0</div>
-              <div class="wc-lbl">Blemished</div>
-            </div>
-            <div class="wallet-card">
-              <div class="wc-val piece-pure" id="ws-pure">0</div>
-              <div class="wc-lbl">Pure equivalent</div>
-            </div>
-          </div>
-          <div class="inventory-list" id="inventory-list">
-            <div class="empty-state">Add items above to build your inventory</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- What can I afford -->
-      <div class="panel">
-        <div class="panel-header">
-          <div class="panel-title">What Can I Commission?</div>
-          <div class="panel-sub" id="afford-count">Add items to see what you can afford</div>
-        </div>
-        <div class="panel-body" id="afford-body">
-          <div class="empty-state">Your budget will appear here once you've added items</div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- === LIBRARY PAGE === -->
-    <div class="page-section" id="page-library">
-      <div class="panel">
-        <div class="panel-header">
-          <div class="panel-title">Item Library</div>
-          <div class="panel-sub" id="lib-count">Loading...</div>
-        </div>
-        <div class="panel-body">
-          <div class="filter-bar" id="lib-filters">
-            <input type="text" class="search-input" id="lib-search" placeholder="Search items & enchants...">
-          </div>
-          <div class="tabs" id="lib-tabs">
-            <div class="tab active" data-tab="items">Items</div>
-            <div class="tab" data-tab="enchants">Enchantments</div>
-          </div>
-          <div id="lib-items-content">
-            <div class="item-grid" id="lib-item-grid" style="max-height:none;">
-              <div class="loading"><div class="spinner"></div></div>
-            </div>
-          </div>
-          <div id="lib-enchants-content" class="hidden">
-            <table class="ref-table" id="lib-enchant-table">
-              <thead><tr><th>Enchantment</th><th>Category</th><th>Rarity</th><th>On Item</th><th>As Book</th></tr></thead>
-              <tbody></tbody>
-            </table>
+    <div class="panel" id="vbar-panel" style="display:none">
+      <div class="pb" style="padding:.75rem 1.25rem">
+        <div class="vbar">
+          <div class="v-dot on"></div>
+          <span class="vbar-name" id="vbar-name"></span>
+          <span class="vbar-status" id="vbar-status">Vault loaded</span>
+          <div class="vbar-acts">
+            <button class="vsave" id="vsave-btn" onclick="saveVault()">Save vault</button>
+            <button class="vout" onclick="logoutVault()">Sign out</button>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- === SERVICES PAGE === -->
-    <div class="page-section" id="page-services">
-      <div class="panel">
-        <div class="panel-header">
-          <div class="panel-title">Available Services</div>
-          <div class="panel-sub">All prices in tainted pieces</div>
-        </div>
-        <div class="panel-body">
-          <div class="filter-bar" id="svc-filters">
-            <input type="text" class="search-input" id="svc-search" placeholder="Search services...">
-          </div>
-          <div class="services-grid" id="svc-grid">
-            <div class="loading"><div class="spinner"></div></div>
-          </div>
-        </div>
+    <div class="panel">
+      <div class="ph"><div class="pt">Build Your Inventory</div><div class="ps" id="item-count">Loading...</div></div>
+      <div class="pb">
+        <div class="fb" id="calc-fb"><input type="text" class="si" id="item-search" placeholder="Search items..."></div>
+        <div class="item-grid" id="item-grid"><div class="loading"><div class="spinner"></div>Loading items...</div></div>
       </div>
     </div>
 
-    <!-- === REFERENCE PAGE === -->
-    <div class="page-section" id="page-reference">
-      <div class="panel">
-        <div class="panel-header">
-          <div class="panel-title">Currency Reference</div>
+    <div class="panel">
+      <div class="ph"><div class="pt">Your Inventory</div><button class="filter-btn" id="clear-inv" style="margin-left:auto">Clear all</button></div>
+      <div class="pb">
+        <div class="ws">
+          <div class="wc"><div class="wv pt" id="ws-t">0</div><div class="wl">Total tainted</div></div>
+          <div class="wc hl"><div class="wv" id="ws-b">0</div><div class="wl">Blemished</div></div>
+          <div class="wc"><div class="wv pp" id="ws-p">0.00</div><div class="wl">Pure equiv</div></div>
         </div>
-        <div class="panel-body">
-          <table class="ref-table">
-            <thead><tr><th>Unit</th><th>In tainted</th><th>In diamonds</th></tr></thead>
-            <tbody>
-              <tr><td class="piece-tainted">1 Tainted</td><td>1</td><td>3 diamonds</td></tr>
-              <tr><td class="piece-blemished">1 Blemished</td><td>9</td><td>27 diamonds</td></tr>
-              <tr><td class="piece-pure">1 Pure</td><td>81</td><td>243 diamonds</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="panel">
-        <div class="panel-header">
-          <div class="panel-title">Item Value Reference</div>
-          <div class="panel-sub">Sorted by value</div>
-        </div>
-        <div class="panel-body">
-          <table class="ref-table" id="ref-table">
-            <thead><tr><th>Item</th><th>Rarity</th><th>Category</th><th>Tainted</th><th>Blemished equiv</th></tr></thead>
-            <tbody></tbody>
-          </table>
-        </div>
-      </div>
-      <div class="panel">
-        <div class="panel-header">
-          <div class="panel-title">Anchor: Full Figura Avatar</div>
-        </div>
-        <div class="panel-body">
-          <p style="font-size:13px;color:var(--muted);margin-bottom:1rem;">A full custom Figura avatar (2–3 hrs) was paid with the following. Use this as a rough anchor for what 3 blemished buys:</p>
-          <table class="ref-table">
-            <thead><tr><th>Item</th><th>Qty</th><th>Approx value</th></tr></thead>
-            <tbody>
-              <tr><td>Full enchanted high-level armor set</td><td>1 set</td><td>~1 blemished</td></tr>
-              <tr><td>Enchanted golden apple</td><td>×15</td><td>~1 blemished + 2 tainted</td></tr>
-              <tr><td>Enchanted netherite greatsword</td><td>1</td><td>~5–6 tainted</td></tr>
-              <tr><td>Crystal heart (+10 HP)</td><td>1</td><td>~1 blemished + 4–6 tainted</td></tr>
-              <tr><td style="font-weight:500;color:var(--accent)">Total</td><td></td><td class="piece-blemished" style="font-weight:500">≈ 3 blemished</td></tr>
-            </tbody>
-          </table>
-        </div>
+        <div class="inv-list" id="inv-list"><div class="empty-state">Add items above to build your inventory</div></div>
       </div>
     </div>
 
-  </main>
+    <div class="panel">
+      <div class="ph"><div class="pt">What Can I Commission?</div><div class="ps" id="afford-ct">Add items to see results</div></div>
+      <div class="pb" id="afford-body"><div class="empty-state">Your budget will appear here once you've added items</div></div>
+    </div>
+
+  </div>
+
+  <!-- LIBRARY -->
+  <div class="page-section" id="page-library">
+    <div class="panel">
+      <div class="ph"><div class="pt">Item Library</div><div class="ps" id="lib-count">Loading...</div></div>
+      <div class="pb">
+        <div class="fb"><input type="text" class="si" id="lib-search" placeholder="Search items & enchants..."></div>
+        <div class="tabs" id="lib-tabs">
+          <div class="tab active" data-tab="items">Items</div>
+          <div class="tab" data-tab="enchants">Enchantments</div>
+        </div>
+        <div id="lib-items"><div class="item-grid" id="lib-grid" style="max-height:none"><div class="loading"><div class="spinner"></div></div></div></div>
+        <div id="lib-enchants" class="hidden">
+          <table class="rt" id="ench-table"><thead><tr><th>Enchantment</th><th>Category</th><th>Rarity</th><th>On item</th><th>As book</th></tr></thead><tbody></tbody></table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <div class="page-section" id="page-services">
+    <div class="panel">
+      <div class="ph"><div class="pt">Available Services</div><div class="ps">All prices in tainted pieces</div></div>
+      <div class="pb">
+        <div class="fb"><input type="text" class="si" id="svc-search" placeholder="Search services..."></div>
+        <div class="svc-grid" id="svc-grid"><div class="loading"><div class="spinner"></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REFERENCE -->
+  <div class="page-section" id="page-reference">
+    <div class="panel">
+      <div class="ph"><div class="pt">Currency Reference</div></div>
+      <div class="pb">
+        <table class="rt"><thead><tr><th>Unit</th><th>In tainted</th><th>In diamonds</th></tr></thead><tbody>
+          <tr><td class="pt">1 Tainted</td><td>1</td><td>3</td></tr>
+          <tr><td class="pb">1 Blemished</td><td>9</td><td>27</td></tr>
+          <tr><td class="pp">1 Pure</td><td>81</td><td>243</td></tr>
+        </tbody></table>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="ph"><div class="pt">Item Value Reference</div><div class="ps">Sorted by value</div></div>
+      <div class="pb"><table class="rt" id="ref-table"><thead><tr><th>Item</th><th>Rarity</th><th>Category</th><th>Tainted</th><th>Blemished equiv</th></tr></thead><tbody></tbody></table></div>
+    </div>
+    <div class="panel">
+      <div class="ph"><div class="pt">Anchor: Full Figura Avatar</div></div>
+      <div class="pb">
+        <p style="font-size:13px;color:var(--muted);margin-bottom:1rem">A full custom Figura avatar (2–3 hrs) was paid with the following — roughly 3 blemished total:</p>
+        <table class="rt"><thead><tr><th>Item</th><th>Qty</th><th>Approx value</th></tr></thead><tbody>
+          <tr><td>Full enchanted armor set</td><td>1 set</td><td>~1 blemished</td></tr>
+          <tr><td>Enchanted golden apple</td><td>×15</td><td>~1b + 2t</td></tr>
+          <tr><td>Enchanted netherite greatsword</td><td>1</td><td>~5–6t</td></tr>
+          <tr><td>Crystal heart (+10 HP)</td><td>1</td><td>~1b + 4–6t</td></tr>
+          <tr><td style="font-weight:500;color:var(--accent)">Total</td><td></td><td class="pb" style="font-weight:500">≈ 3 blemished</td></tr>
+        </tbody></table>
+      </div>
+    </div>
+  </div>
+
+</main>
 </div>
 
-<script>
-const TAINTED_PER_BLEMISHED = 9;
-const BLEMISHED_PER_PURE = 9;
-const TAINTED_PER_PURE = TAINTED_PER_BLEMISHED * BLEMISHED_PER_PURE;
-
-let itemsData = null;
-let servicesData = null;
-let inventory = {};
-let currentPage = 'calculator';
-let calcCatFilter = 'All';
-let libTab = 'items';
-
-const rarityOrder = ['common','uncommon','rare','epic','unique','legendary'];
-
-function rarityColor(r) {
-  const map = {
-    common:'#7aab6e', uncommon:'#6eaabf', rare:'#8b7fc7',
-    epic:'#c97eab', unique:'#d4793a', legendary:'#d4af37'
-  };
-  return map[r] || '#7a6e62';
-}
-
-function formatTainted(t) {
-  t = Math.round(t * 100) / 100;
-  if (t >= TAINTED_PER_PURE) {
-    const pure = Math.floor(t / TAINTED_PER_PURE);
-    const rem = t % TAINTED_PER_PURE;
-    const b = Math.floor(rem / TAINTED_PER_BLEMISHED);
-    const tr = Math.round(rem % TAINTED_PER_BLEMISHED * 10) / 10;
-    let s = `${pure}p`;
-    if (b) s += ` ${b}b`;
-    if (tr) s += ` ${tr}t`;
-    return s;
-  }
-  if (t >= TAINTED_PER_BLEMISHED) {
-    const b = Math.floor(t / TAINTED_PER_BLEMISHED);
-    const rem = Math.round(t % TAINTED_PER_BLEMISHED * 10) / 10;
-    return rem ? `${b}b + ${rem}t` : `${b}b`;
-  }
-  return `${Math.round(t * 10) / 10}t`;
-}
-
-function totalTainted() {
-  let total = 0;
-  for (const [id, entry] of Object.entries(inventory)) {
-    const item = itemsData.items.find(i => i.id === id);
-    if (!item) continue;
-    let val = item.value_tainted * entry.qty;
-    for (const eid of entry.enchants) {
-      const ench = itemsData.enchants.find(e => e.id === eid);
-      if (ench) val += ench.value_tainted;
-    }
-    total += val;
-  }
-  return total;
-}
-
-function updateWallet() {
-  const t = totalTainted();
-  const blemished = Math.floor(t / TAINTED_PER_BLEMISHED);
-  const rem = Math.round(t % TAINTED_PER_BLEMISHED * 10) / 10;
-  const pure = (t / TAINTED_PER_PURE).toFixed(2);
-
-  document.getElementById('ws-tainted').textContent = Math.round(t * 10) / 10;
-  document.getElementById('ws-blemished').textContent = blemished;
-  document.getElementById('ws-pure').textContent = pure;
-  document.getElementById('tw-tainted').textContent = Math.round(t * 10) / 10 + 't';
-  document.getElementById('tw-blemished').textContent = blemished + 'b';
-  document.getElementById('tw-rem').textContent = rem + 't';
-
-  renderInventoryList();
-  renderAfford(t);
-}
-
-function renderInventoryList() {
-  const el = document.getElementById('inventory-list');
-  const keys = Object.keys(inventory).filter(k => inventory[k].qty > 0);
-  if (!keys.length) {
-    el.innerHTML = '<div class="empty-state">Add items above to build your inventory</div>';
-    return;
-  }
-  el.innerHTML = keys.map(id => {
-    const item = itemsData.items.find(i => i.id === id);
-    if (!item) return '';
-    const entry = inventory[id];
-    let val = item.value_tainted * entry.qty;
-    const enchNames = entry.enchants.map(eid => {
-      const e = itemsData.enchants.find(x => x.id === eid);
-      if (e) { val += e.value_tainted; return e.name; }
-      return '';
-    }).filter(Boolean);
-    const rc = rarityColor(item.rarity);
-    return `<div class="inv-row">
-      <div class="inv-rarity" style="background:${rc};min-width:4px"></div>
-      <div style="flex:1;min-width:0">
-        <div class="inv-name">${item.name} ${entry.qty > 1 ? `<span style="color:var(--muted)">×${entry.qty}</span>` : ''}</div>
-        ${enchNames.length ? `<div class="inv-enchants">${enchNames.join(', ')}</div>` : ''}
+<!-- Vault Modal -->
+<div class="overlay" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="mt">Vault</div>
+    <div class="msub">Save and load your inventory between visits. Your secret key is set on first use — don't lose it!</div>
+    <div class="mtabs">
+      <div class="mtab active" data-mt="login">Sign in</div>
+      <div class="mtab" data-mt="register">Create vault</div>
+    </div>
+    <!-- Login -->
+    <div id="mt-login">
+      <div class="mf"><label class="ml">Username</label><input class="mi" id="l-user" placeholder="Your IGN" autocomplete="off"></div>
+      <div class="mf"><label class="ml">Secret key</label><input class="mi" id="l-key" type="password" placeholder="Your secret key"></div>
+      <div class="merr" id="l-err"></div>
+      <div class="mact">
+        <button class="btn-s" onclick="closeModal()">Cancel</button>
+        <button class="btn-p" id="l-btn" onclick="loginVault()">Load vault</button>
       </div>
-      <div class="inv-val">${formatTainted(val)}</div>
-      <div class="inv-remove" onclick="removeFromInventory('${id}')">×</div>
-    </div>`;
+    </div>
+    <!-- Register -->
+    <div id="mt-register" class="hidden">
+      <div class="mf"><label class="ml">Username</label><input class="mi" id="r-user" placeholder="Your IGN" autocomplete="off"></div>
+      <div class="mf"><label class="ml">Secret key</label><input class="mi" id="r-key" type="password" placeholder="Pick something memorable"></div>
+      <div class="mf"><label class="ml">Confirm key</label><input class="mi" id="r-key2" type="password" placeholder="Repeat your key"></div>
+      <div class="merr" id="r-err"></div>
+      <div class="mact">
+        <button class="btn-s" onclick="closeModal()">Cancel</button>
+        <button class="btn-p" id="r-btn" onclick="registerVault()">Create vault</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const SB_URL  = 'https://nclmtsekyqfwbdgfygpx.supabase.co';
+const SB_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5jbG10c2VreXFmd2JkZ2Z5Z3B4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1NTI5MTMsImV4cCI6MjA5NDEyODkxM30.mbhwrTu1ll0ZgMCeNHwJ7ZLhwZ18fCd618hJiiAsOWo';
+
+const TPB = 9, BPP = 9, TPP = 81;
+let items = null, services = null, inv = {}, vaultUser = null, dirty = false, catFilter = 'All';
+const rarOrd = ['common','uncommon','rare','epic','unique','legendary'];
+
+const rc = r => ({common:'#7aab6e',uncommon:'#6eaabf',rare:'#8b7fc7',epic:'#c97eab',unique:'#d4793a',legendary:'#d4af37'}[r]||'#7a6e62');
+
+function fmt(t) {
+  t = Math.round(t*100)/100;
+  if(t>=TPP){const p=Math.floor(t/TPP),r=t%TPP,b=Math.floor(r/TPB),tr=Math.round(r%TPB*10)/10;return`${p}p${b?' '+b+'b':''}${tr?' '+tr+'t':''}`;}
+  if(t>=TPB){const b=Math.floor(t/TPB),r=Math.round(t%TPB*10)/10;return r?`${b}b + ${r}t`:`${b}b`;}
+  return `${Math.round(t*10)/10}t`;
+}
+
+function total() {
+  let t=0;
+  for(const[id,e] of Object.entries(inv)){
+    const item=items?.items.find(i=>i.id===id);
+    if(!item)continue;
+    t+=item.value_tainted*e.qty;
+    for(const eid of e.enchants){const en=items.enchants.find(x=>x.id===eid);if(en)t+=en.value_tainted;}
+  }
+  return t;
+}
+
+function dirty_mark(){
+  dirty=true;
+  const el=document.getElementById('vbar-status');
+  if(el)el.textContent='Unsaved changes';
+}
+
+function wallet_update(){
+  const t=total(),b=Math.floor(t/TPB),r=Math.round(t%TPB*10)/10,p=(t/TPP).toFixed(2);
+  document.getElementById('ws-t').textContent=Math.round(t*10)/10;
+  document.getElementById('ws-b').textContent=b;
+  document.getElementById('ws-p').textContent=p;
+  document.getElementById('tw-t').textContent=Math.round(t*10)/10+'t';
+  document.getElementById('tw-b').textContent=b+'b';
+  document.getElementById('tw-r').textContent=r+'t';
+  render_inv_list();
+  render_afford(t);
+}
+
+function render_inv_list(){
+  const el=document.getElementById('inv-list');
+  const keys=Object.keys(inv).filter(k=>inv[k].qty>0);
+  if(!keys.length){el.innerHTML='<div class="empty-state">Add items above to build your inventory</div>';return;}
+  el.innerHTML=keys.map(id=>{
+    const item=items?.items.find(i=>i.id===id);if(!item)return'';
+    const e=inv[id];let val=item.value_tainted*e.qty;
+    const ens=e.enchants.map(eid=>{const en=items.enchants.find(x=>x.id===eid);if(en){val+=en.value_tainted;return en.name;}return'';}).filter(Boolean);
+    return`<div class="inv-row"><div class="inv-rb" style="background:${rc(item.rarity)}"></div>
+    <div style="flex:1;min-width:0"><div class="inv-n">${item.name}${e.qty>1?` <span style="color:var(--muted)">×${e.qty}</span>`:''}</div>
+    ${ens.length?`<div class="inv-e">${ens.join(', ')}</div>`:''}</div>
+    <div class="inv-v">${fmt(val)}</div><div class="inv-x" onclick="rm_inv('${id}')">×</div></div>`;
   }).join('');
 }
 
-function removeFromInventory(id) {
-  delete inventory[id];
-  renderItemGrid(document.getElementById('item-search').value, calcCatFilter);
-  updateWallet();
-}
+function rm_inv(id){delete inv[id];render_grid();wallet_update();dirty_mark();}
 
-function renderAfford(tTotal) {
-  const el = document.getElementById('afford-body');
-  const countEl = document.getElementById('afford-count');
-  if (!servicesData || tTotal === 0) {
-    el.innerHTML = '<div class="empty-state">Your budget will appear here once you\'ve added items</div>';
-    countEl.textContent = 'Add items to see what you can afford';
-    return;
-  }
-  const services = servicesData.services;
-  const affordable = services.filter(s => !s.quote_required && s.cost_min_tainted <= tTotal);
-  countEl.textContent = `${affordable.length} of ${services.length} services affordable`;
-
-  el.innerHTML = `<div class="services-grid">${services.map(s => {
-    const canAffordMin = tTotal >= s.cost_min_tainted;
-    const canAffordMax = !s.quote_required && tTotal >= s.cost_max_tainted;
-    const pct = s.quote_required ? 0 : Math.min(100, Math.round(tTotal / s.cost_min_tainted * 100));
-    let cls = 'service-card';
-    if (s.quote_required) cls += ' quote-only';
-    else if (canAffordMax) cls += ' can-afford-max';
-    else if (canAffordMin) cls += ' can-afford';
-    else cls += ' cannot-afford';
-
-    const priceStr = s.quote_required
-      ? 'Quote required'
-      : s.cost_min_tainted === s.cost_max_tainted
-        ? formatTainted(s.cost_min_tainted)
-        : `${formatTainted(s.cost_min_tainted)} – ${formatTainted(s.cost_max_tainted)}`;
-
-    let badge = '';
-    if (s.quote_required) badge = '<span class="svc-badge badge-quote">Quote</span>';
-    else if (canAffordMax) badge = '<span class="svc-badge badge-afford">Can afford</span>';
-    else if (s.popular) badge = '<span class="svc-badge badge-popular">Popular</span>';
-    if (s.savings_note && !badge.includes('afford')) badge += `<span class="svc-badge badge-savings" style="top:${badge?'28px':'8px'}">${s.savings_note}</span>`;
-
-    return `<div class="${cls}">
-      ${badge}
-      <div class="svc-cat">${s.category}</div>
-      <div class="svc-name">${s.name}</div>
-      <div class="svc-desc">${s.description}</div>
-      <div class="svc-price">${priceStr}</div>
-      <div class="svc-price-sub">${s.turnaround}</div>
-      ${!s.quote_required ? `<div class="afford-bar"><div class="afford-fill" style="width:${pct}%"></div></div>` : ''}
+function render_afford(t){
+  const el=document.getElementById('afford-body'),ct=document.getElementById('afford-ct');
+  if(!services||t===0){el.innerHTML='<div class="empty-state">Your budget will appear here once you\'ve added items</div>';ct.textContent='Add items to see results';return;}
+  const svcs=services.services;
+  const aff=svcs.filter(s=>!s.quote_required&&s.cost_min_tainted<=t);
+  ct.textContent=`${aff.length} of ${svcs.length} services affordable`;
+  el.innerHTML=`<div class="svc-grid">${svcs.map(s=>{
+    const caMin=t>=s.cost_min_tainted,caMax=!s.quote_required&&t>=s.cost_max_tainted;
+    const pct=s.quote_required?0:Math.min(100,Math.round(t/s.cost_min_tainted*100));
+    let cls='svc'+(s.quote_required?' qo':caMax?' ca-max':caMin?' ca':' no-ca');
+    const pr=s.quote_required?'Quote required':s.cost_min_tainted===s.cost_max_tainted?fmt(s.cost_min_tainted):`${fmt(s.cost_min_tainted)} – ${fmt(s.cost_max_tainted)}`;
+    const badge=s.quote_required?'<span class="sbadge bq">Quote</span>':caMax?'<span class="sbadge ba">Can afford</span>':s.popular?'<span class="sbadge bp">Popular</span>':'';
+    return`<div class="${cls}">${badge}<div class="sc">${s.category}</div><div class="sn">${s.name}</div>
+    <div class="sd">${s.description}</div><div class="sp">${pr}</div><div class="ss">${s.turnaround}</div>
+    ${!s.quote_required?`<div class="abar"><div class="afill" style="width:${pct}%"></div></div>`:''}
     </div>`;
   }).join('')}</div>`;
 }
 
-function buildItemCard(item, forLibrary = false) {
-  const rc = rarityColor(item.rarity);
-  const inv = inventory[item.id];
-  const qty = inv ? inv.qty : 0;
-  const inInv = qty > 0;
-
-  const enchants = itemsData.enchants;
-
-  const enchTagsHtml = inInv && inv.enchants.length
-    ? `<div class="enchant-tags">${inv.enchants.map(eid => {
-        const e = enchants.find(x => x.id === eid);
-        return e ? `<span class="enchant-tag" onclick="removeEnchant('${item.id}','${eid}')">${e.name} ×</span>` : '';
-      }).join('')}</div>` : '';
-
-  const enchSelectHtml = inInv
-    ? `<div class="enchant-picker">
-        <div class="enchant-label">Add enchant:</div>
-        <select class="enchant-select" onchange="addEnchant('${item.id}', this.value); this.value=''">
-          <option value="">— pick enchant —</option>
-          ${enchants.map(e => `<option value="${e.id}">${e.name} (+${e.value_tainted}t)</option>`).join('')}
-        </select>
-        ${enchTagsHtml}
-      </div>` : '';
-
-  return `<div class="item-card ${inInv ? 'in-inventory' : ''}" id="card-${item.id}">
-    <div class="item-rarity-bar" style="background:${rc}"></div>
-    <div class="item-name">${item.name}</div>
-    <div class="item-cat">${item.category}</div>
-    <div class="item-value r-${item.rarity}">${item.rarity.charAt(0).toUpperCase()+item.rarity.slice(1)}</div>
-    <div class="item-value" style="color:var(--accent);margin-top:2px">${formatTainted(item.value_tainted)} per unit</div>
-    ${item.note ? `<div style="font-size:10px;color:var(--muted);margin-top:3px;line-height:1.3">${item.note}</div>` : ''}
-    ${inInv ? `<div class="qty-controls">
-      <button class="qty-btn" onclick="changeQty('${item.id}',-1)">−</button>
-      <span class="qty-display">${qty}</span>
-      <button class="qty-btn" onclick="changeQty('${item.id}',1)">+</button>
-    </div>${enchSelectHtml}` : `<div style="margin-top:8px">
-      <button class="filter-btn" onclick="addToInventory('${item.id}')" style="width:100%;justify-content:center">+ Add</button>
-    </div>`}
+function build_card(item){
+  const col=rc(item.rarity),e=inv[item.id],qty=e?e.qty:0,inI=qty>0;
+  const etags=inI&&e.enchants.length?`<div class="etags">${e.enchants.map(eid=>{const en=items.enchants.find(x=>x.id===eid);return en?`<span class="etag" onclick="rm_ench('${item.id}','${eid}')">${en.name} ×</span>`:''}).join('')}</div>`:'';
+  const esel=inI?`<div class="ep"><div class="el">Add enchant:</div>
+    <select class="esel" onchange="add_ench('${item.id}',this.value);this.value=''">
+      <option value="">— pick enchant —</option>
+      ${items.enchants.map(en=>`<option value="${en.id}">${en.name} (+${en.value_tainted}t)</option>`).join('')}
+    </select>${etags}</div>`:'';
+  return`<div class="ic${inI?' in-inv':''}" id="card-${item.id}">
+    <div class="irb" style="background:${col}"></div>
+    <div class="in">${item.name}</div><div class="icat">${item.category}</div>
+    <div class="r-${item.rarity}" style="font-size:11px">${item.rarity[0].toUpperCase()+item.rarity.slice(1)}</div>
+    <div style="color:var(--accent);font-size:11px;margin-top:2px">${fmt(item.value_tainted)} / unit</div>
+    ${item.note?`<div style="font-size:10px;color:var(--muted);margin-top:3px;line-height:1.3">${item.note}</div>`:''}
+    ${inI?`<div class="qty-c"><button class="qty-btn" onclick="chg_qty('${item.id}',-1)">−</button>
+    <span class="qty-d">${qty}</span><button class="qty-btn" onclick="chg_qty('${item.id}',1)">+</button></div>${esel}`
+    :`<div style="margin-top:8px"><button class="filter-btn" onclick="add_inv('${item.id}')" style="width:100%">+ Add</button></div>`}
   </div>`;
 }
 
-function addToInventory(id) {
-  if (!inventory[id]) inventory[id] = { qty: 1, enchants: [] };
-  else inventory[id].qty++;
-  renderItemGrid(document.getElementById('item-search').value, calcCatFilter);
-  updateWallet();
+function add_inv(id){if(!inv[id])inv[id]={qty:1,enchants:[]};else inv[id].qty++;render_grid();wallet_update();dirty_mark();}
+function chg_qty(id,d){if(!inv[id])return;inv[id].qty=Math.max(0,inv[id].qty+d);if(inv[id].qty===0)delete inv[id];render_grid();wallet_update();dirty_mark();}
+function add_ench(id,eid){if(!eid||!inv[id])return;if(!inv[id].enchants.includes(eid))inv[id].enchants.push(eid);render_grid();wallet_update();dirty_mark();}
+function rm_ench(id,eid){if(!inv[id])return;inv[id].enchants=inv[id].enchants.filter(e=>e!==eid);render_grid();wallet_update();dirty_mark();}
+
+function render_grid(search='',cat='All'){
+  const el=document.getElementById('item-grid');if(!items)return;
+  let list=items.items;
+  if(cat!=='All')list=list.filter(i=>i.category===cat);
+  if(search)list=list.filter(i=>i.name.toLowerCase().includes(search.toLowerCase()));
+  el.innerHTML=list.length?list.map(i=>build_card(i)).join(''):'<div class="empty-state" style="grid-column:1/-1">No items match</div>';
 }
 
-function changeQty(id, delta) {
-  if (!inventory[id]) return;
-  inventory[id].qty = Math.max(0, inventory[id].qty + delta);
-  if (inventory[id].qty === 0) delete inventory[id];
-  renderItemGrid(document.getElementById('item-search').value, calcCatFilter);
-  updateWallet();
+function render_lib(search=''){
+  const el=document.getElementById('lib-grid');if(!items)return;
+  let list=items.items;
+  if(search)list=list.filter(i=>i.name.toLowerCase().includes(search.toLowerCase()));
+  list=[...list].sort((a,b)=>rarOrd.indexOf(b.rarity)-rarOrd.indexOf(a.rarity));
+  el.innerHTML=list.length?list.map(i=>`<div class="ic">
+    <div class="irb" style="background:${rc(i.rarity)}"></div>
+    <div class="in">${i.name}</div><div class="icat">${i.category}</div>
+    <div class="r-${i.rarity}" style="font-size:11px">${i.rarity[0].toUpperCase()+i.rarity.slice(1)}</div>
+    <div style="color:var(--accent);font-size:11px;margin-top:2px">${fmt(i.value_tainted)}t / unit</div>
+    ${i.note?`<div style="font-size:10px;color:var(--muted);margin-top:4px;line-height:1.3">${i.note}</div>`:''}
+  </div>`).join(''):'<div class="empty-state" style="grid-column:1/-1">No items found</div>';
+  document.getElementById('lib-count').textContent=`${list.length} items`;
 }
 
-function addEnchant(itemId, enchId) {
-  if (!enchId || !inventory[itemId]) return;
-  if (!inventory[itemId].enchants.includes(enchId)) {
-    inventory[itemId].enchants.push(enchId);
-  }
-  renderItemGrid(document.getElementById('item-search').value, calcCatFilter);
-  updateWallet();
+function render_enchants(search=''){
+  const tbody=document.querySelector('#ench-table tbody');if(!items)return;
+  let list=items.enchants;
+  if(search)list=list.filter(e=>e.name.toLowerCase().includes(search.toLowerCase()));
+  list=[...list].sort((a,b)=>rarOrd.indexOf(b.rarity)-rarOrd.indexOf(a.rarity));
+  tbody.innerHTML=list.map(e=>`<tr>
+    <td style="font-weight:500">${e.name}</td><td style="color:var(--muted)">${e.category}</td>
+    <td><span style="color:${rc(e.rarity)}">${e.rarity[0].toUpperCase()+e.rarity.slice(1)}</span></td>
+    <td class="pt">${e.value_tainted}t</td><td class="pt">${Math.round((e.value_tainted+e.book_bonus)*10)/10}t</td>
+  </tr>`).join('');
 }
 
-function removeEnchant(itemId, enchId) {
-  if (!inventory[itemId]) return;
-  inventory[itemId].enchants = inventory[itemId].enchants.filter(e => e !== enchId);
-  renderItemGrid(document.getElementById('item-search').value, calcCatFilter);
-  updateWallet();
-}
-
-function renderItemGrid(search = '', catFilter = 'All') {
-  const el = document.getElementById('item-grid');
-  if (!itemsData) return;
-  let items = itemsData.items;
-  if (catFilter !== 'All') items = items.filter(i => i.category === catFilter);
-  if (search) items = items.filter(i => i.name.toLowerCase().includes(search.toLowerCase()));
-  el.innerHTML = items.length
-    ? items.map(i => buildItemCard(i)).join('')
-    : '<div class="empty-state" style="grid-column:1/-1">No items match your search</div>';
-}
-
-function renderLibraryGrid(search = '') {
-  const el = document.getElementById('lib-item-grid');
-  if (!itemsData) return;
-  let items = itemsData.items;
-  if (search) items = items.filter(i => i.name.toLowerCase().includes(search.toLowerCase()));
-  items = [...items].sort((a,b) => rarityOrder.indexOf(b.rarity) - rarityOrder.indexOf(a.rarity));
-  el.style.maxHeight = 'none';
-  el.innerHTML = items.length
-    ? items.map(i => {
-        const rc = rarityColor(i.rarity);
-        return `<div class="item-card">
-          <div class="item-rarity-bar" style="background:${rc}"></div>
-          <div class="item-name">${i.name}</div>
-          <div class="item-cat">${i.category}</div>
-          <div class="item-value r-${i.rarity}">${i.rarity.charAt(0).toUpperCase()+i.rarity.slice(1)}</div>
-          <div class="item-value" style="color:var(--accent);margin-top:2px">${formatTainted(i.value_tainted)}t / unit</div>
-          ${i.note ? `<div style="font-size:10px;color:var(--muted);margin-top:4px;line-height:1.3">${i.note}</div>` : ''}
-        </div>`;
-      }).join('')
-    : '<div class="empty-state" style="grid-column:1/-1">No items found</div>';
-  document.getElementById('lib-count').textContent = `${items.length} items`;
-}
-
-function renderEnchantTable(search = '') {
-  const tbody = document.querySelector('#lib-enchant-table tbody');
-  if (!itemsData) return;
-  let enchants = itemsData.enchants;
-  if (search) enchants = enchants.filter(e => e.name.toLowerCase().includes(search.toLowerCase()));
-  enchants = [...enchants].sort((a,b) => rarityOrder.indexOf(b.rarity) - rarityOrder.indexOf(a.rarity));
-  tbody.innerHTML = enchants.map(e => {
-    const rc = rarityColor(e.rarity);
-    return `<tr>
-      <td style="font-weight:500">${e.name}</td>
-      <td style="color:var(--muted)">${e.category}</td>
-      <td><span style="color:${rc}">${e.rarity.charAt(0).toUpperCase()+e.rarity.slice(1)}</span></td>
-      <td class="piece-tainted">${e.value_tainted}t</td>
-      <td class="piece-tainted">${Math.round((e.value_tainted + e.book_bonus)*10)/10}t</td>
-    </tr>`;
-  }).join('');
-}
-
-function renderServicesGrid(search = '') {
-  const el = document.getElementById('svc-grid');
-  if (!servicesData) return;
-  let services = servicesData.services;
-  if (search) services = services.filter(s =>
-    s.name.toLowerCase().includes(search.toLowerCase()) ||
-    s.category.toLowerCase().includes(search.toLowerCase()) ||
-    s.description.toLowerCase().includes(search.toLowerCase())
-  );
-  el.innerHTML = services.map(s => {
-    const priceStr = s.quote_required
-      ? 'Quote required'
-      : s.cost_min_tainted === s.cost_max_tainted
-        ? formatTainted(s.cost_min_tainted)
-        : `${formatTainted(s.cost_min_tainted)} – ${formatTainted(s.cost_max_tainted)}`;
-    let badge = '';
-    if (s.quote_required) badge = '<span class="svc-badge badge-quote">Quote</span>';
-    else if (s.popular) badge = '<span class="svc-badge badge-popular">Popular</span>';
-    if (s.savings_note) badge += `<span class="svc-badge badge-savings" style="top:${badge?'30px':'8px'}">${s.savings_note}</span>`;
-    return `<div class="service-card ${s.quote_required?'quote-only':''}">
-      ${badge}
-      <div class="svc-cat">${s.category}</div>
-      <div class="svc-name">${s.name}</div>
-      <div class="svc-desc">${s.description}</div>
-      <div class="svc-price">${priceStr}</div>
-      <div class="svc-price-sub">${s.turnaround}</div>
+function render_svcs(search=''){
+  const el=document.getElementById('svc-grid');if(!services)return;
+  let list=services.services;
+  if(search)list=list.filter(s=>s.name.toLowerCase().includes(search.toLowerCase())||s.category.toLowerCase().includes(search.toLowerCase())||s.description.toLowerCase().includes(search.toLowerCase()));
+  el.innerHTML=list.map(s=>{
+    const pr=s.quote_required?'Quote required':s.cost_min_tainted===s.cost_max_tainted?fmt(s.cost_min_tainted):`${fmt(s.cost_min_tainted)} – ${fmt(s.cost_max_tainted)}`;
+    let badge=s.quote_required?'<span class="sbadge bq">Quote</span>':s.popular?'<span class="sbadge bp">Popular</span>':'';
+    if(s.savings_note)badge+=`<span class="sbadge bsav" style="top:${badge?'30px':'8px'}">${s.savings_note}</span>`;
+    return`<div class="svc${s.quote_required?' qo':''}">${badge}
+    <div class="sc">${s.category}</div><div class="sn">${s.name}</div>
+    <div class="sd">${s.description}</div><div class="sp">${pr}</div><div class="ss">${s.turnaround}</div>
     </div>`;
   }).join('');
 }
 
-function renderRefTable() {
-  const tbody = document.querySelector('#ref-table tbody');
-  if (!itemsData) return;
-  const sorted = [...itemsData.items].sort((a,b) => b.value_tainted - a.value_tainted);
-  tbody.innerHTML = sorted.map(i => {
-    const rc = rarityColor(i.rarity);
-    const blem = (i.value_tainted / TAINTED_PER_BLEMISHED).toFixed(2);
-    return `<tr>
-      <td style="font-weight:500">${i.name}</td>
-      <td><span style="color:${rc}">${i.rarity.charAt(0).toUpperCase()+i.rarity.slice(1)}</span></td>
-      <td style="color:var(--muted)">${i.category}</td>
-      <td class="piece-tainted">${i.value_tainted}t</td>
-      <td class="piece-blemished">${blem}b</td>
-    </tr>`;
-  }).join('');
+function render_ref(){
+  const tbody=document.querySelector('#ref-table tbody');if(!items)return;
+  const sorted=[...items.items].sort((a,b)=>b.value_tainted-a.value_tainted);
+  tbody.innerHTML=sorted.map(i=>`<tr>
+    <td style="font-weight:500">${i.name}</td>
+    <td><span style="color:${rc(i.rarity)}">${i.rarity[0].toUpperCase()+i.rarity.slice(1)}</span></td>
+    <td style="color:var(--muted)">${i.category}</td>
+    <td class="pt">${i.value_tainted}t</td><td class="pb">${(i.value_tainted/TPB).toFixed(2)}b</td>
+  </tr>`).join('');
 }
 
-function buildCatFilters() {
-  const cats = ['All', ...itemsData.categories];
-  const bar = document.querySelector('#page-calculator .filter-bar');
-  bar.innerHTML = `<input type="text" class="search-input" id="item-search" placeholder="Search items...">` +
-    cats.map(c => `<button class="filter-btn ${c==='All'?'active':''}" data-cat="${c}">${c}</button>`).join('');
-
-  bar.querySelectorAll('[data-cat]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      bar.querySelectorAll('[data-cat]').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      calcCatFilter = btn.dataset.cat;
-      renderItemGrid(document.getElementById('item-search').value, calcCatFilter);
+function build_cat_filters(){
+  const cats=['All',...items.categories];
+  const bar=document.getElementById('calc-fb');
+  bar.innerHTML=`<input type="text" class="si" id="item-search" placeholder="Search items...">`+
+    cats.map(c=>`<button class="filter-btn${c==='All'?' active':''}" data-cat="${c}">${c}</button>`).join('');
+  bar.querySelectorAll('[data-cat]').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      bar.querySelectorAll('[data-cat]').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');catFilter=btn.dataset.cat;
+      render_grid(document.getElementById('item-search')?.value||'',catFilter);
     });
   });
-
-  document.getElementById('item-search').addEventListener('input', e => {
-    renderItemGrid(e.target.value, calcCatFilter);
-  });
+  document.getElementById('item-search').addEventListener('input',e=>render_grid(e.target.value,catFilter));
 }
 
-async function loadData() {
-  try {
-    const [iRes, sRes] = await Promise.all([
-      fetch('./data/items.json'),
-      fetch('./data/services.json')
-    ]);
-    itemsData = await iRes.json();
-    servicesData = await sRes.json();
+/* SUPABASE */
+async function sb(path,opts={}){
+  const res=await fetch(`${SB_URL}/rest/v1/${path}`,{...opts,headers:{apikey:SB_ANON,'Authorization':`Bearer ${SB_ANON}`,'Content-Type':'application/json','Prefer':'return=representation',...(opts.headers||{})}});
+  const text=await res.text();
+  return{ok:res.ok,status:res.status,data:text?JSON.parse(text):null};
+}
 
-    document.getElementById('item-count-label').textContent = `${itemsData.items.length} items`;
-    buildCatFilters();
-    renderItemGrid();
-    renderLibraryGrid();
-    renderEnchantTable();
-    renderServicesGrid();
-    renderRefTable();
-  } catch(e) {
-    console.error(e);
-    document.getElementById('item-grid').innerHTML =
-      '<div class="empty-state" style="grid-column:1/-1;color:var(--red)">Failed to load items.json — make sure you\'re running this from a server, not file://</div>';
+async function hash(key){
+  const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(key));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+
+/* MODAL */
+function openModal(){document.getElementById('modal').classList.add('open');document.getElementById('l-user').focus();}
+function closeModal(){document.getElementById('modal').classList.remove('open');document.getElementById('l-err').textContent='';document.getElementById('r-err').textContent='';}
+
+document.querySelectorAll('.mtab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    document.querySelectorAll('.mtab').forEach(t=>t.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('mt-login').classList.toggle('hidden',tab.dataset.mt!=='login');
+    document.getElementById('mt-register').classList.toggle('hidden',tab.dataset.mt!=='register');
+  });
+});
+
+async function loginVault(){
+  const user=document.getElementById('l-user').value.trim(),key=document.getElementById('l-key').value;
+  const err=document.getElementById('l-err'),btn=document.getElementById('l-btn');
+  if(!user||!key){err.textContent='Please fill in both fields.';return;}
+  btn.disabled=true;btn.textContent='Loading...';
+  try{
+    const h=await hash(key);
+    const{ok,data}=await sb(`vaults?username=eq.${encodeURIComponent(user)}&select=username,key_hash,inventory`);
+    if(!ok||!data?.length){err.textContent='No vault found for that username.';return;}
+    if(data[0].key_hash!==h){err.textContent='Incorrect secret key.';return;}
+    set_vault(user,data[0].inventory||{});
+    closeModal();toast('Vault loaded!','success');
+  }catch{err.textContent='Connection error. Try again.';}
+  finally{btn.disabled=false;btn.textContent='Load vault';}
+}
+
+async function registerVault(){
+  const user=document.getElementById('r-user').value.trim(),key=document.getElementById('r-key').value,key2=document.getElementById('r-key2').value;
+  const err=document.getElementById('r-err'),btn=document.getElementById('r-btn');
+  if(!user||!key){err.textContent='Please fill in all fields.';return;}
+  if(key!==key2){err.textContent="Keys don't match.";return;}
+  if(key.length<4){err.textContent='Key must be at least 4 characters.';return;}
+  btn.disabled=true;btn.textContent='Creating...';
+  try{
+    const h=await hash(key);
+    const{ok,status,data}=await sb('vaults',{method:'POST',body:JSON.stringify({username:user,key_hash:h,inventory:{}})});
+    if(!ok){
+      if(status===409||JSON.stringify(data).includes('unique')){err.textContent='That username is already taken.';return;}
+      err.textContent='Failed to create vault. Try again.';return;
+    }
+    set_vault(user,{});closeModal();toast('Vault created! Welcome, '+user,'success');
+  }catch{err.textContent='Connection error. Try again.';}
+  finally{btn.disabled=false;btn.textContent='Create vault';}
+}
+
+function set_vault(user,saved_inv){
+  vaultUser=user;inv=saved_inv;dirty=false;
+  document.getElementById('v-dot').classList.add('on');
+  document.getElementById('v-label').textContent=user;
+  document.getElementById('vault-btn').classList.add('logged-in');
+  document.getElementById('vbar-panel').style.display='';
+  document.getElementById('vbar-name').textContent=user+"'s vault";
+  document.getElementById('vbar-status').textContent='Vault loaded';
+  render_grid(document.getElementById('item-search')?.value||'',catFilter);
+  wallet_update();
+}
+
+async function saveVault(){
+  if(!vaultUser)return;
+  const btn=document.getElementById('vsave-btn');
+  btn.disabled=true;btn.textContent='Saving...';
+  try{
+    const{ok}=await sb(`vaults?username=eq.${encodeURIComponent(vaultUser)}`,{method:'PATCH',body:JSON.stringify({inventory:inv,updated_at:new Date().toISOString()})});
+    if(!ok){toast('Save failed. Try again.','error');return;}
+    dirty=false;document.getElementById('vbar-status').textContent='Saved just now';
+    toast('Vault saved!','success');
+  }catch{toast('Connection error.','error');}
+  finally{btn.disabled=false;btn.textContent='Save vault';}
+}
+
+function logoutVault(){
+  if(dirty&&!confirm('You have unsaved changes. Sign out anyway?'))return;
+  vaultUser=null;inv={};dirty=false;
+  document.getElementById('v-dot').classList.remove('on');
+  document.getElementById('v-label').textContent='Sign into vault';
+  document.getElementById('vault-btn').classList.remove('logged-in');
+  document.getElementById('vbar-panel').style.display='none';
+  render_grid(document.getElementById('item-search')?.value||'',catFilter);
+  wallet_update();toast('Signed out.','');
+}
+
+/* TOAST */
+let tt;
+function toast(msg,type=''){
+  const el=document.getElementById('toast');
+  el.textContent=msg;el.className=`toast${type?' '+type:''} show`;
+  clearTimeout(tt);tt=setTimeout(()=>el.classList.remove('show'),3000);
+}
+
+/* DATA */
+async function load(){
+  try{
+    const[ir,sr]=await Promise.all([fetch('./data/items.json'),fetch('./data/services.json')]);
+    items=await ir.json();services=await sr.json();
+    document.getElementById('item-count').textContent=`${items.items.length} items`;
+    build_cat_filters();render_grid();render_lib();render_enchants();render_svcs();render_ref();
+  }catch(e){
+    document.getElementById('item-grid').innerHTML='<div class="empty-state" style="grid-column:1/-1;color:var(--red)">Failed to load data — run from a server, not file://</div>';
   }
 }
 
-// Navigation
-document.querySelectorAll('.nav-item[data-page]').forEach(item => {
-  item.addEventListener('click', () => {
-    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-    document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active'));
+/* NAV */
+document.querySelectorAll('.nav-item[data-page]').forEach(item=>{
+  item.addEventListener('click',()=>{
+    document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+    document.querySelectorAll('.page-section').forEach(p=>p.classList.remove('active'));
     item.classList.add('active');
-    currentPage = item.dataset.page;
-    document.getElementById(`page-${currentPage}`).classList.add('active');
+    document.getElementById('page-'+item.dataset.page).classList.add('active');
   });
 });
 
-// Library tabs
-document.getElementById('lib-tabs').addEventListener('click', e => {
-  const tab = e.target.closest('.tab');
-  if (!tab) return;
-  document.querySelectorAll('#lib-tabs .tab').forEach(t => t.classList.remove('active'));
+document.getElementById('lib-tabs').addEventListener('click',e=>{
+  const tab=e.target.closest('.tab');if(!tab)return;
+  document.querySelectorAll('#lib-tabs .tab').forEach(t=>t.classList.remove('active'));
   tab.classList.add('active');
-  libTab = tab.dataset.tab;
-  document.getElementById('lib-items-content').classList.toggle('hidden', libTab !== 'items');
-  document.getElementById('lib-enchants-content').classList.toggle('hidden', libTab !== 'enchants');
+  document.getElementById('lib-items').classList.toggle('hidden',tab.dataset.tab!=='items');
+  document.getElementById('lib-enchants').classList.toggle('hidden',tab.dataset.tab!=='enchants');
 });
 
-document.getElementById('lib-search').addEventListener('input', e => {
-  renderLibraryGrid(e.target.value);
-  renderEnchantTable(e.target.value);
-});
+document.getElementById('lib-search').addEventListener('input',e=>{render_lib(e.target.value);render_enchants(e.target.value);});
+document.getElementById('svc-search').addEventListener('input',e=>render_svcs(e.target.value));
+document.getElementById('clear-inv').addEventListener('click',()=>{inv={};render_grid(document.getElementById('item-search')?.value||'',catFilter);wallet_update();dirty_mark();});
 
-document.getElementById('svc-search').addEventListener('input', e => {
-  renderServicesGrid(e.target.value);
-});
+window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.returnValue='';}});
 
-document.getElementById('clear-inventory').addEventListener('click', () => {
-  inventory = {};
-  renderItemGrid(document.getElementById('item-search').value, calcCatFilter);
-  updateWallet();
-});
-
-loadData();
+load();
 </script>
 </body>
 </html>
