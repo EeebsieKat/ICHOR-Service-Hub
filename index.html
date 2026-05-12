@@ -459,28 +459,38 @@ function render_afford(t){
 
 function build_card(item){
   const col=rc(item.rarity),e=inv[item.id],qty=e?e.qty:0,inI=qty>0;
-  const etags=inI&&e.enchants.length?`<div class="etags">${e.enchants.map(eid=>{const en=items.enchants.find(x=>x.id===eid);return en?`<span class="etag" onclick="rm_ench('${item.id}','${eid}')">${en.name} ×</span>`:''}).join('')}</div>`:'';
-  const esel=inI?`<div class="ep"><div class="el">Add enchant:</div>
-    <select class="esel" onchange="add_ench('${item.id}',this.value);this.value=''">
-      <option value="">— pick enchant —</option>
-      ${items.enchants.map(en=>`<option value="${en.id}">${en.name} (+${en.value_tainted}t)</option>`).join('')}
-    </select>${etags}</div>`:'';
+  const enchable=item.is_enchable===true;
+  const etags=inI&&enchable&&e.enchants.length
+    ?`<div class="etags">${e.enchants.map(eid=>{const en=items.enchants.find(x=>x.id===eid);return en?`<span class="etag" onclick="rm_ench('${item.id}','${eid}')">${en.name} ×</span>`:''}).join('')}</div>`
+    :'';
+  const esel=inI&&enchable
+    ?`<div class="ep"><div class="el">Add enchant:</div>
+      <select class="esel" onchange="add_ench('${item.id}',this.value);this.value=''">
+        <option value="">— pick enchant —</option>
+        ${items.enchants.map(en=>`<option value="${en.id}">${en.name} (+${en.value_tainted}t)</option>`).join('')}
+      </select>${etags}</div>`
+    :(inI&&!enchable?`<div style="font-size:10px;color:var(--muted);margin-top:6px;font-style:italic">Not enchantable</div>`:'');
   return`<div class="ic${inI?' in-inv':''}" id="card-${item.id}">
     <div class="irb" style="background:${col}"></div>
     <div class="in">${item.name}</div><div class="icat">${item.category}</div>
     <div class="r-${item.rarity}" style="font-size:11px">${item.rarity[0].toUpperCase()+item.rarity.slice(1)}</div>
     <div style="color:var(--accent);font-size:11px;margin-top:2px">${fmt(item.value_tainted)} / unit</div>
+    ${enchable?`<div style="font-size:10px;color:var(--purple);margin-top:2px">✦ Enchantable</div>`:''}
     ${item.note?`<div style="font-size:10px;color:var(--muted);margin-top:3px;line-height:1.3">${item.note}</div>`:''}
-    ${inI?`<div class="qty-c"><button class="qty-btn" onclick="chg_qty('${item.id}',-1)">−</button>
-    <span class="qty-d">${qty}</span><button class="qty-btn" onclick="chg_qty('${item.id}',1)">+</button></div>${esel}`
-    :`<div style="margin-top:8px"><button class="filter-btn" onclick="add_inv('${item.id}')" style="width:100%">+ Add</button></div>`}
+    ${inI
+      ?`<div class="qty-c"><button class="qty-btn" onclick="chg_qty('${item.id}',-1)">−</button>
+        <span class="qty-d">${qty}</span>
+        <button class="qty-btn" onclick="chg_qty('${item.id}',1)">+</button></div>${esel}`
+      :`<div style="margin-top:8px"><button class="filter-btn" onclick="add_inv('${item.id}')" style="width:100%">+ Add</button></div>`}
   </div>`;
 }
 
-function add_inv(id){if(!inv[id])inv[id]={qty:1,enchants:[]};else inv[id].qty++;render_grid();wallet_update();dirty_mark();}
-function chg_qty(id,d){if(!inv[id])return;inv[id].qty=Math.max(0,inv[id].qty+d);if(inv[id].qty===0)delete inv[id];render_grid();wallet_update();dirty_mark();}
-function add_ench(id,eid){if(!eid||!inv[id])return;if(!inv[id].enchants.includes(eid))inv[id].enchants.push(eid);render_grid();wallet_update();dirty_mark();}
-function rm_ench(id,eid){if(!inv[id])return;inv[id].enchants=inv[id].enchants.filter(e=>e!==eid);render_grid();wallet_update();dirty_mark();}
+function cur_search(){return document.getElementById('item-search')?.value||'';}
+function refresh_grid(){render_grid(cur_search(),catFilter);}
+function add_inv(id){if(!inv[id])inv[id]={qty:1,enchants:[]};else inv[id].qty++;refresh_grid();wallet_update();dirty_mark();}
+function chg_qty(id,d){if(!inv[id])return;inv[id].qty=Math.max(0,inv[id].qty+d);if(inv[id].qty===0)delete inv[id];refresh_grid();wallet_update();dirty_mark();}
+function add_ench(id,eid){if(!eid||!inv[id])return;if(!inv[id].enchants.includes(eid))inv[id].enchants.push(eid);refresh_grid();wallet_update();dirty_mark();}
+function rm_ench(id,eid){if(!inv[id])return;inv[id].enchants=inv[id].enchants.filter(e=>e!==eid);refresh_grid();wallet_update();dirty_mark();}
 
 function render_grid(search='',cat='All'){
   const el=document.getElementById('item-grid');if(!items)return;
@@ -626,8 +636,7 @@ function set_vault(user,saved_inv){
   document.getElementById('vbar-panel').style.display='';
   document.getElementById('vbar-name').textContent=user+"'s vault";
   document.getElementById('vbar-status').textContent='Vault loaded';
-  render_grid(document.getElementById('item-search')?.value||'',catFilter);
-  wallet_update();
+  refresh_grid();wallet_update();
 }
 
 async function saveVault(){
@@ -650,8 +659,7 @@ function logoutVault(){
   document.getElementById('v-label').textContent='Sign into vault';
   document.getElementById('vault-btn').classList.remove('logged-in');
   document.getElementById('vbar-panel').style.display='none';
-  render_grid(document.getElementById('item-search')?.value||'',catFilter);
-  wallet_update();toast('Signed out.','');
+  refresh_grid();wallet_update();toast('Signed out.','');
 }
 
 /* TOAST */
@@ -694,7 +702,7 @@ document.getElementById('lib-tabs').addEventListener('click',e=>{
 
 document.getElementById('lib-search').addEventListener('input',e=>{render_lib(e.target.value);render_enchants(e.target.value);});
 document.getElementById('svc-search').addEventListener('input',e=>render_svcs(e.target.value));
-document.getElementById('clear-inv').addEventListener('click',()=>{inv={};render_grid(document.getElementById('item-search')?.value||'',catFilter);wallet_update();dirty_mark();});
+document.getElementById('clear-inv').addEventListener('click',()=>{inv={};refresh_grid();wallet_update();dirty_mark();});
 
 window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.returnValue='';}});
 
