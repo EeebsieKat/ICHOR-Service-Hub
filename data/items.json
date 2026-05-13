@@ -54,7 +54,8 @@
       "note": "1 diamond = 1/3 tainted",
       "stackable": true,
       "stack_size": 64,
-      "is_enchable": false
+      "is_enchable": false,
+      "texture": "assets/minecraft/textures/item/Batch B/diamond.png"
     },
     {
       "id": "netherite_ingot",
@@ -64,7 +65,8 @@
       "value_tainted": 3,
       "stackable": true,
       "stack_size": 64,
-      "is_enchable": false
+      "is_enchable": false,
+      "texture": "assets/minecraft/textures/item/Batch C/netherite_ingot.png"
     },
     {
       "id": "netherite_scrap",
@@ -74,7 +76,8 @@
       "value_tainted": 0.75,
       "stackable": true,
       "stack_size": 64,
-      "is_enchable": false
+      "is_enchable": false,
+      "texture": "assets/minecraft/textures/item/Batch C/netherite_scrap.png"
     },
     {
       "id": "emerald",
@@ -84,7 +87,8 @@
       "value_tainted": 0.2,
       "stackable": true,
       "stack_size": 64,
-      "is_enchable": false
+      "is_enchable": false,
+      "texture": "assets/minecraft/textures/item/Batch B/emerald.png"
     },
     {
       "id": "ancient_debris",
@@ -94,7 +98,8 @@
       "value_tainted": 2,
       "stackable": true,
       "stack_size": 64,
-      "is_enchable": false
+      "is_enchable": false,
+      "texture": "assets/minecraft/textures/block/ancient_debris_side.png"
     },
     {
       "id": "shulker_box",
@@ -103,7 +108,8 @@
       "rarity": "uncommon",
       "value_tainted": 1,
       "stackable": false,
-      "is_enchable": false
+      "is_enchable": false,
+      "texture": "assets/minecraft/textures/block/shulker_box.png"
     },
     {
       "id": "shulker_diamonds",
@@ -113,7 +119,8 @@
       "value_tainted": 21,
       "note": "64 diamonds = ~21 tainted",
       "stackable": false,
-      "is_enchable": false
+      "is_enchable": false,
+      "texture": "assets/minecraft/textures/block/shulker_box.png"
     },
     {
       "id": "shulker_iron",
@@ -122,7 +129,8 @@
       "rarity": "common",
       "value_tainted": 1.5,
       "stackable": false,
-      "is_enchable": false
+      "is_enchable": false,
+      "texture": "assets/minecraft/textures/block/shulker_box.png"
     },
     {
       "id": "iron_ingot",
@@ -132,7 +140,8 @@
       "value_tainted": 0.02,
       "stackable": true,
       "stack_size": 64,
-      "is_enchable": false
+      "is_enchable": false,
+      "texture": "assets/minecraft/textures/item/Batch C/iron_ingot.png"
     },
     {
       "id": "gold_ingot",
@@ -142,7 +151,8 @@
       "value_tainted": 0.08,
       "stackable": true,
       "stack_size": 64,
-      "is_enchable": false
+      "is_enchable": false,
+      "texture": "assets/minecraft/textures/item/Batch B/gold_ingot.png"
     },
     {
       "id": "copper_ingot",
@@ -152,7 +162,8 @@
       "value_tainted": 0.01,
       "stackable": true,
       "stack_size": 64,
-      "is_enchable": false
+      "is_enchable": false,
+      "texture": "assets/minecraft/textures/item/Batch B/copper_ingot.png"
     },
     {
       "id": "lapis_lazuli",
@@ -162,7 +173,8 @@
       "value_tainted": 0.05,
       "stackable": true,
       "stack_size": 64,
-      "is_enchable": false
+      "is_enchable": false,
+      "texture": "assets/minecraft/textures/item/Batch C/lapis_lazuli.png"
     },
     {
       "id": "redstone",
@@ -172,7 +184,8 @@
       "value_tainted": 0.03,
       "stackable": true,
       "stack_size": 64,
-      "is_enchable": false
+      "is_enchable": false,
+      "texture": "assets/minecraft/textures/item/Batch D/redstone.png"
     },
     {
       "id": "ender_pearl",
@@ -182,7 +195,8 @@
       "value_tainted": 0.15,
       "stackable": true,
       "stack_size": 16,
-      "is_enchable": false
+      "is_enchable": false,
+      "texture": "assets/minecraft/textures/item/Batch B/ender_pearl.png"
     },
     {
       "id": "blaze_rod",
@@ -192,7 +206,8 @@
       "value_tainted": 0.12,
       "stackable": true,
       "stack_size": 64,
-      "is_enchable": false
+      "is_enchable": false,
+      "texture": "assets/minecraft/textures/item/Batch A/blaze_rod.png"
     },
     {
       "id": "ghast_tear",
@@ -202,7 +217,8 @@
       "value_tainted": 0.25,
       "stackable": true,
       "stack_size": 64,
-      "is_enchable": false
+      "is_enchable": false,
+      "texture": "assets/minecraft/textures/item/Batch B/ghast_tear.png"
     },
     {
       "id": "wither_skull",
@@ -212,7 +228,8 @@
       "value_tainted": 4,
       "stackable": true,
       "stack_size": 64,
-      "is_enchable": false
+      "is_enchable": false,
+      "texture": "assets/minecraft/textures/item/Batch B/ghast_tear.png"
     },
     {
       "id": "totem_of_undying",
@@ -221,7 +238,8 @@
       "rarity": "rare",
       "value_tainted": 3.5,
       "stackable": false,
-      "is_enchable": false
+      "is_enchable": false,
+      "texture": "assets/minecraft/textures/item/Batch D/totem_of_undying.png"
     },
     {
       "id": "enchanted_golden_apple",
@@ -231,7 +249,8 @@
       "value_tainted": 2,
       "stackable": true,
       "stack_size": 64,
-      "is_enchable": false
+      "is_enchable": false,
+      "texture": "assets/minecraft/textures/item/Batch B/golden_apple.png"
     },
     {
       "id": "golden_apple",
@@ -241,7 +260,8 @@
       "value_tainted": 0.3,
       "stackable": true,
       "stack_size": 64,
-      "is_enchable": false
+      "is_enchable": false,
+      "texture": "assets/minecraft/textures/item/Batch B/golden_apple.png"
     },
     {
       "id": "beacon",
@@ -250,7 +270,8 @@
       "rarity": "epic",
       "value_tainted": 6,
       "stackable": false,
-      "is_enchable": false
+      "is_enchable": false,
+      "texture": "assets/minecraft/textures/block/beacon.png"
     },
     {
       "id": "elytra",
@@ -259,7 +280,8 @@
       "rarity": "epic",
       "value_tainted": 8,
       "stackable": false,
-      "is_enchable": true
+      "is_enchable": true,
+      "texture": "assets/minecraft/textures/item/Batch B/elytra.png"
     },
     {
       "id": "trident",
@@ -268,7 +290,8 @@
       "rarity": "rare",
       "value_tainted": 4,
       "stackable": false,
-      "is_enchable": true
+      "is_enchable": true,
+      "texture": "assets/minecraft/textures/item/Batch D/trident.png"
     },
     {
       "id": "netherite_sword",
@@ -277,7 +300,8 @@
       "rarity": "rare",
       "value_tainted": 5,
       "stackable": false,
-      "is_enchable": true
+      "is_enchable": true,
+      "texture": "assets/minecraft/textures/item/Batch C/netherite_sword.png"
     },
     {
       "id": "netherite_pickaxe",
@@ -286,7 +310,8 @@
       "rarity": "rare",
       "value_tainted": 5,
       "stackable": false,
-      "is_enchable": true
+      "is_enchable": true,
+      "texture": "assets/minecraft/textures/item/Batch C/netherite_pickaxe.png"
     },
     {
       "id": "diamond_sword",
@@ -295,7 +320,8 @@
       "rarity": "uncommon",
       "value_tainted": 1.5,
       "stackable": false,
-      "is_enchable": true
+      "is_enchable": true,
+      "texture": "assets/minecraft/textures/item/Batch B/diamond_sword.png"
     },
     {
       "id": "diamond_pickaxe",
@@ -304,7 +330,8 @@
       "rarity": "uncommon",
       "value_tainted": 1.5,
       "stackable": false,
-      "is_enchable": true
+      "is_enchable": true,
+      "texture": "assets/minecraft/textures/item/Batch B/diamond_pickaxe.png"
     },
     {
       "id": "netherite_chestplate",
@@ -313,7 +340,8 @@
       "rarity": "rare",
       "value_tainted": 4,
       "stackable": false,
-      "is_enchable": true
+      "is_enchable": true,
+      "texture": "assets/minecraft/textures/item/Batch C/netherite_chestplate.png"
     },
     {
       "id": "netherite_helmet",
@@ -322,7 +350,8 @@
       "rarity": "rare",
       "value_tainted": 3,
       "stackable": false,
-      "is_enchable": true
+      "is_enchable": true,
+      "texture": "assets/minecraft/textures/item/Batch C/netherite_helmet.png"
     },
     {
       "id": "netherite_leggings",
@@ -331,7 +360,8 @@
       "rarity": "rare",
       "value_tainted": 3.5,
       "stackable": false,
-      "is_enchable": true
+      "is_enchable": true,
+      "texture": "assets/minecraft/textures/item/Batch C/netherite_leggings.png"
     },
     {
       "id": "netherite_boots",
@@ -340,7 +370,8 @@
       "rarity": "rare",
       "value_tainted": 2.5,
       "stackable": false,
-      "is_enchable": true
+      "is_enchable": true,
+      "texture": "assets/minecraft/textures/item/Batch C/netherite_boots.png"
     },
     {
       "id": "diamond_chestplate",
@@ -349,7 +380,8 @@
       "rarity": "uncommon",
       "value_tainted": 1.5,
       "stackable": false,
-      "is_enchable": true
+      "is_enchable": true,
+      "texture": "assets/minecraft/textures/item/Batch B/diamond_chestplate.png"
     },
     {
       "id": "obsidian",
@@ -359,7 +391,8 @@
       "value_tainted": 0.04,
       "stackable": true,
       "stack_size": 64,
-      "is_enchable": false
+      "is_enchable": false,
+      "texture": "assets/minecraft/textures/block/obsidian.png"
     },
     {
       "id": "crying_obsidian",
@@ -369,7 +402,8 @@
       "value_tainted": 0.1,
       "stackable": true,
       "stack_size": 64,
-      "is_enchable": false
+      "is_enchable": false,
+      "texture": "assets/minecraft/textures/block/crying_obsidian.png"
     },
     {
       "id": "nether_star",
@@ -379,7 +413,8 @@
       "value_tainted": 7,
       "stackable": true,
       "stack_size": 64,
-      "is_enchable": false
+      "is_enchable": false,
+      "texture": "assets/minecraft/textures/item/Batch C/nether_star.png"
     },
     {
       "id": "dragon_egg",
@@ -389,7 +424,8 @@
       "value_tainted": 81,
       "note": "= 1 pure",
       "stackable": false,
-      "is_enchable": false
+      "is_enchable": false,
+      "texture": "assets/minecraft/textures/block/dragon_egg.png"
     },
     {
       "id": "heart_of_the_sea",
@@ -399,7 +435,8 @@
       "value_tainted": 3,
       "stackable": true,
       "stack_size": 64,
-      "is_enchable": false
+      "is_enchable": false,
+      "texture": "assets/minecraft/textures/item/Batch B/heart_of_the_sea.png"
     },
     {
       "id": "nautilus_shell",
@@ -409,7 +446,8 @@
       "value_tainted": 0.5,
       "stackable": true,
       "stack_size": 64,
-      "is_enchable": false
+      "is_enchable": false,
+      "texture": "assets/minecraft/textures/item/Batch C/nautilus_shell.png"
     },
     {
       "id": "amethyst_shard",
@@ -419,7 +457,8 @@
       "value_tainted": 0.05,
       "stackable": true,
       "stack_size": 64,
-      "is_enchable": false
+      "is_enchable": false,
+      "texture": "assets/minecraft/textures/item/Batch A/amethyst_shard.png"
     },
     {
       "id": "echo_shard",
@@ -429,7 +468,8 @@
       "value_tainted": 2,
       "stackable": true,
       "stack_size": 64,
-      "is_enchable": false
+      "is_enchable": false,
+      "texture": "assets/minecraft/textures/item/Batch B/echo_shard.png"
     },
     {
       "id": "crystal_heart",
@@ -439,7 +479,8 @@
       "value_tainted": 13,
       "note": "Server-unique item. +10 max HP. ~1 blemished + 4-6 tainted.",
       "stackable": false,
-      "is_enchable": false
+      "is_enchable": false,
+      "texture": "assets/minecraft/textures/item/Batch C/nether_star.png"
     },
     {
       "id": "netherite_greatsword",
@@ -449,7 +490,8 @@
       "value_tainted": 6,
       "note": "Craftable Simply Swords weapon.",
       "stackable": false,
-      "is_enchable": true
+      "is_enchable": true,
+      "texture": "assets/minecraft/textures/item/Batch C/netherite_sword.png"
     },
     {
       "id": "spectrum_gem",
@@ -460,7 +502,8 @@
       "note": "Spectrum mod.",
       "stackable": true,
       "stack_size": 64,
-      "is_enchable": false
+      "is_enchable": false,
+      "texture": "assets/minecraft/textures/item/Batch A/amethyst_shard.png"
     },
     {
       "id": "wayfarer_stone",
@@ -470,7 +513,8 @@
       "value_tainted": 1.5,
       "note": "Waystones mod.",
       "stackable": false,
-      "is_enchable": false
+      "is_enchable": false,
+      "texture": "assets/minecraft/textures/item/Batch B/ender_pearl.png"
     },
     {
       "id": "trinket_slot",
@@ -480,7 +524,8 @@
       "value_tainted": 4,
       "note": "Trinkets mod. Value varies \u2014 this is a baseline.",
       "stackable": false,
-      "is_enchable": false
+      "is_enchable": false,
+      "texture": "assets/minecraft/textures/item/Batch B/echo_shard.png"
     },
     {
       "id": "potion_lingering",
@@ -490,7 +535,8 @@
       "value_tainted": 0.5,
       "stackable": true,
       "stack_size": 4,
-      "is_enchable": false
+      "is_enchable": false,
+      "texture": "assets/minecraft/textures/item/Batch C/lingering_potion.png"
     },
     {
       "id": "experience_bottle",
@@ -500,7 +546,8 @@
       "value_tainted": 0.1,
       "stackable": true,
       "stack_size": 64,
-      "is_enchable": false
+      "is_enchable": false,
+      "texture": "assets/minecraft/textures/item/Batch B/experience_bottle.png"
     },
     {
       "id": "name_tag",
@@ -510,7 +557,8 @@
       "value_tainted": 0.75,
       "stackable": true,
       "stack_size": 64,
-      "is_enchable": false
+      "is_enchable": false,
+      "texture": "assets/minecraft/textures/item/Batch C/name_tag.png"
     },
     {
       "id": "saddle",
@@ -519,7 +567,8 @@
       "rarity": "common",
       "value_tainted": 0.3,
       "stackable": false,
-      "is_enchable": false
+      "is_enchable": false,
+      "texture": "assets/minecraft/textures/item/Batch D/saddle.png"
     },
     {
       "id": "music_disc_pigstep",
@@ -528,7 +577,8 @@
       "rarity": "epic",
       "value_tainted": 5,
       "stackable": false,
-      "is_enchable": false
+      "is_enchable": false,
+      "texture": "assets/minecraft/textures/item/Batch C/music_disc_pigstep.png"
     }
   ],
   "enchants": [
