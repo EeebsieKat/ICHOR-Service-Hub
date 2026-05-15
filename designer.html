@@ -165,17 +165,16 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
               </div>
             </div>
             <div>
-              <!-- ✏️  Replace "EeebsieKat" and bio below with your real info -->
+              <!-- Replace "EeebsieKat" and bio below with your real info -->
               <div class="designer-name">EeebsieKat</div>
               <div class="designer-handle">Designer &amp; trader on ICHOR</div>
               <div class="designer-bio">
-                Hey! I'm EeebsieKat — I make custom Figura avatars, Origins traits, and general digital art for the ICHOR server. I love bringing characters to life with clean, expressive designs. Drop me a message if you're interested in a commission!
+                Hey y'all, I'm Eeebsie! I make custom Figura avatars, custom Origins, and general digital art on the ICHOR server. I love bringing characters to life with clean, expressive designs. DM me on Discord at @eeebsietwo if you're interested in commissioning me!
               </div>
               <div class="stat-row">
                 <div class="stat"><div class="stat-v">✦</div><div class="stat-l">General</div></div>
                 <div class="stat"><div class="stat-v">✦</div><div class="stat-l">Figura</div></div>
                 <div class="stat"><div class="stat-v">✦</div><div class="stat-l">Origins</div></div>
-                <!-- ✏️  Optionally replace ✦ with commission counts, e.g. "12" -->
               </div>
             </div>
           </div>
@@ -188,21 +187,20 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
         <div class="pb-body">
           <div class="spec-grid">
             <div class="spec-card">
-              <div class="spec-icon">🖼️</div>
+              <div class="spec-icon">Intermediate-Adanced Skill</div>
               <div class="spec-name">General Art</div>
               <div class="spec-desc">Character illustrations, reference sheets, emotes, and other digital artwork.</div>
             </div>
             <div class="spec-card">
-              <div class="spec-icon">🧑‍💻</div>
+              <div class="spec-icon">Beginner-Intermediate Skill</div>
               <div class="spec-name">Figura Avatars</div>
               <div class="spec-desc">Full custom Figura avatar builds — models, textures, and scripts tailored to your character.</div>
             </div>
             <div class="spec-card">
-              <div class="spec-icon">🌿</div>
+              <div class="spec-icon">Advanced Skill</div>
               <div class="spec-name">Origins</div>
               <div class="spec-desc">Custom Origins traits and data-pack work to make your origin feel truly unique.</div>
             </div>
-            <!-- ✏️  Add or remove spec cards as needed -->
           </div>
         </div>
       </div>
@@ -246,35 +244,40 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);fon
    ===================================================================== */
 const COMMISSIONS = [
   {
-    title: "Commission Title",
-    desc: "Description of the commission — what it was, who it was for, etc.",
-    type: "general",
-    tags: ["Character art"],
-    img: ""
-  },
-  {
-    title: "Full Figura Avatar",
-    desc: "A complete Figura avatar build including model, textures, and animation.",
+    title: "Vampire Figura Model",
+    desc: "For @mickeymoused on the ICHOR server, I made a vampire model!",
     type: "figura",
-    tags: ["Avatar", "Model"],
-    img: ""
+    tags: ["Avatar", "Model", "Animations", "Scripts"],
+    img: "https://cdn.discordapp.com/attachments/1504533946103369949/1504533946711670936/bat.gif?ex=6a08a76d&is=6a0755ed&hm=65067e0dd308ca97a41172097a9c9abde792283c50c2a17a922538c84f937bdc&"
   },
   {
-    title: "Custom Origin",
-    desc: "A bespoke Origins origin with unique powers and lore-fitting abilities.",
+    title: "Zumasu Figura Model",
+    desc: "For @goated1548 on the ICHOR server, I made a Zumasu model!",
+    type: "figura",
+    tags: ["Avatar", "Model", "Scripts"],
+    img: "https://cdn.discordapp.com/attachments/1503780637838938222/1503780638061498520/ZUMASA.gif?ex=6a088cdb&is=6a073b5b&hm=fa2790fa18755a063be63d12a46d89dd8a2ab8dcaab7ad0ca085860872f7629f"
+  },
+  {
+    title: "Inktohol Origin",
+    desc: "I made this origin for myself, it's what I use on the ICHOR server'",
     type: "origins",
-    tags: ["Data pack"],
-    img: ""
+    tags: ["Data pack", "MCFunctions"],
+    img: "https://cdn.discordapp.com/attachments/1503332765377237035/1503332958595973140/origins-image-generator_1-4-2026_3-40-2.png?ex=6a08e62b&is=6a0794ab&hm=93987c2887755b3e2ed5807d6bd0de4c3d4bff23e89c4ca13dfdb7236f1f1eb3"
   },
-  /* ✏️  Copy and paste more entries here, e.g.:
   {
-    title: "Another Commission",
-    desc: "...",
-    type: "figura",
-    tags: ["Something"],
-    img: "https://i.imgur.com/yourimage.png"
+    title: "Hollow Knight Style drawing pt.1",
+    desc: "This was more of a giveaway, but I drew one of @moonynoomy's OCs from Nii's Art Corner'",
+    type: "general",
+    tags: ["Art", "GW"],
+    img: "https://cdn.discordapp.com/attachments/1498050436278521946/1501377477048668332/Moony.png?ex=6a08607c&is=6a070efc&hm=8d253fea6cccd1659dc838d94f2cfd0beda4e8f3e6a9216b55ba261a6f17653b"
   },
-  */
+  {
+    title: "Hollow Knight Style drawing pt.2",
+    desc: "This was more of a giveaway, but I drew one of @souppurr's OCs from Nii's Art Corner'",
+    type: "general",
+    tags: ["Art", "GW"],
+    img: "https://cdn.discordapp.com/attachments/1498140317830873088/1504970707455574016/SOUPPURRFINIS.webp?ex=6a08ecb1&is=6a079b31&hm=546c25acd03cc46afe9b743adf0de58785ead265a7945b45eeacee68fc3ee728"
+  }
 ];
 
 /* ---- Gallery renderer ---- */
