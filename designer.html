@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ICHOR Service Hub — Meet the Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0e0c0b; --bg2:#141210; --surface:#1a1714; --surface2:#221e1a;
+  --border:#2e2820; --border2:#3d3428; --text:#e8ddd0; --muted:#7a6e62;
+  --accent:#c9913a; --accent-dim:#6b4e20; --accent-glow:#c9913a22;
+  --purple:#8b7fc7; --purple-dim:#3d3860;
+  --teal:#5fa88a; --teal-dim:#1f3d30;
+  --pink:#c97eab; --pink-dim:#4d2640;
+  --red:#c0463a; --red-dim:#3d1510;
+  --green:#7aab6e; --green-dim:#1f3318;
+  --gold:#d4af37; --gold-dim:#4a3d10;
+  --r-common:#7aab6e; --r-uncommon:#6eaabf; --r-rare:#8b7fc7;
+  --r-epic:#c97eab; --r-unique:#d4793a; --r-legendary:#d4af37;
+  --radius:10px; --radius-sm:6px; --t:0.18s ease;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.6;min-height:100vh}
+::-webkit-scrollbar{width:6px} ::-webkit-scrollbar-track{background:var(--bg)} ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+
+/* Layout */
+.app{display:grid;grid-template-columns:220px 1fr;grid-template-rows:56px 1fr;min-height:100vh}
+
+/* Topbar */
+.topbar{grid-column:1/-1;background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 1.5rem;gap:1rem}
+.logo{font-family:'Cinzel',serif;font-size:16px;font-weight:600;color:var(--accent);letter-spacing:.12em;flex-shrink:0}
+.logo span{color:var(--muted);font-weight:400;font-size:12px;margin-left:8px;letter-spacing:.05em}
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.back-btn{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--muted);font-family:'DM Sans',sans-serif;font-size:12px;padding:5px 12px;cursor:pointer;transition:var(--t);display:flex;align-items:center;gap:6px;text-decoration:none}
+.back-btn:hover{color:var(--text);border-color:var(--accent-dim)}
+
+/* Sidebar */
+.sidebar{background:var(--bg2);border-right:1px solid var(--border);padding:1rem 0;display:flex;flex-direction:column;gap:2px;overflow-y:auto}
+.nav-sec{padding:.75rem 1rem .25rem;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.nav-item{display:flex;align-items:center;gap:10px;padding:7px 1rem;font-size:13px;color:var(--muted);cursor:pointer;border-left:2px solid transparent;transition:var(--t);user-select:none}
+.nav-item:hover{color:var(--text);background:var(--surface)}
+.nav-item.active{color:var(--accent);border-left-color:var(--accent);background:var(--accent-glow)}
+.nav-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+
+/* Main */
+.main{overflow-y:auto;padding:1.5rem;display:flex;flex-direction:column;gap:1.5rem}
+
+/* Panels */
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.ph{padding:1rem 1.25rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.pt-title{font-family:'Cinzel',serif;font-size:13px;font-weight:500;color:var(--text);letter-spacing:.06em}
+.ps{font-size:12px;color:var(--muted);margin-left:auto}
+.pb-body{padding:1.25rem}
+
+/* Hero */
+.hero{display:grid;grid-template-columns:auto 1fr;gap:1.5rem;align-items:start}
+.avatar-wrap{position:relative;flex-shrink:0}
+.avatar{width:96px;height:96px;border-radius:var(--radius);background:var(--surface2);border:2px solid var(--accent-dim);display:flex;align-items:center;justify-content:center;font-size:36px;position:relative;overflow:hidden}
+.avatar-glow{position:absolute;inset:-1px;border-radius:var(--radius);border:1px solid var(--accent);opacity:.4;pointer-events:none}
+.designer-name{font-family:'Cinzel',serif;font-size:22px;font-weight:600;color:var(--text);letter-spacing:.06em;margin-bottom:.2rem}
+.designer-handle{font-size:13px;color:var(--accent);margin-bottom:.75rem;display:flex;align-items:center;gap:6px}
+.designer-handle::before{content:'';width:14px;height:1px;background:var(--accent-dim)}
+.designer-bio{font-size:13px;color:var(--muted);line-height:1.7;max-width:560px}
+.stat-row{display:flex;gap:1rem;margin-top:1rem;flex-wrap:wrap}
+.stat{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:8px 14px;text-align:center;min-width:80px}
+.stat-v{font-family:'Cinzel',serif;font-size:18px;color:var(--accent)}
+.stat-l{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-top:1px}
+
+/* Specialties */
+.spec-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px}
+.spec-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;transition:var(--t)}
+.spec-card:hover{border-color:var(--border2)}
+.spec-icon{font-size:20px;margin-bottom:6px}
+.spec-name{font-size:12px;font-weight:500;color:var(--text);margin-bottom:3px}
+.spec-desc{font-size:11px;color:var(--muted);line-height:1.4}
+
+/* Commission tabs */
+.tabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:1rem}
+.tab{padding:8px 14px;font-size:12px;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:var(--t);user-select:none}
+.tab:hover{color:var(--text)} .tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+
+/* Gallery grid */
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
+.gallery-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;transition:var(--t);cursor:default}
+.gallery-card:hover{border-color:var(--border2);transform:translateY(-1px)}
+.gallery-img{width:100%;aspect-ratio:4/3;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:32px;color:var(--muted);border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+.gallery-img-placeholder{display:flex;flex-direction:column;align-items:center;gap:6px}
+.gallery-img-placeholder .ph-label{font-size:10px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.img-url-hint{position:absolute;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;opacity:0;transition:var(--t);font-size:11px;color:var(--muted);text-align:center;padding:1rem}
+.gallery-card:hover .img-url-hint{opacity:1}
+.gallery-meta{padding:10px 12px}
+.gallery-title{font-size:12px;font-weight:500;color:var(--text);margin-bottom:2px}
+.gallery-desc{font-size:11px;color:var(--muted);line-height:1.4;margin-bottom:6px}
+.gallery-tags{display:flex;flex-wrap:wrap;gap:4px}
+.gtag{font-size:10px;padding:2px 6px;border-radius:3px;font-weight:500}
+.gtag.general{background:var(--teal-dim);color:var(--teal)}
+.gtag.figura{background:var(--purple-dim);color:var(--purple)}
+.gtag.origins{background:var(--pink-dim);color:var(--pink)}
+.gtag.other{background:var(--gold-dim);color:var(--gold)}
+
+/* Empty gallery state */
+.gallery-empty{grid-column:1/-1;border:1px dashed var(--border);border-radius:var(--radius-sm);padding:2rem;text-align:center;color:var(--muted);font-size:13px}
+.gallery-empty a{color:var(--accent);text-decoration:none}
+.gallery-empty a:hover{text-decoration:underline}
+
+/* Section label */
+.section-label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem}
+
+/* Divider */
+.divider{height:1px;background:var(--border);margin:.5rem 0}
+
+/* Util */
+.hidden{display:none!important}
+
+@media(max-width:700px){
+  .app{grid-template-columns:1fr;grid-template-rows:56px auto 1fr}
+  .sidebar{grid-row:2;flex-direction:row;flex-wrap:wrap;padding:.5rem;border-right:none;border-bottom:1px solid var(--border);overflow-x:auto}
+  .nav-sec{display:none}
+  .nav-item{border-left:none;border-bottom:2px solid transparent;padding:6px 10px;font-size:12px}
+  .nav-item.active{border-left-color:transparent;border-bottom-color:var(--accent)}
+  .hero{grid-template-columns:1fr}
+  .avatar{width:72px;height:72px;font-size:28px}
+  .gallery{grid-template-columns:1fr}
+  .spec-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="logo">ICHOR <span>Service Hub</span></div>
+    <div class="topbar-right">
+      <a class="back-btn" href="index.html">← Back to hub</a>
+    </div>
+  </header>
+
+  <nav class="sidebar">
+    <div class="nav-sec">This page</div>
+    <div class="nav-item active" data-sec="about"><div class="nav-dot" style="background:var(--accent)"></div>About</div>
+    <div class="nav-item" data-sec="commissions"><div class="nav-dot" style="background:var(--purple)"></div>Commissions</div>
+    <div class="nav-sec" style="margin-top:.5rem">Hub</div>
+    <div class="nav-item" onclick="location.href='index.html'"><div class="nav-dot" style="background:var(--muted)"></div>← Back to hub</div>
+  </nav>
+
+  <main class="main">
+
+    <!-- ABOUT -->
+    <section id="sec-about">
+
+      <!-- Hero card -->
+      <div class="panel">
+        <div class="ph">
+          <div class="pt-title">Meet the Designer</div>
+          <div class="ps">ICHOR Service Hub</div>
+        </div>
+        <div class="pb-body">
+          <div class="hero">
+            <div class="avatar-wrap">
+              <div class="avatar">
+                🎨
+                <div class="avatar-glow"></div>
+              </div>
+            </div>
+            <div>
+              <!-- ✏️  Replace "EeebsieKat" and bio below with your real info -->
+              <div class="designer-name">EeebsieKat</div>
+              <div class="designer-handle">Designer &amp; trader on ICHOR</div>
+              <div class="designer-bio">
+                Hey! I'm EeebsieKat — I make custom Figura avatars, Origins traits, and general digital art for the ICHOR server. I love bringing characters to life with clean, expressive designs. Drop me a message if you're interested in a commission!
+              </div>
+              <div class="stat-row">
+                <div class="stat"><div class="stat-v">✦</div><div class="stat-l">General</div></div>
+                <div class="stat"><div class="stat-v">✦</div><div class="stat-l">Figura</div></div>
+                <div class="stat"><div class="stat-v">✦</div><div class="stat-l">Origins</div></div>
+                <!-- ✏️  Optionally replace ✦ with commission counts, e.g. "12" -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Specialties -->
+      <div class="panel">
+        <div class="ph"><div class="pt-title">What I Do</div></div>
+        <div class="pb-body">
+          <div class="spec-grid">
+            <div class="spec-card">
+              <div class="spec-icon">🖼️</div>
+              <div class="spec-name">General Art</div>
+              <div class="spec-desc">Character illustrations, reference sheets, emotes, and other digital artwork.</div>
+            </div>
+            <div class="spec-card">
+              <div class="spec-icon">🧑‍💻</div>
+              <div class="spec-name">Figura Avatars</div>
+              <div class="spec-desc">Full custom Figura avatar builds — models, textures, and scripts tailored to your character.</div>
+            </div>
+            <div class="spec-card">
+              <div class="spec-icon">🌿</div>
+              <div class="spec-name">Origins</div>
+              <div class="spec-desc">Custom Origins traits and data-pack work to make your origin feel truly unique.</div>
+            </div>
+            <!-- ✏️  Add or remove spec cards as needed -->
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- COMMISSIONS -->
+    <section id="sec-commissions" class="hidden">
+
+      <!-- Filter tabs -->
+      <div class="panel">
+        <div class="ph"><div class="pt-title">Previous Commissions</div><div class="ps" id="gallery-count">Loading...</div></div>
+        <div class="pb-body">
+          <div class="tabs" id="gallery-tabs">
+            <div class="tab active" data-filter="all">All</div>
+            <div class="tab" data-filter="general">General</div>
+            <div class="tab" data-filter="figura">Figura</div>
+            <div class="tab" data-filter="origins">Origins</div>
+          </div>
+          <div class="gallery" id="gallery-grid">
+            <!-- Populated by JS from commissions array below -->
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+</div>
+
+<script>
+/* =====================================================================
+   COMMISSIONS DATA
+   ✏️  Edit this array to add your commissions!
+   Each entry:
+     title    — commission name / client handle
+     desc     — short description
+     type     — "general" | "figura" | "origins"
+     tags     — extra tags to display (optional)
+     img      — URL to image (leave "" for placeholder)
+   ===================================================================== */
+const COMMISSIONS = [
+  {
+    title: "Commission Title",
+    desc: "Description of the commission — what it was, who it was for, etc.",
+    type: "general",
+    tags: ["Character art"],
+    img: ""
+  },
+  {
+    title: "Full Figura Avatar",
+    desc: "A complete Figura avatar build including model, textures, and animation.",
+    type: "figura",
+    tags: ["Avatar", "Model"],
+    img: ""
+  },
+  {
+    title: "Custom Origin",
+    desc: "A bespoke Origins origin with unique powers and lore-fitting abilities.",
+    type: "origins",
+    tags: ["Data pack"],
+    img: ""
+  },
+  /* ✏️  Copy and paste more entries here, e.g.:
+  {
+    title: "Another Commission",
+    desc: "...",
+    type: "figura",
+    tags: ["Something"],
+    img: "https://i.imgur.com/yourimage.png"
+  },
+  */
+];
+
+/* ---- Gallery renderer ---- */
+let activeFilter = 'all';
+
+function buildCard(c) {
+  const imgContent = c.img
+    ? `<img src="${c.img}" alt="${c.title}" style="width:100%;height:100%;object-fit:cover;display:block">`
+    : `<div class="gallery-img-placeholder">
+         <span>🖼️</span>
+         <span class="ph-label">Image placeholder</span>
+       </div>
+       <div class="img-url-hint">Add an image URL<br>in the commissions array</div>`;
+
+  const typeTags = `<span class="gtag ${c.type}">${c.type.charAt(0).toUpperCase()+c.type.slice(1)}</span>`;
+  const extraTags = (c.tags||[]).map(t=>`<span class="gtag other">${t}</span>`).join('');
+
+  return `<div class="gallery-card">
+    <div class="gallery-img">${imgContent}</div>
+    <div class="gallery-meta">
+      <div class="gallery-title">${c.title}</div>
+      <div class="gallery-desc">${c.desc}</div>
+      <div class="gallery-tags">${typeTags}${extraTags}</div>
+    </div>
+  </div>`;
+}
+
+function renderGallery() {
+  const grid = document.getElementById('gallery-grid');
+  const count = document.getElementById('gallery-count');
+  const list = activeFilter === 'all'
+    ? COMMISSIONS
+    : COMMISSIONS.filter(c => c.type === activeFilter);
+
+  if (!list.length) {
+    grid.innerHTML = `<div class="gallery-empty">
+      No commissions yet in this category.<br>
+      <a href="#" onclick="return false">Add some to the COMMISSIONS array in the script!</a>
+    </div>`;
+  } else {
+    grid.innerHTML = list.map(buildCard).join('');
+  }
+
+  const total = COMMISSIONS.length;
+  count.textContent = activeFilter === 'all'
+    ? `${total} commission${total!==1?'s':''}`
+    : `${list.length} of ${total}`;
+}
+
+document.getElementById('gallery-tabs').addEventListener('click', e => {
+  const tab = e.target.closest('.tab');
+  if (!tab) return;
+  document.querySelectorAll('#gallery-tabs .tab').forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
+  activeFilter = tab.dataset.filter;
+  renderGallery();
+});
+
+/* ---- Sidebar nav ---- */
+document.querySelectorAll('.nav-item[data-sec]').forEach(item => {
+  item.addEventListener('click', () => {
+    document.querySelectorAll('.nav-item[data-sec]').forEach(n => n.classList.remove('active'));
+    item.classList.add('active');
+
+    const sec = item.dataset.sec;
+    document.getElementById('sec-about').classList.toggle('hidden', sec !== 'about');
+    document.getElementById('sec-commissions').classList.toggle('hidden', sec !== 'commissions');
+
+    if (sec === 'commissions') renderGallery();
+  });
+});
+
+// Initial render for gallery count in sidebar label
+renderGallery();
+</script>
+</body>
+</html>
